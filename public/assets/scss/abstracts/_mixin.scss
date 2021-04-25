@@ -1,0 +1,100 @@
+@mixin linkActivity {
+    background-color: $color-hover;
+    border: 1px solid transparent;
+    margin-right: 10px;
+    &:hover {
+        background-color: #0bc1b8;
+    }
+}
+@mixin heightCalc($value) {
+height: calc(#{$value});
+height: -webkit-calc(#{$value});
+height: -moz-calc(#{$value});
+height: -ms-calc(#{$value});
+height: -o-calc(#{$value});
+}
+
+@mixin btnMain() {
+    border: none;
+    outline: none;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 15px auto 0px auto;
+    color: $color5;
+    background-color: $color1;
+}
+
+@mixin widthCalc($value) {
+   width: calc(#{$value});
+   width: -webkit-calc(#{$value});
+   width: -moz-calc(#{$value});
+   width: -ms-calc(#{$value});
+   width: -o-calc(#{$value});
+    }
+@mixin bottomtCalc($value) {
+    bottom: calc(#{$value});
+    bottom: -webkit-calc(#{$value});
+    bottom: -moz-calc(#{$value});
+    bottom: -ms-calc(#{$value});
+    bottom: -o-calc(#{$value});
+    }
+@mixin displayFlex ($jus){
+display: flex;
+align-items: center;
+justify-content: $jus;
+}
+
+@mixin objectFit($value) {
+object-fit: $value;
+-webkit-object-fit: $value;
+-moz-object-fit: $value;
+-ms-object-fit: $value;
+-o-object-fit: $value;
+}
+
+@mixin transition($value) {
+transition: $value;
+-webkit-transition: $value;
+-moz-transition: $value;
+-ms-transition: $value;
+-o-transition: $value;
+}
+
+@mixin translate($x, $y) {
+transform: translate($x, $y);
+-webkit-transform: translate($x, $y);
+-moz-transform: translate($x, $y);
+-ms-transform: translate($x, $y);
+-o-transform: translate($x, $y);
+}
+
+@mixin title {
+    position: relative;
+    text-align: center;
+    color: $color2;
+    font-size: 30px;
+    line-height: 39px;
+    font-weight: 800;
+    margin: 0px auto 40px auto;
+    width: fit-content;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: -10%;
+        bottom: 0px;
+        width: 120%;
+        height: 3px;
+        background-color: $color1;
+        transform-origin: 50% 50%;
+        transform: scale(0);
+        @include transition(0.5s);
+    }
+
+    &.scaleAfter {
+        &::after {
+            transform: scale(1);
+        }
+    }
+}

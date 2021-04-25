@@ -1,0 +1,33 @@
+.tab {
+    margin-top: 20px;
+    .container {
+        background-color: $color2;
+    }
+    .tab_list{ 
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        margin-left: -15px;
+        .tab_listItem{ 
+            padding: 10px 10px;
+            width: fit-content;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            .tab_listItemText {
+                margin-bottom: 0px;
+                color: $color3;
+            }
+        }  
+        .tab_listItemActive {
+            background-color: $color1;
+        }
+    }
+}
+
+.tab_fixed {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 900;
+}

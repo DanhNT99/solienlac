@@ -1,0 +1,28 @@
+.adminFormSearchBoxSelect {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    .adminFormSelect{
+        flex: 1;
+        outline: none;
+        border: none;
+        width: 250px;
+        padding: 5px;
+        cursor: pointer;
+        background: $color3;
+     }
+     .adminFormSelectIcon {
+         position: absolute;
+         right: 0px;
+         width: 20px;
+         height: 100%;
+         background: $color1;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: $color3;
+         pointer-events: none;
+     }
+}

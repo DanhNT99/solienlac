@@ -1,0 +1,84 @@
+.header {
+    padding: 10px;
+    background: $color1;
+
+    .header_ContainsLogo{
+        color: black;
+        &:hover {
+            text-decoration: none;
+        }
+        .header-Logo{ 
+            width: 80px;
+            height: auto;
+            object-fit: cover;
+            vertical-align: inherit;
+        }
+    }
+
+    .header_inforSchool {
+        width: fit-content;
+        margin: 0 auto;
+        .header_inforSchoolName {
+            color: $color2;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .header_listContact {
+            display: flex;
+            align-items: center;
+            .header_listContactItem{ 
+                transition: all 0.5s ease;
+                margin-right: 20px;
+                .header_listContactItemLink {
+                    color: $color3;
+                    &:hover {
+                        text-decoration: none;
+                        color: $color2;
+                    }
+                    i {
+                        color: $color2;
+                        margin-right: 10px;
+                    }
+                }
+                &:first-child {
+                    .header_listContactItemLink {               
+                        i {
+                            animation: totter 1s infinite ease;
+                            @keyframes totter {
+                                0% {
+                                    transform: rotate(0deg);
+                                }
+                                50% {
+                                    transform: rotate(30deg);
+                                }
+                                100% {
+                                    transform: rotate(-30deg);
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .header_containsUser {
+        text-align: right;
+        margin-top: 20px;
+
+        .header_userIcon {
+            margin-right: 10px;
+            i {
+                color: $color2;
+                font-size: 36px;
+                vertical-align: middle;
+            }
+        }
+
+        .header_userName {
+            color: $color3;
+        }
+    }
+
+}

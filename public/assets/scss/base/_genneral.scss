@@ -1,0 +1,36 @@
+
+@import '../vendor/bootstrap';
+
+@import '../vendor/slick';
+
+@import '../vendor/fontAwesome';
+
+@import '../vendor/font';
+
+@import '../abstracts/variable';
+
+@import '../abstracts/mixin';
+
+@import '../layout/header';
+
+@import '../layout/footer';
+
+@import "../components/select";
+
+@import "../components/input";
+
+@import "../base/wrapImgResize";
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+li {
+    list-style: none;
+}
+ul {
+    margin-bottom: 0px;
+}
+.row {
+    margin: 0px;
+}

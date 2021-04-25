@@ -1,0 +1,38 @@
+.adminFormAddContains {
+    @include displayFlex(left);
+    padding: 0px 20px;
+    .adminFormAddContainsImg {
+        width: 20%;
+        height: 250px;
+        border: 1px solid $color3;
+        margin-right: 20px;
+        overflow: hidden;
+        @include transition(0.5s);
+        cursor: pointer;
+        img {
+            z-index: 1;
+        }
+        &:hover, &:active {
+            box-shadow: 0px 0px 10px 0px rgba($color: $color1, $alpha: 0.5);
+        }
+        .adminFormAddContainsIcon {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            background: rgba($color: $color2, $alpha: 0.8);
+            z-index: 2;
+            @include transition(0.5s);
+            padding: 8px 0px;
+            p {
+                text-align: center;
+                margin-bottom: 0px;
+                color: $color3;
+                i {
+                    font-size: 20px;
+                    color: $color3;
+                }
+           }
+        }
+    }
+}

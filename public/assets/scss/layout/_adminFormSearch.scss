@@ -1,0 +1,37 @@
+.adminContainsFormSearch {
+    background-color: $color5;
+    padding: 20px;
+}
+
+.adminFormSearch {
+
+    .adminFormSeachTable{ 
+        margin: 0 auto;
+            tr {
+                td {
+                    padding: 10px 0px
+                }
+            }
+            
+            .adminFormSearchText {
+                margin: 0px 15px 0px 50px;
+                text-align: right;
+                color: $color1;
+
+            }
+    }
+
+    .adminFormSearchContainsBtn {
+        text-align: center;
+        .adminFormSearchBtn {
+            border: none;
+            outline: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 15px auto 0px auto;
+            color: $color5;
+            background-color: $color1;
+        }
+    }
+}

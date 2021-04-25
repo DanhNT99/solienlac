@@ -1,0 +1,44 @@
+
+.studentAdd {
+    padding: 20px 0px
+    
+}
+
+.adminFormAdd {
+    .adminFormAddFileImg {
+        display: none;
+    }
+    .adminFormAddTable {
+        .adminFormAddText {
+            margin: 0px 20px 0px 30px;
+        }
+        tr {
+            td {
+                padding: 10px 0px;
+            }
+        }
+    }
+    .adminFormAddGroup {
+        text-align: center;
+        .adminFormAddBtn {
+            @include btnMain();
+        }
+        .adminFormAddLink {
+            width: fit-content;
+            @include btnMain();
+            background: $color2;
+            text-decoration: none;
+        }
+    }
+}
+.adminFormAddBox {
+    background-color: $color5;
+    padding: 20px 0px;
+}
+.adminAddTitle { 
+    padding: 5px 10px;
+    font-size: 18px;
+    color: $color3;
+    background-color: $color2;
+    margin-bottom: 0px;
+}

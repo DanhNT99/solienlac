@@ -1,0 +1,45 @@
+.adminActive {
+    text-align: right;
+    margin: 0px 0px 20px 0px;
+
+    .adminActiveItem {
+        display: inline-block;
+        padding: 5px 15px;
+        background-color: $color1;
+        color: $color5;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+}
+
+.adminTable {
+    border-spacing: 10px 20px; 
+    border:1px solid $color5;
+    margin: 0 auto;
+    tr {
+        transition: all 0.5s ease;
+        &:hover {
+            background: $color5;
+        }
+
+        th {
+            text-align: center;
+            color: $color3;
+            padding: 5px 10px;
+            background-color: $color1;
+            border:1px solid $color2;
+        }
+        td {
+            padding: 5px 10px;
+            text-align: center;
+            border:1px solid $color2;
+            &:first-child {
+                text-align: left;
+            }
+        }
+    }
+}

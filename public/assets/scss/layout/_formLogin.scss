@@ -1,0 +1,189 @@
+.wrapLogin {
+    background-image: url('../images/bgLogin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+
+    .wrapLoginTitle {
+        text-align: center;
+        color: $color1;
+        padding-top: 20px;
+        font-size: 50px;
+        text-transform: uppercase;
+        font-weight: 900;
+        text-shadow: 3px 3px 3px $color3;
+        margin-bottom: 0px;
+    }
+
+    .wrapLoginSub {
+        text-align: center;
+        color: $color3;
+        font-size: 30px;
+        line-height: 39px;
+    }
+
+    .wrapLogin_ContainsForm{ 
+        display: flex;
+        align-items: center;
+
+        .wrapLogin_Form{
+            margin: 0 auto;
+           width: 450px;
+           border-radius: 5px;
+           overflow: hidden;
+           background-color: $color3;
+           padding: 0px 0px 20px 0px;
+
+           .wrapLogin_formContainsImg {
+               padding: 10px 0px;
+               text-align: center;
+               background-color: $color2;
+
+                .wrapLogin_img {
+                    width: 130px;
+                    height: auto;
+                }
+                .wrapLogin_formTitle{ 
+                    text-align: center;
+                    color: $color3;
+                }
+           }
+
+           .wrapLogin__formGroup{ 
+               width: 80%;
+               margin: 20px auto;
+             
+                .wrapLogin_formTitleInput{
+                    margin-bottom: 0px;
+                    color: $color1;
+                    font-size: 18px;
+                 }
+
+                 .wrapLogin__formLink {
+                    display: block;
+                    width: fit-content;
+                    margin-left: auto;
+                    margin-top: -20px;
+                    color: $color4;
+                    font-size: 16px;
+                    line-height: 25px;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                 }
+
+                .wrapLogin_formInput{ 
+                    width: 100%;
+                    border-radius: 5px;
+                    outline: none;
+                    border: none;
+                    background: lightgray;
+                    padding: 7px 7px;
+                    margin-top: 5px;
+                }
+
+                .warapLogin_reset {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+
+                    img {
+                        width: 40%;
+                        height: 35px;
+                    }
+
+                    .wrapLogin_formInputRest{ 
+                        width: 58%;
+                        border-radius: 5px;
+                        outline: none;
+                        border: none;
+                        background: lightgray;
+                        padding: 7px 5px;
+                        margin-left: auto;
+                    }
+
+                    .wrapLogin_formRestText {
+                        text-align: center;
+                        color: $color4;
+                        max-width:80%;
+                        margin: 10px auto 0px auto;
+                
+                    }
+
+                }
+           }
+
+           .wrapLogin__ContainsBtn {
+                text-align: center;
+               .wrapLogin_formBtn, .wrapLogin__ContainsBtnLink {
+                    display: inline-block;
+                    outline: none;
+                    border: none;
+                    padding: 7px 10px;
+                    background: $color2;
+                    color: $color3;
+                    border-radius: 5px;
+               }
+               .wrapLogin__ContainsBtnLink {
+                    background-color: $color4;
+                   &:hover {
+                       text-decoration: none;
+                    
+                   }
+               }
+           }
+        }
+    }
+}
+
+
+@media (max-width: 575px) {
+
+    .wrapLogin {
+
+            .wrapLogin_ContainsForm{
+
+                .wrapLogin_Form {
+                    width: 100%;
+                }
+            }
+    }
+}
+
+@media (max-width: 320px) {
+    .wrapLogin {
+        .wrapLoginTitle {
+            font-size: 35px;
+            line-height: 44px;
+        }
+
+        .wrapLoginSub {
+            font-size: 16px;
+            line-height: 25px;
+        }
+
+        .wrapLogin_ContainsForm  {
+
+            .wrapLogin_Form {
+
+                .wrapLogin_formContainsImg {
+
+                    .wrapLogin_img {
+                        width: 100px;
+                    } 
+                    
+                    .wrapLogin_formTitle {
+                        font-size: 22px;
+                        line-height: 31px;
+                    }
+                }
+
+                .wrapLogin__formGroup {
+                    width: 90%;
+                }
+            }
+        }
+    }
+}

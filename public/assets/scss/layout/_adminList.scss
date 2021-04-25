@@ -1,0 +1,40 @@
+
+.adminBoxTitle {
+    font-size: 16px;
+    color: $color3;
+    background-color: $color2;
+    padding: 10px;
+    margin-bottom: 0px;
+
+    .adminBoxTitleIcon {
+        color: $color3;
+        font-size: 25px;
+    }
+
+    .adminBoxTitleIconUp {
+        display: block;
+        float: right;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        &.rotateIconUp {
+            transform: rotate(180deg);
+        }
+    }
+
+}
+.adminList{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .adminListTitle {
+        text-align: center;
+        font-size: 25px;
+        line-height: 34px;
+        color: $color1;
+    }
+    .adminTable {
+        width: 100%;
+    }
+}
+body {
+    background: $color3;
+}

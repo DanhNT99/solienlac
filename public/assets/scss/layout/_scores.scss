@@ -1,0 +1,44 @@
+.scores {
+    .container {
+        padding-top: 30px;
+        background-color: $color3;
+    }
+}
+
+.title_main {
+    text-align: center;
+    font-size: 25px;
+    color: $color1;
+    margin-bottom: 20px;
+}
+.scoresBox {
+    .scores_table {
+        width: 80%;
+        border-spacing: 10px 20px; 
+        border:1px solid $color5;
+        margin: 0 auto;
+        tr {
+            transition: all 0.5s ease;
+            &:hover {
+                background: $color5;
+            }
+
+            th {
+                text-align: center;
+                color: $color3;
+                padding: 5px 10px;
+                background-color: $color1;
+                border:1px solid $color2;
+            }
+            td {
+                width: 200px;
+                padding: 5px 10px;
+                text-align: center;
+                border:1px solid $color2;
+                &:first-child {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
