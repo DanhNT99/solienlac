@@ -25,8 +25,15 @@
             <div class="col-4">
                 <div class="header_containsUser">
                     <span class="header_userIcon"><i class="fas fa-user-circle"></i></span>
-                    <span class = "header_userName">Lê Tú</span>
+                    @if (Session::has('LoginUser'))
+                         <span class = "header_userName">{{Session('LoginUser')}}</span>
+                    @endif
+                   
                 </div>
+                <form action = "{{route('handleLogout')}}" method ="post">
+                    @csrf
+                    <button>logout</button>
+                </form>
             </div>
         </div>
     </div>

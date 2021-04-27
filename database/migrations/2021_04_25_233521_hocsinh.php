@@ -13,8 +13,6 @@ class Hocsinh extends Migration
      */
     public function up()
     {
-        //
-
         Schema::create('hocsinh', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("MaHS", 10)->unique();
@@ -23,12 +21,14 @@ class Hocsinh extends Migration
             $table->date("NgaySinh");
             $table->longtext("DiaChi", 200);
             $table->longtext("Hinh", 200);
-            $table->bigInteger('id_phuong')->unsigned();
-            $table->foreign('id_phuong')->references('id')->on('phuong');
-            $table->bigInteger('id_cha')->unsigned();
-            $table->bigInteger('id_me')->unsigned();
-            $table->foreign('id_cha')->references('id')->on('phuhuynh');
-            $table->foreign('id_me')->references('id')->on('phuong');
+            $table->bigInteger('id_lop')->unsigned()->nullable();
+            $table->foreign('id_lop')->references('id')->on('lop')->onDelete('set null');
+            $table->bigInteger('id_phuong')->unsigned()->nullable();
+            $table->foreign('id_phuong')->references('id')->on('phuong')->onDelete('set null');
+            $table->bigInteger('id_cha')->unsigned()->nullable();
+            $table->bigInteger('id_me')->unsigned()->nullable();
+            $table->foreign('id_cha')->references('id')->on('phuhuynh')->onDelete('set null');
+            $table->foreign('id_me')->references('id')->on('phuong')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -40,7 +40,6 @@ class Hocsinh extends Migration
      */
     public function down()
     {
-        //
         Schema::dropIfExists('hocsinh');
     }
 }

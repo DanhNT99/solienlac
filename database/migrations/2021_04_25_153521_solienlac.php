@@ -18,8 +18,8 @@ class Solienlac extends Migration
             $table->string('MaSLL', 10)->unique();
             $table->longtext('HocLuc', 200);
             $table->longtext('NhanXet', 200);
-            $table->bigInteger('id_truong')->unsigned();
-            $table->foreign('id_truong')->references('id')->on('truong')->onDelete('cascade');
+            $table->bigInteger('id_truong')->unsigned()->nullable();
+            $table->foreign('id_truong')->references('id')->on('truong')->onDelete('set null');
             $table->timestamps();
         });
     }

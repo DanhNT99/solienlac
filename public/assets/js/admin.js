@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+    $('.adminContainsFormSearch').slideUp(1000);
     $('.adminBoxTitleIconUp').click(function (e) { 
         e.preventDefault();
         let nextEle = $(this).parent().next();
@@ -22,5 +22,19 @@ $(document).ready(function () {
             })
             fr.readAsDataURL(fileName);
         }
+    });
+
+    
+    function closeNotiBox() {
+        setTimeout(()=> {
+            $('.notiBox').addClass('hideNotiBox');
+        }, 2000)
+    }
+    closeNotiBox();
+
+
+    $('.notiBoxBtn').click(function (e) { 
+        e.preventDefault();
+        $('.notiBox').addClass('hideNotiBox');
     });
 });

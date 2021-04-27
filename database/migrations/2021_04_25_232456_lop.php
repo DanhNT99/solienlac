@@ -13,16 +13,14 @@ class Lop extends Migration
      */
     public function up()
     {
-        //
-
         Schema::create('lop', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('MaLop', 10)->unique();
             $table->string('TenLop', 20);
-            $table->bigInteger('id_khoi')->unsigned();
-            $table->bigInteger('id_giaovien')->unsigned();
-            $table->foreign('id_khoi')->references('id')->on('khoi');
-            $table->foreign('id_giaovien')->references('id')->on('giaovien');
+            $table->bigInteger('id_khoi')->unsigned()->nullable();
+            $table->bigInteger('id_giaovien')->unsigned()->nullable();
+            $table->foreign('id_khoi')->references('id')->on('khoi')->onDelete('set null');
+            $table->foreign('id_giaovien')->references('id')->on('giaovien')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -34,7 +32,6 @@ class Lop extends Migration
      */
     public function down()
     {
-        //
         Schema::dropIfExists('lop');
     }
 }

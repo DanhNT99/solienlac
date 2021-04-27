@@ -19,8 +19,8 @@ class Truong extends Migration
             $table->string('TenTruong', 200);
             $table->string('Diachi', 200);
             $table->string("SoDT", 13);
-            $table->bigInteger('id_phuong')->unsigned();
-            $table->foreign('id_phuong')->references('id')->on('phuong');
+            $table->bigInteger('id_phuong')->unsigned()->nullable();
+            $table->foreign('id_phuong')->references('id')->on('phuong')->onDelete('set null');
             $table->timestamps();
         });
     }

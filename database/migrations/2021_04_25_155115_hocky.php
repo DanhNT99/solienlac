@@ -17,8 +17,8 @@ class Hocky extends Migration
             $table->bigIncrements('id');
             $table->string('MaHK', 10)->unique();
             $table->longtext('TenHK', 20);
-            $table->bigInteger('id_nienkhoa')->unsigned();
-            $table->foreign('id_nienkhoa')->references('id')->on('nienkhoa')->onDelete('cascade');
+            $table->bigInteger('id_nienkhoa')->unsigned()->nullable();
+            $table->foreign('id_nienkhoa')->references('id')->on('nienkhoa')->onDelete('set null');
             $table->timestamps();
         });
     }

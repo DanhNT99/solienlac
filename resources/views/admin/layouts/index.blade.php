@@ -14,6 +14,13 @@
     <div class="adminContent">
         @yield('adminContent')
     </div>
+    @if (Session::has('noti'))
+        <div class="notiBox">
+            <h4 class="notiBoxTitle">Thông báo <button class="notiBoxBtn"><i class="far fa-window-close"></i></button></h4>
+            <p class="notiBoxContent"> {{Session('noti')}}!</p>
+        </div>
+    @endif
+
     <script src = "{{asset('assets/js/script.js')}}"></script>
     <script src = "{{asset('assets/js/admin.js')}}"></script>
 </body>

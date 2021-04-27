@@ -15,4 +15,16 @@ $(document).ready(function () {
         $('#formLogin').slideDown(0);
     });
 
+    function closeNotiBox() {
+        setTimeout(()=> {
+            $('.notiBox').addClass('hideNotiBox');
+        }, 5000)
+    }
+    closeNotiBox();
+
+
+    $('.notiBoxBtn').click(function (e) { 
+        e.preventDefault();
+        $('.notiBox').addClass('hideNotiBox');
+    });
 });

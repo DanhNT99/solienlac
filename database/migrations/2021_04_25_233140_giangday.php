@@ -15,14 +15,15 @@ class Giangday extends Migration
     {
         Schema::create('giangday', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_giaovien')->unsigned();
-            $table->foreign('id_giaovien')->references('id')->on('giaovien');
-            $table->bigInteger('id_monhoc')->unsigned();
-            $table->foreign('id_monhoc')->references('id')->on('monhoc');
-            $table->bigInteger('id_lop')->unsigned();
-            $table->foreign('id_lop')->references('id')->on('lop');
+            $table->bigInteger('id_giaovien')->unsigned()->nullable();
+            $table->foreign('id_giaovien')->references('id')->on('giaovien')->onDelete('set null');
+            $table->bigInteger('id_monhoc')->unsigned()->nullable();
+            $table->foreign('id_monhoc')->references('id')->on('monhoc')->onDelete('set null');
+            $table->bigInteger('id_lop')->unsigned()->nullable();
+            $table->foreign('id_lop')->references('id')->on('lop')->onDelete('set null');
             $table->timestamps();
         });
+
     }
 
     /**

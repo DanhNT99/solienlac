@@ -15,12 +15,12 @@ class Hoc extends Migration
     {
         Schema::create('hoc', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_lop')->unsigned();
-            $table->foreign('id_lop')->references('id')->on('lop')->onDelete('cascade');
-            $table->bigInteger('id_hocsinh')->unsigned();
-            $table->foreign('id_hocsinh')->references('id')->on('hocsinh')->onDelete('cascade');
-            $table->bigInteger('id_nienkhoa')->unsigned();
-            $table->foreign('id_nienkhoa')->references('id')->on('nienkhoa')->onDelete('cascade');
+            $table->bigInteger('id_lop')->unsigned()->nullable();
+            $table->foreign('id_lop')->references('id')->on('lop')->onDelete('set null');
+            $table->bigInteger('id_hocsinh')->unsigned()->nullable();
+            $table->foreign('id_hocsinh')->references('id')->on('hocsinh')->onDelete('set null');
+            $table->bigInteger('id_nienkhoa')->unsigned()->nullable();
+            $table->foreign('id_nienkhoa')->references('id')->on('nienkhoa')->onDelete('set null');
             $table->timestamps();
         });
     }

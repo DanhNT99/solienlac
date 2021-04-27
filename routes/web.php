@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MyController\HocSinhController;
+use App\Http\Controllers\MyController\GiaoVienController;
+use App\Http\Controllers\MyController\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,56 +23,25 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('index', function () {
-        return view('admin.layouts.index');
+        return view('admin/layouts/index');
     });
+    Route::post('index', [LoginController::class,'handleLogout'])->name('handleLogout');
 
     Route::prefix('hocsinh')->group(function () {
-        Route::get('danhsach', function () {
-            return view('admin.hocsinh.danhsach');
-        });
-        Route::get('them', function () {
-            return view('admin.hocsinh.them');
-        });
+        Route::get('danhsach', [HocSinhController::class,'index']);
+        Route::get('them', [HocSinhController::class, 'indexThem']);
     });
 
     Route::prefix('giaovien')->group(function () {
-        Route::get('danhsach', function () {
-            return view('admin.giaovien.danhsach');
-        });
-        Route::get('them', function () {
-            return view('admin.giaovien.them');
-        });
-    });
-
-    Route::prefix('phuhuynh')->group(function () {
-        Route::get('danhsach', function () {
-            return view('admin.phuhuynh.danhsach');
-        });
-        Route::get('them', function () {
-            return view('admin.phuhuynh.them');
-        });
-    });
-
-    Route::prefix('lop')->group(function () {
-        Route::get('danhsach', function () {
-            return view('admin.lop.danhsach');
-        });
-        Route::get('them', function () {
-            return view('admin.lop.them');
-        });
-    });
-    Route::prefix('khoi')->group(function () {
-        Route::get('danhsach', function () {
-            return view('admin.khoi.danhsach');
-        });
-        Route::get('them', function () {
-            return view('admin.khoi.them');
-        });
+        Route::get('danhsach', [GiaoVienController::class,'index']);
+        Route::get('them', [GiaoVienController::class,'indexThem']);
     });
 });
 
 Route::prefix('login')->group(function () {
-    Route::get('index', function () {
-        return view("login.index");
-    });
+    Route::get('index',[LoginController::class, 'index']);
+    Route::post('index',[LoginController::class, 'handleLogin'])->name('handleLogin');
+    
 });
+
+    

@@ -17,18 +17,29 @@
                     <p class="wrapLoginSub">Kết nối nhà trường và gia đình học sinh</p>
                     <div class="wrapLogin_ContainsForm">
 
-                        <form action="" method="" class="wrapLogin_Form" id="formLogin">
+                        <form action="{{route('handleLogin')}}" method="post" class="wrapLogin_Form" id="formLogin">
+                            @csrf
                             <div class="wrapLogin_formContainsImg">
                                 <img src="{{asset('assets/images/logo.png')}}" class="wrapLogin_img" alt="">
                                 <h3 class="wrapLogin_formTitle">Đăng nhập hệ thống</h3>
                             </div>
                            <div class="wrapLogin__formGroup">
                                 <p class="wrapLogin_formTitleInput">Số điện thoại</p>
-                                <input type="text" name="" placeholder="Nhập vào số điện thoại..." class="wrapLogin_formInput">
+                                <input type="text" name="tenTaiKhoan" value = "{{old('tenTaiKhoan')}}" placeholder="Nhập vào số điện thoại..." class="wrapLogin_formInput">
+                                @if ($errors->has('tenTaiKhoan')) 
+                                    <div class="alert alert-danger" role="alert">
+                                       {{$errors->first('tenTaiKhoan')}}
+                                    </div>
+                                @endif
                            </div>
                             <div class="wrapLogin__formGroup">
                                 <p class="wrapLogin_formTitleInput">Mật khẩu</p>
-                                <input type="text" name="" placeholder="Nhập vào mật khẩu..." class="wrapLogin_formInput">
+                                <input type="password" name="matKhau" valuevalue = "{{old('matKhau')}}" placeholder="Nhập vào mật khẩu..." class="wrapLogin_formInput">
+                                @if ($errors->has('matKhau')) 
+                                <div class="alert alert-danger" role="alert">
+                                   {{$errors->first('matKhau')}}
+                                </div>
+                            @endif
                             </div>
                             <div class="wrapLogin__formGroup">
                                 <a href="#" class="wrapLogin__formLink" title="Quên mật khẩu">Quên mật khẩu?</a>
@@ -62,6 +73,13 @@
                                 <a href="#" class="wrapLogin__ContainsBtnLink" title="Quay lại">Quay lại</a>
                             </div>
                         </form>
+
+                        @if (Session::has('error'))
+                              <div class="notiBox">
+                                <h4 class="notiBoxTitle">Thông báo <button class="notiBoxBtn"><i class="far fa-window-close"></i></button></h4>
+                                <p class="notiBoxContent"> {{Session('error')}}!</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
