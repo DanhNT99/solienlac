@@ -1,8 +1,8 @@
 <header class="header">
     <div class="container">
         <div class="row">
-            <div class="col-2">
-                <a href="#" class="header_ContainsLogo">
+            <div class="col-2 pl-0">
+                <a href="admin/index" class="header_ContainsLogo wrapImgResize">
                     <img src="{{asset('assets/images/logo.png')}}" class="header-Logo" title="b-contact">
                 </a>
             </div>
@@ -22,19 +22,36 @@
                     </ul>
                </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 pr-0">
                 <div class="header_containsUser">
-                    <span class="header_userIcon"><i class="fas fa-user-circle"></i></span>
-                    @if (Session::has('LoginUser'))
-                         <span class = "header_userName">{{Session('LoginUser')}}</span>
-                    @endif
-                   
+                        <div class = "header_userName">
+                             <i class="fas fa-user-circle header_userIcon"></i> 
+                                @if(Auth::guard('giao_vien')->user())     
+                                    {{Auth::guard('giao_vien')->user()->SoDT}}
+                                @else 
+                                    @if(Auth::guard('phu_huynh')->user())
+                                       {{Auth::guard('phu_huynh')->user()->SoDT}}
+                                    @endif
+                                @endif
+
+                             <div class="header_containsFormLogout">
+                                <a href="changePass/index" class = "header_changePasss">
+                                    <i class="fas fa-key header_userDropIcon"></i> Đổi mật khẩu
+                                </a>
+                                <form action = "{{route('handleLogout')}}" class="header_formLogout" method ="post">
+                                    @csrf
+                                    <button class = "header_formLogoutBtn">
+                                        <i class="fas fa-sign-out-alt header_userDropIcon"></i> logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {{-- @endif --}}
+
                 </div>
-                <form action = "{{route('handleLogout')}}" method ="post">
-                    @csrf
-                    <button>logout</button>
-                </form>
+
             </div>
         </div>
     </div>
+     
 </header>

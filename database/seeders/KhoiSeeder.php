@@ -15,6 +15,8 @@ class KhoiSeeder extends Seeder
     {
         //
         DB::table('Khoi')->insert([
+            ['MaKhoi'=> 'K0001','TenKhoi' => 'Khối 1'],
+            ['MaKhoi'=> 'K0002','TenKhoi' => 'Khối 2'],
             ['MaKhoi'=> 'K0003','TenKhoi' => 'Khối 3'],
             ['MaKhoi'=> 'K0004','TenKhoi' => 'Khối 4'],
             ['MaKhoi'=> 'K0005','TenKhoi' => 'Khối 5']

@@ -21,9 +21,10 @@ class Phuhuynh extends Migration
             $table->longtext("NgheNghiep", 100);
             $table->longtext("NoiLamViec", 100);
             $table->string("GioiTinh", 5);
-            $table->string("SoDT", 13);
+            $table->string("SoDT", 13)->unique();
             $table->string('TaiKhoan', 13);
-            $table->longtext('MatKhau', 50);
+            $table->longtext('passoword', 50);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

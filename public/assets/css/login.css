@@ -15101,18 +15101,13 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .header .header_ContainsLogo {
-  color: black;
+  display: block;
+  width: 100px;
+  height: 100%;
 }
 
 .header .header_ContainsLogo:hover {
   text-decoration: none;
-}
-
-.header .header_ContainsLogo .header-Logo {
-  width: 80px;
-  height: auto;
-  object-fit: cover;
-  vertical-align: inherit;
 }
 
 .header .header_inforSchool {
@@ -15167,25 +15162,106 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .header .header_containsUser {
-  text-align: right;
   margin-top: 20px;
+  position: relative;
 }
 
-.header .header_containsUser .header_userIcon {
+.header .header_containsUser .header_userName {
+  width: fit-content;
+  margin-left: auto;
+  color: #f4f2ec;
+  cursor: pointer;
+  position: relative;
+}
+
+.header .header_containsUser .header_userName:hover .header_containsFormLogout {
+  transform: translateY(22px);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.header .header_containsUser .header_userName .header_userIcon {
   margin-right: 10px;
-}
-
-.header .header_containsUser .header_userIcon i {
   color: #6fc7e1;
   font-size: 36px;
   vertical-align: middle;
 }
 
-.header .header_containsUser .header_userName {
+.header .header_containsUser .header_userName::after {
+  content: "";
+  width: 100%;
+  height: 75%;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout {
+  position: absolute;
+  top: 100%;
+  right: 0px;
+  transform: translateY(50px);
+  background: #ffffff;
+  width: 150px;
+  box-shadow: 0px 2px 5px 0px rgba(20, 20, 20, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_changePasss {
+  padding: 10px 10px;
+  display: block;
+  text-decoration: none;
+  color: #141414;
+  background: transparent;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_changePasss:hover {
+  background: #0e3746;
   color: #f4f2ec;
 }
 
-.adminFormSearchBoxSelect {
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout {
+  padding: 10px 10px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout:hover {
+  background: #0e3746;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout:hover .header_formLogoutBtn {
+  color: #f4f2ec;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout .header_formLogoutBtn {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_userDropIcon {
+  font-size: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.formBoxSelect {
   display: flex;
   align-items: center;
   position: relative;
@@ -15193,7 +15269,7 @@ a.text-dark:focus, a.text-dark:hover {
   overflow: hidden;
 }
 
-.adminFormSearchBoxSelect .adminFormSelect {
+.formBoxSelect .formSelect {
   flex: 1;
   outline: none;
   border: none;
@@ -15203,7 +15279,12 @@ a.text-dark:focus, a.text-dark:hover {
   background: #f4f2ec;
 }
 
-.adminFormSearchBoxSelect .adminFormSelectIcon {
+.formBoxSelect .formSelect.formSelectSmall {
+  width: 110px;
+  font-size: 14px;
+}
+
+.formBoxSelect .formSelectIcon {
   position: absolute;
   right: 0px;
   width: 20px;
@@ -15216,13 +15297,42 @@ a.text-dark:focus, a.text-dark:hover {
   pointer-events: none;
 }
 
-.adminFormSearchInput {
+.formInput {
   outline: none;
   border: none;
-  width: 250px;
+  width: 300px;
   padding: 5px 10px;
   border-radius: 5px;
   background: #f4f2ec;
+}
+
+.formInput.capitalize {
+  text-transform: capitalize;
+}
+
+.adminBoxTitle {
+  font-size: 16px;
+  color: #f4f2ec;
+  background-color: #6fc7e1;
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.adminBoxTitle .adminBoxTitleIcon {
+  color: #f4f2ec;
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+.adminBoxTitle .adminBoxTitleIconUp {
+  display: block;
+  float: right;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.adminBoxTitle .adminBoxTitleIconUp.rotateIconUp {
+  transform: rotate(180deg);
 }
 
 .notiBox {
@@ -15286,6 +15396,59 @@ a.text-dark:focus, a.text-dark:hover {
   border: none;
 }
 
+.changePass_Link {
+  width: fit-content;
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
+  background: #6fc7e1;
+  text-decoration: none;
+}
+
+.notiFail {
+  font-size: 14px;
+  color: #be2623;
+  background: rgba(190, 38, 35, 0.5);
+  padding: 2px 5px;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+.hide {
+  display: none;
+}
+
+.pagination {
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #be2623;
+  border: none;
+}
+
+.pagination .page-item .page-link {
+  padding: 0px;
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  line-height: 30px;
+  text-align: center;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  border: none;
+}
+
 .wrapImgResize {
   overflow: hidden;
   position: relative;
@@ -15316,11 +15479,15 @@ a.text-dark:focus, a.text-dark:hover {
   padding: 0px;
 }
 
+body {
+  background: #f4f2ec;
+}
+
 li {
   list-style: none;
 }
 
-ul {
+ul, p {
   margin-bottom: 0px;
 }
 

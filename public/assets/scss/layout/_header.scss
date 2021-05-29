@@ -3,15 +3,11 @@
     background: $color1;
 
     .header_ContainsLogo{
-        color: black;
+        display: block;
+        width: 100px;
+        height: 100%;
         &:hover {
             text-decoration: none;
-        }
-        .header-Logo{ 
-            width: 80px;
-            height: auto;
-            object-fit: cover;
-            vertical-align: inherit;
         }
     }
 
@@ -64,21 +60,88 @@
         }
     }
     .header_containsUser {
-        text-align: right;
         margin-top: 20px;
+        position: relative;
 
-        .header_userIcon {
-            margin-right: 10px;
-            i {
+        .header_userName {
+           width: fit-content;
+           margin-left: auto;
+           color: $color3;
+           cursor: pointer;
+           position: relative;
+
+           &:hover {
+                .header_containsFormLogout {
+                    transform: translateY(22px);
+                    opacity: 1;
+                    pointer-events: auto;
+                    z-index: 1;
+                }
+            }
+            .header_userIcon {
+                margin-right: 10px;
                 color: $color2;
                 font-size: 36px;
                 vertical-align: middle;
             }
+            &::after {
+                content: "";
+                width: 100%;
+                height: 75%;
+                position: absolute;
+                top: 100%;
+                left: 0px;
+
+            }
+            .header_containsFormLogout {
+                position: absolute;
+                top: 100%;
+                right: 0px;
+                transform: translateY(50px);
+                background: $color5;
+                width: 150px;
+                box-shadow: 0px 2px 5px 0px rgba($color: $color6, $alpha: 0.5);
+                opacity: 0;
+                pointer-events: none;
+                @include transition(0.5s);
+                .header_changePasss {
+                    padding: 10px 10px;
+                    display: block;
+                    text-decoration: none;
+                    color: $color6;
+                    background: transparent;
+                    @include transition(0.5s);
+    
+                    &:hover {
+                        background: $color1;
+                        color: $color3;
+                    }
+                }
+                .header_formLogout {
+                    padding: 10px 10px;
+                    @include transition(0.5s);
+                    &:hover {
+                        background: $color1;
+                        .header_formLogoutBtn {
+                            color: $color3;
+                        }
+                    }
+                    .header_formLogoutBtn {
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                    }
+                    
+                }
+    
+                .header_userDropIcon {
+                    font-size: 20px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                }
+            }
+
         }
 
-        .header_userName {
-            color: $color3;
-        }
     }
-
 }

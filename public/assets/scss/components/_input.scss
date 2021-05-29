@@ -1,8 +1,11 @@
-.adminFormSearchInput {
+.formInput {
     outline: none;
     border: none;
-    width: 250px;
+    width: 300px;
     padding: 5px 10px;
     border-radius: 5px;
     background: $color3;
+    &.capitalize {
+        text-transform: capitalize;
+    }
 }

@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Khoi extends Model
 {
     use HasFactory;
-    protected $tabale = "khoi";
-    
+    protected $table = "khoi";
+
     public function Lop() {
-      return $this->hasMany('App\Models\Lop', 'id_khoi','id');
+        return $this->hasMany(Lop::class, 'id_khoi', 'id')->orderBy('TenLop', 'asc');
     }
-    public function HocSinh() {
-        return $this->hasManyThrough('App\HocSinh', 'App\Lop','id_lop', 'id_khoi', 'id');
+
+    public function Hoc() {
+        return $this->hasManyThrough(Hoc::class, Lop::class, 'id_khoi','id_lop', 'id');
+    }
+    public function PhanMonHoc () {
+        return $this->hasMany(PhanMonHOc::class, 'id_khoi', 'id');
     }
 }

@@ -10,13 +10,16 @@
     }
     .adminFormAddTable {
         .adminFormAddText {
-            margin: 0px 20px 0px 30px;
+            margin: 0px 20px;
         }
         tr {
             td {
                 padding: 10px 0px;
             }
         }
+    }
+    .adminFormAddTableSmall {
+        margin: 0 auto;
     }
     .adminFormAddGroup {
         text-align: center;
@@ -41,4 +44,15 @@
     color: $color3;
     background-color: $color2;
     margin-bottom: 0px;
+}
+
+.adminFormTitle {
+    text-align: center;
+    text-align: center;
+    margin: 25px 0px 10px 0px;
+    font-size: 25px;
+}
+.formInputMa {
+    pointer-events: none;
+    
 }

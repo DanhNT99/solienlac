@@ -1,0 +1,21 @@
+.changePass_Box {
+    margin-top: 20px;
+    .changePass_form {
+        background-color: $color5;
+        padding: 10px 0px;
+    }
+    .changePass_Table {
+            margin: 0 auto;
+            .changePass_tableText{
+                margin: 0px 20px 0px 30px;
+            }
+            tr {
+                td {
+                    padding: 10px 0px;
+                }
+            }
+    }
+    .changPass_btn {
+        @include btnMain();
+    }
+}

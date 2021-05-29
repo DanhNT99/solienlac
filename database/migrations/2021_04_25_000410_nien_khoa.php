@@ -20,6 +20,7 @@ class NienKhoa extends Migration
             $table->string('MaNK', 10)->unique();
             $table->integer('NamBatDau');
             $table->integer('NamKetThuc');
+            $table->boolean('TrangThai')->default(false);
             $table->timestamps();
         });
     }

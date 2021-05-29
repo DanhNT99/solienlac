@@ -1,0 +1,22 @@
+.pagination {
+    width: fit-content;
+    margin: 20px auto;
+    .page-item  {
+        &.active .page-link {
+            background-color: $color4;
+            border: none;
+        }
+        .page-link {
+            padding: 0px;
+            margin: 2px;
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            line-height: 30px;
+            text-align: center;
+            @include transition(0.5s);
+            border: none;
+        }
+    }
+}
+

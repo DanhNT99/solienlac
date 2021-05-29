@@ -1,10 +1,11 @@
-.adminFormSearchBoxSelect {
+.formBoxSelect {
     display: flex;
     align-items: center;
     position: relative;
     border-radius: 3px;
     overflow: hidden;
-    .adminFormSelect{
+
+    .formSelect{
         flex: 1;
         outline: none;
         border: none;
@@ -12,8 +13,13 @@
         padding: 5px;
         cursor: pointer;
         background: $color3;
+        &.formSelectSmall {
+            width: 110px;
+            font-size: 14px;
+        }
      }
-     .adminFormSelectIcon {
+     
+     .formSelectIcon {
          position: absolute;
          right: 0px;
          width: 20px;

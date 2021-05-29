@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\FilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('getMaHK', [FilterController::class, 'filterHocKy'] );
+Route::post('filterClass', [FilterController::class, 'filterClass']);
+Route::post('filterStudent', [FilterController::class, 'filterStudent']);
+Route::post('filterScore', [FilterController::class, 'filterScore']);
+Route::post('filterRating', [FilterController::class, 'filterRating']);
+Route::post('filterRatingByScore', [FilterController::class, 'filterRatingByScore']);
+Route::post('filterSemester', [FilterController::class, 'filterSemester']);

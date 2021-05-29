@@ -15101,18 +15101,13 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .header .header_ContainsLogo {
-  color: black;
+  display: block;
+  width: 100px;
+  height: 100%;
 }
 
 .header .header_ContainsLogo:hover {
   text-decoration: none;
-}
-
-.header .header_ContainsLogo .header-Logo {
-  width: 80px;
-  height: auto;
-  object-fit: cover;
-  vertical-align: inherit;
 }
 
 .header .header_inforSchool {
@@ -15167,25 +15162,106 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .header .header_containsUser {
-  text-align: right;
   margin-top: 20px;
+  position: relative;
 }
 
-.header .header_containsUser .header_userIcon {
+.header .header_containsUser .header_userName {
+  width: fit-content;
+  margin-left: auto;
+  color: #f4f2ec;
+  cursor: pointer;
+  position: relative;
+}
+
+.header .header_containsUser .header_userName:hover .header_containsFormLogout {
+  transform: translateY(22px);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.header .header_containsUser .header_userName .header_userIcon {
   margin-right: 10px;
-}
-
-.header .header_containsUser .header_userIcon i {
   color: #6fc7e1;
   font-size: 36px;
   vertical-align: middle;
 }
 
-.header .header_containsUser .header_userName {
+.header .header_containsUser .header_userName::after {
+  content: "";
+  width: 100%;
+  height: 75%;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout {
+  position: absolute;
+  top: 100%;
+  right: 0px;
+  transform: translateY(50px);
+  background: #ffffff;
+  width: 150px;
+  box-shadow: 0px 2px 5px 0px rgba(20, 20, 20, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_changePasss {
+  padding: 10px 10px;
+  display: block;
+  text-decoration: none;
+  color: #141414;
+  background: transparent;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_changePasss:hover {
+  background: #0e3746;
   color: #f4f2ec;
 }
 
-.adminFormSearchBoxSelect {
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout {
+  padding: 10px 10px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout:hover {
+  background: #0e3746;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout:hover .header_formLogoutBtn {
+  color: #f4f2ec;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_formLogout .header_formLogoutBtn {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.header .header_containsUser .header_userName .header_containsFormLogout .header_userDropIcon {
+  font-size: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.formBoxSelect {
   display: flex;
   align-items: center;
   position: relative;
@@ -15193,7 +15269,7 @@ a.text-dark:focus, a.text-dark:hover {
   overflow: hidden;
 }
 
-.adminFormSearchBoxSelect .adminFormSelect {
+.formBoxSelect .formSelect {
   flex: 1;
   outline: none;
   border: none;
@@ -15203,7 +15279,12 @@ a.text-dark:focus, a.text-dark:hover {
   background: #f4f2ec;
 }
 
-.adminFormSearchBoxSelect .adminFormSelectIcon {
+.formBoxSelect .formSelect.formSelectSmall {
+  width: 110px;
+  font-size: 14px;
+}
+
+.formBoxSelect .formSelectIcon {
   position: absolute;
   right: 0px;
   width: 20px;
@@ -15216,13 +15297,42 @@ a.text-dark:focus, a.text-dark:hover {
   pointer-events: none;
 }
 
-.adminFormSearchInput {
+.formInput {
   outline: none;
   border: none;
-  width: 250px;
+  width: 300px;
   padding: 5px 10px;
   border-radius: 5px;
   background: #f4f2ec;
+}
+
+.formInput.capitalize {
+  text-transform: capitalize;
+}
+
+.adminBoxTitle {
+  font-size: 16px;
+  color: #f4f2ec;
+  background-color: #6fc7e1;
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+.adminBoxTitle .adminBoxTitleIcon {
+  color: #f4f2ec;
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+.adminBoxTitle .adminBoxTitleIconUp {
+  display: block;
+  float: right;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.adminBoxTitle .adminBoxTitleIconUp.rotateIconUp {
+  transform: rotate(180deg);
 }
 
 .notiBox {
@@ -15286,6 +15396,59 @@ a.text-dark:focus, a.text-dark:hover {
   border: none;
 }
 
+.changePass_Link {
+  width: fit-content;
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
+  background: #6fc7e1;
+  text-decoration: none;
+}
+
+.notiFail {
+  font-size: 14px;
+  color: #be2623;
+  background: rgba(190, 38, 35, 0.5);
+  padding: 2px 5px;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+.hide {
+  display: none;
+}
+
+.pagination {
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #be2623;
+  border: none;
+}
+
+.pagination .page-item .page-link {
+  padding: 0px;
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  line-height: 30px;
+  text-align: center;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  border: none;
+}
+
 .wrapImgResize {
   overflow: hidden;
   position: relative;
@@ -15316,11 +15479,15 @@ a.text-dark:focus, a.text-dark:hover {
   padding: 0px;
 }
 
+body {
+  background: #f4f2ec;
+}
+
 li {
   list-style: none;
 }
 
-ul {
+ul, p {
   margin-bottom: 0px;
 }
 
@@ -15338,38 +15505,45 @@ ul {
 }
 
 .adminTab .adminMainTab .adminTabItem {
-  width: 150px;
-  height: 50px;
   border-radius: 7px;
   text-align: center;
   border: 1px solid #6fc7e1;
-  margin-right: 20px;
+  margin-right: 30px;
   background: #ffffff;
+  margin-bottom: 30px;
   box-shadow: 0px 0px 10px 0px rgba(111, 199, 225, 0.4);
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
 }
 
-.adminBoxTitle {
-  font-size: 16px;
-  color: #f4f2ec;
-  background-color: #6fc7e1;
-  padding: 10px;
-  margin-bottom: 0px;
+.adminTab .adminMainTab .adminTabItem:hover {
+  background-color: #81ecec;
 }
 
-.adminBoxTitle .adminBoxTitleIcon {
-  color: #f4f2ec;
-  font-size: 25px;
+.adminTab .adminMainTab .adminTabItem:hover .adminTabItemLink p {
+  color: #ffffff;
 }
 
-.adminBoxTitle .adminBoxTitleIconUp {
+.adminTab .adminMainTab .adminTabItem .adminTabItemLink {
   display: block;
-  float: right;
-  cursor: pointer;
-  transition: all 0.5s ease;
+  text-decoration: none;
 }
 
-.adminBoxTitle .adminBoxTitleIconUp.rotateIconUp {
-  transform: rotate(180deg);
+.adminTab .adminMainTab .adminTabItem .adminTabItemLink .adminTabItemIcon {
+  width: 70px;
+  height: 70px;
+}
+
+.adminTab .adminMainTab .adminTabItem .adminTabItemLink p {
+  color: #6fc7e1;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
 }
 
 .adminList {
@@ -15386,6 +15560,55 @@ ul {
 
 .adminList .adminTable {
   width: 100%;
+}
+
+.trContainsBox {
+  cursor: pointer;
+}
+
+.trContainsBox .tdContainsBox {
+  position: relative;
+}
+
+.trContainsBox .tdContainsBox .tdBoxDrop {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 110%);
+  background-color: #ffffff;
+  box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.trContainsBox .tdContainsBox .tdBoxDrop.showTdBoxDrop {
+  opacity: 1;
+  transform: translate(-50%, 100%);
+  pointer-events: auto;
+}
+
+.trContainsBox .tdContainsBox .tdBoxDrop .tdBoxDropItemLink {
+  color: #0e3746;
+  text-align: left;
+  padding: 5px 10px;
+  display: block;
+  width: 100%;
+}
+
+.trContainsBox .tdContainsBox .tdBoxDrop .tdBoxDropItemLink:hover {
+  text-decoration: none;
+  background-color: #f4f2ec;
+}
+
+.trContainsBox .tdContainsBox .tdBoxDrop .tdBoxDropItemLink i {
+  margin-right: 10px;
 }
 
 body {
@@ -15409,6 +15632,10 @@ body {
 
 .adminActive .adminActiveItem:last-child {
   margin-right: 0px;
+}
+
+.adminActive .adminActiveItem i {
+  margin-right: 5px;
 }
 
 .adminTable {
@@ -15437,10 +15664,6 @@ body {
   padding: 5px 10px;
   text-align: center;
   border: 1px solid #6fc7e1;
-}
-
-.adminTable tr td:first-child {
-  text-align: left;
 }
 
 .adminContainsFormSearch {
@@ -15486,11 +15709,15 @@ body {
 }
 
 .adminFormAdd .adminFormAddTable .adminFormAddText {
-  margin: 0px 20px 0px 30px;
+  margin: 0px 20px;
 }
 
 .adminFormAdd .adminFormAddTable tr td {
   padding: 10px 0px;
+}
+
+.adminFormAdd .adminFormAddTableSmall {
+  margin: 0 auto;
 }
 
 .adminFormAdd .adminFormAddGroup {
@@ -15535,42 +15762,49 @@ body {
   margin-bottom: 0px;
 }
 
+.adminFormTitle {
+  text-align: center;
+  text-align: center;
+  margin: 25px 0px 10px 0px;
+  font-size: 25px;
+}
+
+.formInputMa {
+  pointer-events: none;
+}
+
 .adminFormAddContains {
   display: flex;
   align-items: center;
   justify-content: left;
+  align-items: inherit;
   padding: 0px 20px;
 }
 
 .adminFormAddContains .adminFormAddContainsImg {
   width: 20%;
-  height: 250px;
   border: 1px solid #f4f2ec;
   margin-right: 20px;
-  overflow: hidden;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
   cursor: pointer;
-}
-
-.adminFormAddContains .adminFormAddContainsImg img {
-  z-index: 1;
+  height: fit-content;
 }
 
 .adminFormAddContains .adminFormAddContainsImg:hover, .adminFormAddContains .adminFormAddContainsImg:active {
   box-shadow: 0px 0px 10px 0px rgba(14, 55, 70, 0.5);
 }
 
-.adminFormAddContains .adminFormAddContainsImg .adminFormAddContainsIcon {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
+.adminFormAddContains .adminFormAddContainsImg .wrapImgResize {
   width: 100%;
+  height: 250px;
+}
+
+.adminFormAddContains .adminFormAddContainsImg .adminFormAddContainsIcon {
   background: rgba(111, 199, 225, 0.8);
-  z-index: 2;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -15588,5 +15822,45 @@ body {
 .adminFormAddContains .adminFormAddContainsImg .adminFormAddContainsIcon p i {
   font-size: 20px;
   color: #f4f2ec;
+}
+
+.textarea {
+  outline: none;
+  border-radius: 5px;
+  border-color: transparent;
+  box-shadow: 0px 2px 5px 0px rgba(20, 20, 20, 0.3);
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.textarea:hover, .textarea:focus {
+  background-color: #f4f2ec;
+}
+
+.textarea.changeBack {
+  background-color: #f4f2ec;
+}
+
+.detailTitle {
+  color: #0e3746;
+  text-align: center;
+  font-size: 22px;
+}
+
+.modelTitle {
+  color: #0e3746;
+  text-align: center;
+}
+
+.modalBtn {
+  background: #be2623;
+  color: #ffffff;
+}
+
+.modelQuestion {
+  color: #be2623;
 }
 /*# sourceMappingURL=admin.css.map */

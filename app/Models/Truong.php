@@ -9,4 +9,18 @@ class Truong extends Model
 {
     use HasFactory;
     protected $table = "truong";
+
+    public function listing() {
+        return Array(
+            array(
+                'name' => 'Stt',
+            ),
+            array(
+                'name' => 'Mã trường',
+            ),
+            array(
+                'name' => 'Tên trường',
+            )
+            );
+    }
 }

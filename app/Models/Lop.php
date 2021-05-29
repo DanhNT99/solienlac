@@ -10,11 +10,16 @@ class Lop extends Model
     use HasFactory;
     protected $table = "lop";
 
-    public function HocSinh() {
-        return $this->hasMany('App\Models\HocSinh', 'id_lop','id');
+    public function Khoi(){
+        return $this->belongsto(Khoi::class, 'id_khoi','id');
     }
 
-    public function Khoi(){
-        return $this->belongsto('App\Khoi', 'id_khoi','id');
+    public function Hoc() {
+        return $this->hasMany(Hoc::class, 'id_lop', 'id');
     }
+
+    public function Gvcn(){
+        return $this->belongsto('App\Models\GiaoVien', 'id_giaovien','id');
+    }
+    
 }

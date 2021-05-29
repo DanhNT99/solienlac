@@ -25,19 +25,19 @@
                             </div>
                            <div class="wrapLogin__formGroup">
                                 <p class="wrapLogin_formTitleInput">Số điện thoại</p>
-                                <input type="text" name="tenTaiKhoan" value = "{{old('tenTaiKhoan')}}" placeholder="Nhập vào số điện thoại..." class="wrapLogin_formInput">
-                                @if ($errors->has('tenTaiKhoan')) 
-                                    <div class="alert alert-danger" role="alert">
-                                       {{$errors->first('tenTaiKhoan')}}
+                                <input type="text" name="TaiKhoan" value = "{{old('TaiKhoan')}}" placeholder="Nhập vào số điện thoại..." class="wrapLogin_formInput">
+                                @if ($errors->has('TaiKhoan')) 
+                                    <div class="notiFail" role="alert">
+                                       {{$errors->first('TaiKhoan')}}
                                     </div>
                                 @endif
                            </div>
                             <div class="wrapLogin__formGroup">
                                 <p class="wrapLogin_formTitleInput">Mật khẩu</p>
-                                <input type="password" name="matKhau" valuevalue = "{{old('matKhau')}}" placeholder="Nhập vào mật khẩu..." class="wrapLogin_formInput">
-                                @if ($errors->has('matKhau')) 
-                                <div class="alert alert-danger" role="alert">
-                                   {{$errors->first('matKhau')}}
+                                <input type="password" name="MatKhau" valuevalue = "{{old('MatKhau')}}" placeholder="Nhập vào mật khẩu..." class="wrapLogin_formInput">
+                                @if ($errors->has('MatKhau')) 
+                                <div class="notiFail" role="alert">
+                                   {{$errors->first('MatKhau')}}
                                 </div>
                             @endif
                             </div>

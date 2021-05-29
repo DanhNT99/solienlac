@@ -1,0 +1,6 @@
+.changePass_Link {
+    width: fit-content;
+    @include btnMain();
+    background: $color2;
+    text-decoration: none;
+}

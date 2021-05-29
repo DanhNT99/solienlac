@@ -17,9 +17,10 @@ class Phuong extends Migration
         Schema::create('phuong', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('MaPhuong', 10)->unique();
+            $table->string('DonVi', 10);
             $table->string('TenPhuong', 50);
             $table->bigInteger('id_tinh')->unsigned()->nullable();
-            $table->foreign('id_tinh')->references('id')->on('tinh')->onDelete('set null');
+            $table->foreign('id_tinh')->references('id')->on('tinh')->onDelete('cascade');
             $table->timestamps();
         });
     }

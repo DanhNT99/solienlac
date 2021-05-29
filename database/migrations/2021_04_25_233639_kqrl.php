@@ -18,13 +18,11 @@ class Kqrl extends Migration
             $table->bigIncrements('id');
             $table->string('XepLoai', 5);
             $table->bigInteger('id_sll')->unsigned()->nullable();
-            $table->foreign('id_sll')->references('id')->on('solienlac')->onDelete('set null');
-            $table->bigInteger('id_hocky')->unsigned()->nullable();
-            $table->foreign('id_hocky')->references('id')->on('hocky')->onDelete('set null');
-            $table->bigInteger('id_hocsinh')->unsigned()->nullable();
-            $table->foreign('id_hocsinh')->references('id')->on('hocsinh')->onDelete('set null');
+            $table->foreign('id_sll')->references('id')->on('solienlac')->onDelete('cascade');
+            $table->bigInteger('id_loaihocky')->unsigned()->nullable();
+            $table->foreign('id_loaihocky')->references('id')->on('loaihocky')->onDelete('cascade');
             $table->bigInteger('id_pcnl')->unsigned()->nullable();
-            $table->foreign('id_pcnl')->references('id')->on('phamchatnangluc')->onDelete('set null');
+            $table->foreign('id_pcnl')->references('id')->on('phamchatnangluc')->onDelete('cascade');
             $table->timestamps();
         });
     }

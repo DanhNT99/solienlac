@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GiaoVien;
 use Illuminate\Support\Facades\Hash;
-use Auth;
+use Auth, Redirect;
 class LoginController extends Controller
 {
     //
@@ -16,27 +16,30 @@ class LoginController extends Controller
     
     public function handleLogin(Request $request) {
         $request->validate([
-            'tenTaiKhoan' => 'required|min:10|max:11',
-            'matKhau' => 'required',
+            'TaiKhoan' => 'required|min:10|max:11',
+            'MatKhau' => 'required|min:8',
           ],[
-              'tenTaiKhoan.required' => "Bạn chưa nhập số điện thoại",
-              'tenTaiKhoan.min' => "Số điện thoại phải từ 10 đến 11 ký tự",
-              'tenTaiKhoan.max' => "Số điện thoại phải từ 10 đến 11 ký tự",
-              'matKhau.required' => "Bạn chưa nhập mật khẩu",
+              'TaiKhoan.required' => "Bạn chưa nhập số điện thoại",
+              'TaiKhoan.min' => "Số điện thoại phải từ 10 đến 11 chữ số",
+              'TaiKhoan.max' => "Số điện thoại phải từ 10 đến 11 chữ số",
+              'MatKhau.required' => "Bạn chưa nhập mật khẩu",
+              'MatKhau.min' => 'Mật khẩu tối thiểu 8 ký tự'
           ]);
-          $data = GiaoVien::where('TaiKhoan', $request->tenTaiKhoan)->get();
-          $flag = Hash::check($request->matKhau, $data[0]->MatKhau);
-          if($flag) {
-              $request->session()->put('LoginUser', $request->tenTaiKhoan);
-              return redirect('admin/index')->with('noti','Đăng nhập thành công');
-          }
-          else {
-              return redirect()->back()->with('error','Tài khoan hoặc mật khẩu không đúng');
-          }
+
+        if(Auth::guard('giao_vien')->attempt(array('TaiKhoan'=>$request->TaiKhoan,'password'=>$request->MatKhau)))
+            return  Redirect::to('admin/index')->with("noti","Đăng nhập thành công");
+
+        if(Auth::guard('phu_huynh')->attempt(array('TaiKhoan'=>$request->TaiKhoan,'password'=>$request->MatKhau)))
+            return  Redirect::to('phuhuynh/index')->with("noti","Đăng nhập thành công");
+
+        return Redirect::to('/login')->withInput()->with("error","Tài khoản hoặc mật khẩu không đúng !");
     }
 
     public function handleLogout(Request $request) {
-        $request->session()->forget('LoginUser');
-        return redirect('login/index');
+      if(Auth::guard('giao_vien')) {
+        Auth::guard('giao_vien')->logout();
+      }
+        Auth::guard('phu_huynh')->logout();
+        return redirect('login');
     }
 }

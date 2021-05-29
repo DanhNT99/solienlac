@@ -1,0 +1,24 @@
+.adminBoxTitle {
+    font-size: 16px;
+    color: $color3;
+    background-color: $color2;
+    padding: 10px;
+    margin-bottom: 0px;
+
+    .adminBoxTitleIcon {
+        color: $color3;
+        font-size: 25px;
+        margin-right: 5px;
+    }
+
+    .adminBoxTitleIconUp {
+        display: block;
+        float: right;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        &.rotateIconUp {
+            transform: rotate(180deg);
+        }
+    }
+
+}

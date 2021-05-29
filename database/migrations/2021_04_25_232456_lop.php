@@ -19,7 +19,7 @@ class Lop extends Migration
             $table->string('TenLop', 20);
             $table->bigInteger('id_khoi')->unsigned()->nullable();
             $table->bigInteger('id_giaovien')->unsigned()->nullable();
-            $table->foreign('id_khoi')->references('id')->on('khoi')->onDelete('set null');
+            $table->foreign('id_khoi')->references('id')->on('khoi')->onDelete('cascade');
             $table->foreign('id_giaovien')->references('id')->on('giaovien')->onDelete('set null');
             $table->timestamps();
         });

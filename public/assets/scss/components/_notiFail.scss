@@ -1,0 +1,11 @@
+.notiFail {
+    font-size: 14px;
+    color: $color4;
+    background: rgba($color: $color4, $alpha: 0.5);
+    padding: 2px 5px;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+.hide {
+    display: none;
+}

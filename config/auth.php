@@ -46,6 +46,26 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'giao_vien' => [
+            'driver' => 'session',
+            'provider' => 'giao_viens',
+        ],
+        
+        'giao_vien-api' => [
+            'driver' => 'token',
+            'provider' => 'giao_viens',
+        ],
+
+        'phu_huynh' => [
+            'driver' => 'session',
+            'provider' => 'phu_huynhs',
+        ],
+
+        'phu_huynh-api' => [
+            'driver' => 'token',
+            'provider' => 'phu_huynhs',
+        ],
     ],
 
     /*
@@ -66,9 +86,20 @@ return [
     */
 
     'providers' => [
+        
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'giao_viens' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\GiaoVien::class,
+        ],
+
+        'phu_huynhs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PhuHuynh::class,
         ],
     ],
 
@@ -93,6 +124,18 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+
+        'giao_viens' => [
+            'provider' => 'giao_viens',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'phu_huynhs' => [
+            'provider' => 'phu_huynhs',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

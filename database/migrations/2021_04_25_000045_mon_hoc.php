@@ -18,6 +18,7 @@ class Monhoc extends Migration
             $table->bigIncrements('id');
             $table->string('MaMH', 10)->unique();
             $table->string('TenMH', 50);
+            $table->boolean('ChoPhepNhapDiem');
             $table->timestamps();
         });
     }

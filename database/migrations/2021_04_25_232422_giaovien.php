@@ -16,16 +16,18 @@ class Giaovien extends Migration
         Schema::create('giaovien', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("MaGV", 10)->unique();
-            $table->longtext("HoTenGV", 100);
+            $table->longtext("HoGV", 100);
+            $table->longtext("TenGV", 10);
             $table->string("GioiTinh", 5);
             $table->date("NgaySinh");
             $table->longtext("DiaChi", 200);
-            $table->string("SoDT", 13);
+            $table->string("SoDT", 13)->unique();
             $table->longtext("Hinh", 200);
             $table->string('TaiKhoan', 13);
-            $table->longtext('MatKhau', 50);
+            $table->longtext('password', 50);
             $table->bigInteger('id_phuong')->unsigned()->nullable();
-            $table->foreign('id_phuong')->references('id')->on('phuong')->onDelete('set null');
+            $table->foreign('id_phuong')->references('id')->on('phuong')->onDelete('cascade');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

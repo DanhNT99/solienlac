@@ -19,7 +19,14 @@
 
 @import "../components/input";
 
+@import "../components/boxTitle";
+
 @import "../components/notiBox";
+
+@import "../components/btnLink";
+
+@import "../components/notiFail";
+@import "../components/pagination";
 
 @import "../base/wrapImgResize";
 
@@ -28,10 +35,13 @@
     margin: 0px;
     padding: 0px;
 }
+body {
+    background: $color3;
+}
 li {
     list-style: none;
 }
-ul {
+ul, p {
     margin-bottom: 0px;
 }
 .row {

@@ -17,6 +17,7 @@ class Pcnl extends Migration
             $table->bigIncrements('id');
             $table->string('MaPCNL', 10)->unique();
             $table->string('TenPCNL', 100);
+            $table->boolean();
             $table->timestamps();
         });
     }
