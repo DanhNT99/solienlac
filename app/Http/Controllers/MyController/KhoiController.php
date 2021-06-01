@@ -31,12 +31,9 @@ class KhoiController extends Controller
     public function create()
     {
         $count = Khoi::count();
-        if($count == 0) {
-            $current = 'K00';
-        }
-        else {
-            $current =  Khoi::max('MaKhoi');
-        }
+        if($count == 0) $current = 'K00';
+    
+        else $current =  Khoi::max('MaKhoi'); 
         $array_id = explode('K',$current);
         $array_id[0] .="K";
         $array_id[1] = intval($array_id[1]) + 1;

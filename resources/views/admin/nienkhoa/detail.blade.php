@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Chi tiết niên khóa @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
     <section class="adminAdd">

@@ -1,7 +1,7 @@
 @extends('admin/layouts/index')
+@section('title')Đánh gia rèn luyện @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
-    
     <section class="adminAdd">
         <div class="container">
             <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
@@ -117,7 +117,7 @@
                         </tr>
                     </table>
                     
-                    <table border = "1" class="adminTable  mt-5">
+                    <table border = "1" class="adminTable w-75 mt-5">
                         <tr>
                             <th>stt</th>
                             <th>Tên học sinh</th>
@@ -129,7 +129,12 @@
                                 <td><input type="text" class="d-none solienlac" name="SoLienLac[]" value = "{{$item->HocSinh->SoLienLac->id}}" >
                                     {{$item->HocSinh->HoHS . ' ' .$item->HocSinh->TenHS}}</td>
                                 <td>
-                                    <input type="text" name="XepLoai[]" value = '' class="formInput XepLoai">
+                                    <select name="XepLoai[]" class="XepLoai">
+                                        <option selected value="" >Lựa chọn</option>
+                                        <option value="T">T</option>
+                                        <option value="Đ">Đ</option>
+                                        <option value="C">C</option>
+                                    </select>
                                 </td>
 
                             </tr>

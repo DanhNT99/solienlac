@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Xem thông tin học sinh @endsection
 @section('adminContent')
 
     <section class="adminAdd">

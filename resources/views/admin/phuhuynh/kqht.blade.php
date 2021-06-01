@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Xem kết quả học tập @endsection
 @section('adminContent')
  <table class = "mx-auto my-2">
     <tr>

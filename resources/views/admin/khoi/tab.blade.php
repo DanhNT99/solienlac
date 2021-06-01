@@ -6,22 +6,22 @@
             <div class="row adminMainTab">
 
                 <div class="adminTabItem">
-                    <a href="admin/khoi">
+                    <a href="admin/khoi" class="adminTabItemLink py-1 px-2">
                         <p>Quản lý khối</p>
                     </a>
                 </div>
                 <div class="adminTabItem">
-                    <a href="admin/lop">
+                    <a href="admin/lop" class="adminTabItemLink py-1 px-2">
                         <p>Quản lý lớp</p>
                     </a>
                 </div>
                 <div class="adminTabItem">
-                    <a href="admin/monhoc">
+                    <a href="admin/monhoc" class="adminTabItemLink py-1 px-2">
                         <p>Quản lý môn học</p>
                     </a>
                 </div>
                 <div class="adminTabItem">
-                    <a href="admin/phanmonhoc">
+                    <a href="admin/phanmonhoc" class="adminTabItemLink py-1 px-2">
                         <p>Phân môn học</p>
                     </a>
                 </div>

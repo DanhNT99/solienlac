@@ -3,6 +3,7 @@
     width: 400px;
     top: 0px;
     left: 50%;
+    border-radius: 5px;
     transform: translate(-50%, -100%);
     background: white;
     box-shadow: 0px 0px 10px rgba($color: $color2, $alpha: 0.5);
@@ -50,3 +51,10 @@
         border: none;
      }
 }
+.modal-header {
+    background: $color1;
+}
+.modal-title {
+    color: $color3;
+}
+

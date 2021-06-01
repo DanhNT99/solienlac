@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Thêm giáo viên @endsection
 @section('adminContent')
     @include('admin/giaovien/tab')
     <section class="adminAdd">

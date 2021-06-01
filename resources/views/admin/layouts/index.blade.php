@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/parents.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Document</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    <title>@yield('title')</title>
 </head>
 <body class="body">
     @include('admin/layouts/header')

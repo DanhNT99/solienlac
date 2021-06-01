@@ -154,27 +154,18 @@ $(document).ready(function () {
                         $(listDiem[indexInArray]).val('');
                     //GET DATA FROM CONTROLLER SEND
                         response['kqht'].forEach(element => {
-                        //CHECK INPUT SLL WITH IDLL?
+                        //CHECK INPUT SLL WITH IDSLL?
                             if($(listIdSll[indexInArray]).val() == element['id_sll']){
                                 let mucDatDuc = element['MucDatDuoc']; //GET VALUE MUCDATDUOC BY IDSLL
                                 let diem = element['Diem']; //GET VALUE SCORE BY IDSLL
                             //GET LIST OPTION OF SELCT
                                 let listOption = $(listMucDatDuoc[indexInArray]).children("option");
-                            //GET OPTION OF LIST OPTION 
-                                $.each(listOption, function (indexInArray, ElementOption) { 
-                                    $(ElementOption).attr('selected', false);
-                                    //CHECL VALUE OPTION WITH MUCDATDUOC
-                                   if( $(ElementOption).val() === mucDatDuc) {
-                                       //ADD ATTRIBUTE TO OPTION
-                                        $(ElementOption).attr('selected', true);
-                                   }
-                                });
+                                listOption.removeAttr('selected').filter(`[value= ${mucDatDuc}]`).prop('selected', true);
                             //ADD VALUE SCORE TO INPUT
                                 $(listDiem[indexInArray]).val(diem);
                             }
                         });
                 });
-                console.log(response['nhapdiem1'], response['nhapdiem2'] );
                 if(response['nhapdiem1'] || response['nhapdiem2']) {
                     $('.Diem').removeClass('formInputMa');
                 }
@@ -210,14 +201,16 @@ $(document).ready(function () {
                 let listRating = $('.XepLoai'); //get dom input have name = "XepLoai[]"
         
                 $.each( listIdSll, function (indexInArray, valueOfElement) { 
-                    
-                    $(listRating[indexInArray]).val(''); //update rating
                     response.forEach(element => {
                         //check solienlac
-                        if($(listIdSll[indexInArray]).val() == element['id_sll']){
-                            let getRaing = element['XepLoai'];
-                            $(listRating[indexInArray]).val(getRaing);
+                         if($(listIdSll[indexInArray]).val() == element['id_sll']){
+                                 let getRating = element['XepLoai']
+                            //GET LIST OPTION OF SELCT
+                                let listOption = $(listRating[indexInArray]).children("option");
+                                listOption.removeAttr('selected').filter(`[value= ${getRating}]`).prop('selected', true);
+                            //ADD VALUE SCORE TO INPUT
                         }
+                        // console.log(getRaing);
                     });
                 });
             }
@@ -228,37 +221,37 @@ $(document).ready(function () {
 
 
     //FILTER RATING BY DIEM
-    $('.Diem').change(function (e) { 
-        e.preventDefault();
-        let listRating = $('.MucDatDuoc');
-        let index = $('.Diem').index($(this));
-        console.log($(this).val())
-        if($(this).val())
-            $(listRating[index]).addClass('formInputMa');
-        else 
-            $(listRating[index]).removeClass('formInputMa');
-        let diem = {'diem': $(this).val()}
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "post",
-            url: "http://127.0.0.1:8000/api/filterRatingByScore",
-            data: diem,
-            success: function (response) {
-                $.each(listRating[index], function (indexInArray, ElementOption) { 
-                    //UPDATE ALL OPTION SELECT IS FALSE
-                    $(ElementOption).attr('selected', false);
-                      //CHECL VALUE OPTION WITH MUCDATDUOC
-                   if( $(ElementOption).val() === response) {
-                       //ADD ATTRIBUTE TO OPTION
-                        $(ElementOption).attr('selected', true);
-                   }
-                   console.log(response)
-                });
-            }
-        });
-    });
+    // $('.Diem').change(function (e) { 
+    //     e.preventDefault();
+    //     let listRating = $('.MucDatDuoc');
+    //     let index = $('.Diem').index($(this));
+    //     console.log($(this).val())
+    //     if($(this).val())
+    //         $(listRating[index]).addClass('formInputMa');
+    //     else 
+    //         $(listRating[index]).removeClass('formInputMa');
+    //     let diem = {'diem': $(this).val()}
+    //     $.ajax({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         type: "post",
+    //         url: "http://127.0.0.1:8000/api/filterRatingByScore",
+    //         data: diem,
+    //         success: function (response) {
+    //             $.each(listRating[index], function (indexInArray, ElementOption) { 
+    //                 //UPDATE ALL OPTION SELECT IS FALSE
+    //                 $(ElementOption).attr('selected', false);
+    //                   //CHECL VALUE OPTION WITH MUCDATDUOC
+    //                if( $(ElementOption).val() === response) {
+    //                    //ADD ATTRIBUTE TO OPTION
+    //                     $(ElementOption).attr('selected', true);
+    //                }
+    //                console.log(response)
+    //             });
+    //         }
+    //     });
+    // });
 
 
     //GET SEMESTER BY NIEN KHOA
@@ -289,5 +282,19 @@ $(document).ready(function () {
             }
         });
     }
+
+    // $('.btnSubmit').click(function (e) { 
+    //    $('.formDelete').submit();
+    // }); 
+    var idBtn;
+    $('.btnButton').click(function (e) { 
+        e.preventDefault();
+        idBtn = $(this).attr('id');
+    });
+
+    $('.btnSubmit').click(function (e) { 
+           $(`.formDelete${idBtn}`).submit();
+    }); 
+
 
 });

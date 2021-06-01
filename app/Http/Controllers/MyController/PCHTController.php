@@ -92,7 +92,7 @@ class PCHTController extends Controller
         //
         $data['hoc'] = Hoc::find($id);
         $data['nienkhoa']  = NienKhoa::get();
-        $data['lop']  = Lop::get();
+        $data['lop']  = Lop::orderBY('TenLop', 'asc')->get();
         $data['hocsinh']  = HocSinh::get();
         return view('admin.hoc.edit', $data);
     }

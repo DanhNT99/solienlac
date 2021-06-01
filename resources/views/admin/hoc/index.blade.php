@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title')Học kỳ@endsection
 @section('adminContent')
     @include('admin/hocsinh/tab')
     <section class="adminForm">

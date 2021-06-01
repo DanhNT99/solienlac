@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Phường @endsection
 @section('adminContent')
 @include('admin/tinh/tab')
     <section class="adminList">

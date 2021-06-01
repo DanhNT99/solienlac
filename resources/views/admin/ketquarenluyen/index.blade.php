@@ -1,8 +1,7 @@
 @extends('admin/layouts/index')
-
+@section('title')Kết quả rèn luyện @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
-
     <section class="adminForm">
         <div class="container">
             <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>

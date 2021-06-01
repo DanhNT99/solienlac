@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title')Xóa lớp @endsection
 @section('adminContent')
     @include('admin/khoi/tab')
 

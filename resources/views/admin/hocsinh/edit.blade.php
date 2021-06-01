@@ -1,9 +1,8 @@
 @extends('admin/layouts/index')
+@section('title')Chỉnh sửa học sinh @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
-
     <section class="adminAdd">
-
         <div class="container">
             <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thông tin chi tiết học sinh
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>

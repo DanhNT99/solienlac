@@ -5,12 +5,12 @@
         background: $color5;
         padding: 20px;
         .adminTabItem {
+            height: fit-content;
             border-radius: 7px;
             text-align: center;
             border: 1px solid $color2;
             margin-right: 30px;
             background: $color5;
-            margin-bottom: 30px;
             box-shadow: 0px 0px 10px 0px rgba($color: $color2, $alpha: 0.4);
             @include transition(0.5s);
             &:hover {

@@ -38,7 +38,7 @@ Route::group(['middleware' => 'AuthCheck', 'prefix' =>'admin'], function () {
     
     Route::get('searchStudent', 'App\Http\Controllers\MyController\HocSinhController@getSearch')->name('searchStudent'); 
 
-        Route::group(['middleware' => 'CheckRole:Giáo viên chủ nhiệm'], function () {
+    Route::group(['middleware' => 'CheckRole:Giáo viên chủ nhiệm'], function () {
 
         Route::resource('solienlac', 'App\Http\Controllers\MyController\SLLController');
 
@@ -106,6 +106,9 @@ Route::group(['middleware' => 'AuthCheck', 'prefix' =>'admin'], function () {
         Route::resource('phanquyen', 'App\Http\Controllers\MyController\PhanQuyenController');
         
         Route::get('phanquyen/{id}/delete', 'App\Http\Controllers\MyController\PhanQuyenController@delete');
+
+        Route::resource('chophepnhapdiem', 'App\Http\Controllers\MyController\NDGKController');
+        Route::get('chophepnhapdiem/{id}/delete', 'App\Http\Controllers\MyController\NDGKController@delete');
     });
 
 

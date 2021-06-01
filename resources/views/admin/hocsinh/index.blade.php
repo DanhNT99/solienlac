@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Học sinh @endsection
 @section('adminContent')
     @include('admin/hocsinh/tab')
 
@@ -91,7 +91,7 @@
 
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Danh sách học sinh</h3>
+            <h3 class="adminListTitle mb-0">Danh sách học sinh</h3>
             <div class="adminActive">
                 @if (Auth::guard('giao_vien')->user()->hasrole('Quản trị viên'))
                     <a href="admin/hocsinh/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Thêm</a>

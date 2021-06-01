@@ -13,7 +13,7 @@ use App\Models\KetQuaHocTap;
 use App\Models\KetQuaRenLuyen;
 use App\Models\MonHoc;
 use App\Models\LoaiHocKy;
-use App\Models\QuyDinhDiem;
+use App\Models\NhapDiemGiuaKy;
 class FilterController extends Controller
 {
     //
@@ -50,18 +50,13 @@ class FilterController extends Controller
     //END
 
     //MÔN TOÁN VÀ TIẾNG VIỆT CỦA KHỐI 4 VÀ 5 ĐƯỢC PHÉP NHẬP GIỮA HỌC KỲ
-        $listSuject = MonHoc::where('TenMH', 'like', 'toan%')->orwhere('TenMH', 'like', 'tieng%viet%')->get()->toArray();
-        $nameSubject = MonHoc::where('id', $request->idSubject)->value('TenMH');
-        $khoi = Khoi::where('id', $request->idGrade)->value('DuocPhep');
         $loaihkg = LoaiHocKy::where([['id', '=', $request->idSemester], ['TenLoaiHK', 'like', 'giữa%' ]])->get();
-    
-        $data['nhapdiem1'] = 0;
-        foreach($listSuject as $item) {
-            if( $nameSubject == $item['TenMH'] && $khoi) {
-                $data['nhapdiem1'] = $khoi;
-                break;
-            }
-        }
+        $idSubject = MonHoc::where('id', $request->idSubject)->value('id');
+        $idGrade = Khoi::where('id', $request->idGrade)->value('id');
+        $choPhepNhapDiem = NhapDiemGiuaKy::where([['id_khoi','=' , $idGrade], ['id_monhoc','=' , $idSubject]])->get();
+        
+        if(count($choPhepNhapDiem) > 0)   $data['nhapdiem1'] = 1;
+        else  $data['nhapdiem1'] = 0;
         // NẾU KHÔNG TỒN TẠI GIƯA HỌC KỲ VÀ KHÔNG PHẢI LÀ MÔN TIẾNG VIỆT HAY TOÁN
         if(!count($loaihkg) || !$data['nhapdiem1']) {
             $data['nhapdiem1'] = 0;

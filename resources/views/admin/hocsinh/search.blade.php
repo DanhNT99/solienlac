@@ -1,7 +1,7 @@
 @extends('admin/layouts/index')
+@section('title')Tìm kiếm học sinh @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
-
     <section class="adminForm">
         <div class="container">
             <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
@@ -17,8 +17,7 @@
                                     <select name="Khoi" id="khoi" class="formSelect">
                                         <option selected disabled>Lựa chọn</option>
                                         @foreach ($khoi as $item)
-                                             <option @if ($item->id == $idKhoi)
-                                                 selected
+                                             <option @if ($item->id == $idKhoi) selected
                                              @endif value="{{$item->id}}">{{$item->TenKhoi}}</option>
                                         @endforeach
                                     </select>

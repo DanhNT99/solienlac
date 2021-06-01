@@ -15300,7 +15300,7 @@ a.text-dark:focus, a.text-dark:hover {
 .formInput {
   outline: none;
   border: none;
-  width: 300px;
+  width: 270px;
   padding: 5px 10px;
   border-radius: 5px;
   background: #f4f2ec;
@@ -15311,17 +15311,24 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .adminBoxTitle {
-  font-size: 16px;
   color: #f4f2ec;
   background-color: #6fc7e1;
-  padding: 10px;
+  padding-right: 20px;
   margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .adminBoxTitle .adminBoxTitleIcon {
   color: #f4f2ec;
-  font-size: 25px;
+  font-size: 20px;
   margin-right: 5px;
+}
+
+.adminBoxTitle .yearOfCourse {
+  background: #0e3746;
+  padding: 5px;
 }
 
 .adminBoxTitle .adminBoxTitleIconUp {
@@ -15340,6 +15347,7 @@ a.text-dark:focus, a.text-dark:hover {
   width: 400px;
   top: 0px;
   left: 50%;
+  border-radius: 5px;
   transform: translate(-50%, -100%);
   background: white;
   box-shadow: 0px 0px 10px rgba(111, 199, 225, 0.5);
@@ -15394,6 +15402,14 @@ a.text-dark:focus, a.text-dark:hover {
   float: right;
   outline: none;
   border: none;
+}
+
+.modal-header {
+  background: #0e3746;
+}
+
+.modal-title {
+  color: #f4f2ec;
 }
 
 .changePass_Link {
@@ -15483,7 +15499,7 @@ body {
   background: #f4f2ec;
 }
 
-li {
+ul li {
   list-style: none;
 }
 
@@ -15505,12 +15521,12 @@ ul, p {
 }
 
 .adminTab .adminMainTab .adminTabItem {
+  height: fit-content;
   border-radius: 7px;
   text-align: center;
   border: 1px solid #6fc7e1;
   margin-right: 30px;
   background: #ffffff;
-  margin-bottom: 30px;
   box-shadow: 0px 0px 10px 0px rgba(111, 199, 225, 0.4);
   transition: 0.5s;
   -webkit-transition: 0.5s;
@@ -15617,7 +15633,7 @@ body {
 
 .adminActive {
   text-align: right;
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 10px 0px;
 }
 
 .adminActive .adminActiveItem {
@@ -15676,7 +15692,7 @@ body {
 }
 
 .adminFormSearch .adminFormSeachTable tr td {
-  padding: 10px 0px;
+  padding-bottom: 15px;
 }
 
 .adminFormSearch .adminFormSeachTable .adminFormSearchText {
@@ -15842,6 +15858,17 @@ body {
 
 .textarea.changeBack {
   background-color: #f4f2ec;
+}
+
+.btnClass {
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
 }
 
 .detailTitle {

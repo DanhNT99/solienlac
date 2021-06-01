@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuydinhdiemTable extends Migration
+class Nhapdiemgiuaky extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateQuydinhdiemTable extends Migration
      */
     public function up()
     {
-        Schema::create('quydinhdiem', function (Blueprint $table) {
-            $table->id();
+        //
+        Schema::create('nhapdiemgiuaky', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('MaND', 10)->unique();
+            $table->bigInteger('id_khoi');
+            $table->bigInteger('id_monhoc';
             $table->timestamps();
         });
     }
@@ -26,6 +30,7 @@ class CreateQuydinhdiemTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quydinhdiem');
+        //
+        Schema::dropIfExists('nhapdiemgiuaky');
     }
 }

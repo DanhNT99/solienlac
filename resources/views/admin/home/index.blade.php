@@ -7,7 +7,9 @@
     <base href="{{asset('')}}">
     <link rel="stylesheet" href="{{asset('assets/css/admin.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Document</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    <title>Trang chủ</title>
 </head>
 <body>
     @include('admin/layouts/header')

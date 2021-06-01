@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Chỉnh sửa phân quyền @endsection
 @section('adminContent')
     @include('admin/quyen/tab')
     <section class="adminAdd">

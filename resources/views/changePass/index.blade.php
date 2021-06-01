@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="{{asset('')}}">
     <link rel="stylesheet" href="{{asset('assets/css/changePass.css')}}">
-    <title>Document</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    <title>Đổi mật khẩu</title>
 </head>
 <body>
 

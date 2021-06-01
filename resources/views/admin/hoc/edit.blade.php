@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Chỉnh sửa phân công học tập @endsection
 @section('adminContent')
     @include('admin/hocsinh/tab')
 

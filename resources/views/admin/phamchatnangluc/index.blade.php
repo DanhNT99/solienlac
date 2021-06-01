@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Phầm chất năng lực @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
     <section class="adminList">

@@ -1,4 +1,5 @@
 @extends('admin/layouts/index')
+@section('title')Chỉnh sửa giáo viên @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
 

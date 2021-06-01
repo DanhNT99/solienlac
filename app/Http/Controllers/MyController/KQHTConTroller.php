@@ -13,6 +13,7 @@ use App\Models\NienKhoa;
 use App\Models\HocSinh;
 use App\Models\KetQuaHocTap;
 use App\Models\GiaoVien;
+use App\Models\LoaiHocKy;
 
 
 
@@ -41,7 +42,7 @@ class KQHTConTroller extends Controller
     {
         //
         $data['giaovien'] = GiaoVien::find(Auth::guard('giao_vien')->user()->id);
-        $data['nienkhoas'] = NienKhoa::get();
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->get()->first();
         $data['stt'] = 1;
         return view('admin.ketquahoctap.create',$data);
     }
@@ -65,17 +66,26 @@ class KQHTConTroller extends Controller
        if($validate->fails()) {
            return redirect()->back()->withErrors($validate);
        }
+       $choPhepNhapDiem = MonHoc::where('id', $request->monhoc)->value('ChoPhepNhapDiem');
+       $lhkc = count(LoaiHocKy::where('id', $request->LoaiHK)
+                                ->where('TenLoaiHK', 'like', 'cuoi%')->get());
        if(count($request->SoLienLac) > 0) {
            foreach($request->SoLienLac as $key => $item) {
-               if($request->MucDatDuoc[$key]) {
-                   $where = array(
+                 $where = array(
                        ['id_sll', '=', $item],
                        ['id_monhoc', '=', $request->monhoc],
                        ['id_loaihocky', '=', $request->LoaiHK]
                    );
-                   $checkKQHT =  KetQuaHocTap::where($where)->get();
-                   if(!count($checkKQHT) > 0) {
-                       $data = new KetQuaHocTap;
+               if($request->MucDatDuoc[$key]) {
+                   if( $choPhepNhapDiem  && $lhkc)
+                        if(!$request->Diem[$key])
+                            return redirect()->back()->withInput()->with('noti', 'Bạn chưa điền mức đạt được hay điểm');
+
+                   $checkKQHT =  KetQuaHocTap::where($where)->get()->toArray();
+                   if(count($checkKQHT) > 0) 
+                       $data =  KetQuaHocTap::where($where)->update(['MucDatDuoc' => $request->MucDatDuoc[$key], 'Diem' => $request->Diem[$key]]);
+                   else {
+                        $data = new KetQuaHocTap;
                        $data->id_sll = $item;
                        $data->id_monhoc = $request->monhoc;
                        $data->id_loaihocky = $request->LoaiHK;
@@ -83,13 +93,10 @@ class KQHTConTroller extends Controller
                        $data->Diem = $request->Diem[$key];
                        $checkAdd = $data->save();
                    }
-                   else {
-                       $data =  KetQuaHocTap::where($where)->update(['MucDatDuoc' => $request->MucDatDuoc[$key], 'Diem' => $request->Diem[$key]]);
-                   }
                }
-               return redirect('admin/ketquahoctap')->with('noti','Nhập điểm thành công');
            }
         }
+        return redirect('admin/ketquahoctap')->with('Lưu điểm thành công');
     }
 
     /**

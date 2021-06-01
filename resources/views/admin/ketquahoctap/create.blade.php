@@ -1,57 +1,66 @@
 @extends('admin/layouts/index')
+@section('title') Nhập điểm @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
-    
     <section class="adminAdd">
-        <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
-                Nhập điểm
+        <div class="container rounded">
+
+            <div class="adminBoxTitle">
+                <div class="yearOfCourse">Năm học: {{$nienkhoa->NamBatDau . '- ' . $nienkhoa->NamKetThuc}}</div>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
-            <div class="adminFormAddBox">
+            </div>
+
+            <div class="adminFormAddBox pt-0">
+                <div class="px-4 d-flex">
+                    <div class="mr-2 mx-0 btnClass">Lớp : {{$giaovien->Lop->first()->TenLop}}</div>
+                    <div class = "mx-0 btnClass d-flex">
+                        @foreach ($nienkhoa->HocKy as $item)
+                            @if ($item->TrangThai) 
+                                <div >{{$item->TenHK}}</div>
+                            @endif
+                        @endforeach
+                    </div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btnClass ml-auto mr-0" data-toggle="modal" data-target="#exampleModalCenter">
+                        Hướng dẫn <i class="far fa-comment-dots"></i>
+                      </button>
+                      
+                    
+                    <!-- Modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog justify-content-center modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header py-1 px-2">
+                            <p class="modal-title" id="exampleModalLongTitle">Hướng dẫn nhập điểm</p>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ol class = "ml-2">
+                                <li>Các môn học chỉ đánh giá bằng mức đạt được
+                                    <ol class="ml-2" type="a">
+                                        <li>Ở các lớp 1, 2, 3: Đạo đức, Thể dục, Tự nhiên và Xã hội, Nghệ thuật.</li>
+                                        <li>Ở các lớp 4, 5: Đạo đức, Thể dục, Âm nhạc, Mỹ thuật, Kỹ thuật.</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="modal-footer py-1">
+                            <button type="button" class="btn btn-secondary py-1 bg-dangrue" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
                 <form action="{{route('ketquahoctap.store')}}" method="post" class="adminFormAdd">
                     @csrf
 
-                    <table class="adminFormAddTable adminFormAddTableSmall" >
-                        <tr>
-                            <td class=""><p class="adminFormAddText z">Năm học</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="" class="formSelect formSelectSmall formInputMa">
-                                        @foreach ($nienkhoas as $item)
-                                            @if ($item->TrangThai)
-                                                <option selected  value="{{$item->id}}"> {{$item->NamBatDau . ' - ' . $item->NamKetThuc}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><p class="adminFormAddText">Học kỳ</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="" class="formSelect formSelectSmall formInputMa">
-                                        @foreach ($nienkhoas as $nienkhoa)
-                                            @foreach ($nienkhoa->HocKy as $item)
-                                                @if ($item->TrangThai)
-                                                    <option selected  value="{{$item->id}}"> {{$item->TenHK}}</option>
-                                                @endif
-                                            @endforeach
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                      
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
                     <table class="adminFormAddTable adminFormAddTableSmall">
-                        <tr>
+                        <tr class = "d-none">
                             <td><p class="adminFormAddText">Khối</p></td>
                             <td>
                                 <div class="formBoxSelect">
@@ -83,7 +92,8 @@
                                         <option selected disabled>Lựa chọn</option>
                                         @foreach ($giaovien->Lop as $lop)
                                             @foreach ($lop->Khoi->PhanMonHoc as $item)
-                                                <option value="{{$item->MonHoc->id}}">{{$item->MonHoc->TenMH}}</option>
+                                                <option @if ($item->MonHoc->id == old('monhoc')) selected
+                                                @endif value="{{$item->MonHoc->id}}">{{$item->MonHoc->TenMH}}</option>
                                             @endforeach
                                         @endforeach       
                                     </select>
@@ -98,15 +108,14 @@
                                 <div class="formBoxSelect">
                                     <select name="LoaiHK" id = "loaiHK" class="formSelect">
                                         <option selected disabled>Lựa chọn</option>
-                                        @foreach ($nienkhoas as $nienkhoa)
                                             @foreach ($nienkhoa->HocKy as $hocky)
                                                 @if ($hocky->TrangThai)
                                                     @foreach ($hocky->LoaiHocKy as $loaihk)
-                                                        <option value="{{$loaihk->id}}"> {{$loaihk->TenLoaiHK}}</option>
+                                                        <option @if ($loaihk->id == old('LoaiHK')) selected
+                                                            @endif value="{{$loaihk->id}}"> {{$loaihk->TenLoaiHK}}</option>
                                                     @endforeach
                                                 @endif
                                             @endforeach
-                                        @endforeach
                                     </select>
                                     <div class="formSelectIcon">
                                         <i class="fas fa-caret-down"></i>
@@ -126,19 +135,18 @@
                             <th>Mức đạt được</th>
                             <th>Điểm</th>
                         </tr>
-                         @foreach ($giaovien->Hoc as $item)
+                            @foreach ($giaovien->Hoc as $item)
                             <tr>
                                 <td>{{$stt++}}</td>
                                 <td><input type="text" class="d-none solienlac" name="SoLienLac[]" value = "{{$item->HocSinh->SoLienLac->id}}" >
                                     {{$item->HocSinh->HoHS . ' ' .$item->HocSinh->TenHS}}</td>
                                 <td>
-                                    <select name="MucDatDuoc[]" class="MucDatDuoc">
+                                    <select name="MucDatDuoc[]" class="MucDatDuoc text-center">
                                         <option selected value="" >Lựa chọn</option>
                                         <option value="T">T</option>
                                         <option value="H">H</option>
                                         <option value="C">C</option>
                                     </select>
-                                    {{-- <input type="text" name="MucDatDuoc[]" value = '' class="formInput MucDatDuoc"> --}}
                                 </td>
                                 <td>
                                     <input type="text" name="Diem[]"  class="formInput formInputMa Diem"></td>

@@ -1,7 +1,7 @@
 @extends('admin/layouts/index')
-
+@section('title') Thêm phầm chất năng lực @endsection
 @section('adminContent')
-    @include('admin/banhoc/tab')
+    @include('admin/layouts/tab')
     <section class="adminAdd">
         <div class="container">
             <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm phẩm chất năng lực
@@ -44,7 +44,7 @@
                     </div>
                     <div class="adminFormAddGroup">
                         <button type="submmit" class="adminFormAddBtn">Thêm</button>
-                        <a href = "admin/lop" class="adminFormAddLink">Quay lại</a>
+                        <a href = "admin/phamchatnangluc" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>
             </div>

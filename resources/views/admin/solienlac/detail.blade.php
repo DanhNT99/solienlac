@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Chỉnh sửa sổ liên lạc @endsection
 @section('adminContent')
     @include('admin/layouts/tab');
 
@@ -10,7 +10,7 @@
              <h3 class="adminBoxTitle"><i class="fas fa-address-book adminBoxTitleIcon"></i>Thông tin chi tiết học sinh
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </h3>
-            <form action="{{route('hocsinh.store')}}" method = "post" class="adminFormAdd">
+            <form class="adminFormAdd">
                 <div class="adminFormAddBox">
                     <div class="adminFormAddContains">
                         <div class="adminFormAddContainsImg wrapImgResize">
@@ -66,7 +66,8 @@
              <h3 class="adminBoxTitle"><i class="fas fa-book adminBoxTitleIcon"></i>Chi tiết sổ liên lạc
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </h3>
-            <form action="{{route('hocsinh.store')}}" method = "post" class="adminFormAdd">
+
+            <form class="adminFormAdd">
                 <div class="adminFormAddBox  px-5">
                     <h3 class="title_main">Kết quả học tập các môn học</h3>
 
@@ -85,15 +86,17 @@
 
                         </tr>
                     {{-- in ra các môn hoc --}}
-                        @foreach ($hocsinh->Hoc->Lop->Khoi->PhanMonHoc as $mh)
+                        @foreach ($monhoc as $mh)
                             <tr>
-                                <td>{{$mh->MonHoc->TenMH}}</td>
+                                <td>
+                                    {{$mh->TenMH}}
+                                </td>
                                 {{-- in ra điểm theo học kỳ --}}
                                 @foreach ($hocky->LoaiHocKy as $lhk)
                                     <td>
                                         {{-- in ra điểm --}}
                                         @foreach ($hocsinh->SoLienLac->KetQuaHocTap as $kqht)
-                                            @if ($kqht->id_loaihocky == $lhk->id && $mh->MonHoc->id == $kqht->id_monhoc)
+                                            @if ($kqht->id_loaihocky == $lhk->id && $mh->id == $kqht->id_monhoc)
                                                 @if ($kqht->MucDatDuoc)
                                                     {{$kqht->MucDatDuoc}}
                                                 @endif
@@ -102,7 +105,7 @@
                                     </td>
                                     <td>
                                         @foreach ($hocsinh->SoLienLac->KetQuaHocTap as $kqht)
-                                            @if ($kqht->id_loaihocky == $lhk->id && $mh->MonHoc->id == $kqht->id_monhoc)
+                                            @if ($kqht->id_loaihocky == $lhk->id && $mh->id == $kqht->id_monhoc)
                                                     {{$kqht->Diem}}
                                             @endif 
                                         @endforeach
@@ -174,9 +177,10 @@
            </h3>
            <form action="{{route('solienlac.update', '')}}/{{$hocsinh->id}}" method = "post" class="adminFormAdd">
             @method('PATCH') @csrf
+                <input type="text" name="IdKhoi" value = "{{$hocsinh->Hoc->Lop->Khoi->id}}" class="d-none">
                 <div class="adminFormAddBox px-5">
                     <h3 class="title_main text-left">Học lực của học sinh</h3>
-                    <textarea name="HocLuc" class="mx-auto textarea formInputMa p-2" id="" cols="100" rows="2" placeholder="">{{$hocsinh->SoLienLac->HocLuc}}</textarea>
+                    <textarea name="HocLuc" class="mx-auto textarea formInputMa p-2" id="" cols="100" rows="2" placeholder="">{{$text}}</textarea>
                 </div>
                <div class="adminFormAddBox px-5">
                    <h3 class="title_main text-left">Nhận xét của giáo viên</h3>

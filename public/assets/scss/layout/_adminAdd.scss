@@ -47,3 +47,7 @@
         background-color: $color3;
     }
 }
+
+.btnClass {
+    @include btnMain();
+}

@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title') Sổ liên lạc @endsection
 @section('adminContent')
     @include('admin/layouts/tab')
     <section class="adminForm">

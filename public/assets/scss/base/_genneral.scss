@@ -38,8 +38,10 @@
 body {
     background: $color3;
 }
-li {
-    list-style: none;
+ul {
+    li {
+        list-style: none;
+    }
 }
 ul, p {
     margin-bottom: 0px;

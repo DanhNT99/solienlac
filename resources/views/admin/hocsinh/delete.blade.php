@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title')Xóa học sinh @endsection
 @section('adminContent')
     @include('admin/hocsinh/tab')
 

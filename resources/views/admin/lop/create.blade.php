@@ -1,5 +1,5 @@
 @extends('admin/layouts/index')
-
+@section('title')Thêm lớp @endsection
 @section('adminContent')
     @include('admin/banhoc/tab')
     <section class="adminAdd">
