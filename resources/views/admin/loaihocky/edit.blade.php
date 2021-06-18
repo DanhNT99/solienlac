@@ -4,9 +4,11 @@
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>chỉnh sửa loại học kỳ
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon"></i>chỉnh sửa loại học kỳ</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+             </div>
+
             <div class="adminFormAddBox">
                 <form action="{{route('loaihocky.update', '')}}/ {{$loaihocky->id}}" method = "post" class="adminFormAdd" >
                    @method('PATCH') @csrf
@@ -42,7 +44,12 @@
                                 <td><input type="text" name="MaLoaiHK" value="{{$loaihocky->MaLoaiHK}}" class="formInput formInputMa codeTypeSemester">
                                 </td>
                                 <td><p class="adminFormAddText">Tên loại học kỳ</p></td>
-                                <td><input type="text" name="TenLoaiHK"  value = "{{$loaihocky->TenLoaiHK}}"class="formInput"></td>
+                                <td>
+                                    <input type="text" name="TenLoaiHK"  value = "{{$loaihocky->TenLoaiHK}}"class="formInput">
+                                    @if ($errors->has('TenLoaiHK')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('TenLoaiHK')}}</div>
+                                    @endif
+                                </td>
                             </tr>
                         </table>
                     </div>

@@ -108,12 +108,21 @@ class HocKyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //VALIDATE INPUT AND NOTIFICATION
+        $validate = Validator::make($request->all(),
+            ['TenHK' => 'required'],
+            ['required' => ":attribute không được để trống"],
+            ['TenHK' =>'Tên học kỳ']);
+
+        if($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate);
+        }
+    //END
         if($request->TrangThai) {
             $data = Hocky::where('TrangThai', 1)->update(['TrangThai' => 0]);
         }
         
-        $updateSemester= HocKy::where('id', $id)->update(['TenHK' => $request->TenHK, 'TrangThai' => $request->TrangThai,
+        $updateSemester= HocKy::where('id', $id)->update(['TenHK' => ucfirst($request->TenHK), 'TrangThai' => $request->TrangThai,
                                                         'id_nienkhoa' => $request->nienkhoa]);
         if($updateSemester)
             return redirect('admin/hocky')->with('noti', 'Chỉnh sửa  thành công');

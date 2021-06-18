@@ -17,7 +17,14 @@ class Khoi extends Model
     public function Hoc() {
         return $this->hasManyThrough(Hoc::class, Lop::class, 'id_khoi','id_lop', 'id');
     }
+
+    public function MonHoc () {
+        return $this->hasMany(PhanMonHoc::class, 'id_khoi', 'id')
+                ->join('monhoc', 'monhoc.id','phanmonhoc.id_monhoc')->select('monhoc.*')
+                ->orderBy('ChoPhepNhapDiem', 'desc');
+    }
+
     public function PhanMonHoc () {
-        return $this->hasMany(PhanMonHOc::class, 'id_khoi', 'id');
+        return $this->hasMany(PhanMonHoc::class, 'id_khoi', 'id');
     }
 }

@@ -17,7 +17,7 @@ class MonHocController extends Controller
     public function index()
     {
         //
-        $data['monhoc'] = MonHoc::orderBy('TenMH', 'asc')->paginate(5);
+        $data['monhoc'] = MonHoc::orderBy('ChoPhepNhapDiem', 'asc')->paginate(10);
         $data['stt'] = $data['monhoc']->firstItem();
         return view ('admin.monhoc.index', $data);
     }
@@ -130,11 +130,6 @@ class MonHocController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function delete($id) {
-        $data['monhoc'] = MonHoc::find($id);
-        return view('admin.monhoc.delete', $data);
-    }
 
     public function destroy($id)
     {

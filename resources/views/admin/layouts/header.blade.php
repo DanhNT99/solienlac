@@ -27,17 +27,24 @@
                         <div class = "header_userName">
                              <i class="fas fa-user-circle header_userIcon"></i> 
                                 @if(Auth::guard('giao_vien')->user())     
-                                    {{Auth::guard('giao_vien')->user()->SoDT}}
+                                    {{Auth::guard('giao_vien')->user()->HoGV. ' ' . Auth::guard('giao_vien')->user()->TenGV}}
                                 @else 
                                     @if(Auth::guard('phu_huynh')->user())
-                                       {{Auth::guard('phu_huynh')->user()->SoDT}}
+                                       {{Auth::guard('phu_huynh')->user()->HoTenPH}}
                                     @endif
                                 @endif
+     
 
                              <div class="header_containsFormLogout">
                                 <a href="changePass/index" class = "header_changePasss">
                                     <i class="fas fa-key header_userDropIcon"></i> Đổi mật khẩu
                                 </a>
+                                {{-- @if(Auth::guard('giao_vien')->user())     
+                                    <a href="admin/giaovien/{{Auth::guard('giao_vien')->user()->id}}" class="header_changePasss">
+                                        <i class="fas fa-user header_userDropIcon"></i> Xem thông tin
+                                    </a>
+                                @endif --}}
+
                                 <form action = "{{route('handleLogout')}}" class="header_formLogout" method ="post">
                                     @csrf
                                     <button class = "header_formLogoutBtn">
@@ -47,9 +54,7 @@
                             </div>
                         </div>
                     {{-- @endif --}}
-
                 </div>
-
             </div>
         </div>
     </div>

@@ -5,41 +5,13 @@
     @include('admin/giaovien/tab')
     <section class="adminForm">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus"></i>
-                Tìm kiếm thông tin giáo viên
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-search-plus"></i> Tìm kiếm thông tin giáo viên</h6>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
             <div class="adminContainsFormSearch">
                 <form action="{{route('searchTeach')}}" class="adminFormSearch">
                     <table class="adminFormSeachTable">
-                        <tr>
-                            {{-- <td><p class="adminFormSearchText">Lớp</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="Lop" id="" class="formSelect">
-                                        <option selected disabled>Tất cả</option>
-                                        @foreach ($lop as $item)
-                                             <option value="{{$item->id}}">{{$item->TenLop}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td> --}}
-                            {{-- <td><p class="adminFormSearchText">Giới Tính</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="GioiTinh" id="" class="formSelect">
-                                        <option selected disabled>Tất cả</option>
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nu">Nữ</option>
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td> --}}
-                        </tr>
                         <tr>
                             <td><p class="adminFormSearchText">Mã Giáo viên</p></td>
                             <td>                 
@@ -89,7 +61,15 @@
     <section class="adminList">
         <div class="container">
             <h3 class="adminListTitle">Danh sách giáo viên</h3>
+           
             <div class="adminActive">
+                <form action="{{route('importExcel')}}" class="formImportExcel d-none" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <input type="file" name="fileExcel"  class="form-control formImprotExcel">
+                    </div>
+                </form>
+                 <button type="submit" class="btnFormExcel adminActiveItem border-0">Nhâp Excel</button>
                 <a href="admin/giaovien/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Thêm</a>
             </div>
             <table class="adminTable" border="1">

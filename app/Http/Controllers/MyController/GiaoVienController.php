@@ -4,14 +4,14 @@ namespace App\Http\Controllers\MyController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator, DB;
+use Validator, DB, Excel;
 use App\Models\GiaoVien;
 use App\Models\Lop;
 use App\Models\Phuong;
 use App\Models\Tinh;
 use App\Models\HocSinh;
 use App\Models\PhuHuynh;
-
+use App\Imports\ImportTeach;
 class GiaoVienController extends Controller
 {
     /**
@@ -24,9 +24,14 @@ class GiaoVienController extends Controller
     {
         $data['phuong'] = Phuong::get();
         $data['lop'] = Lop::orderBy('TenLop','asc')->get();
-        $data['giaovien'] = GiaoVien::orderBy('TenGV','asc')->paginate(5);
+        $data['giaovien'] = GiaoVien::orderBy('TenGV','asc')->paginate(10);
         $data['stt'] = $data['giaovien']->firstItem();
         return view('admin.giaovien.index', $data);
+    }
+    
+    public function importExcel(Request $request) {
+        Excel::import(new ImportTeach, $request->fileExcel);
+        return redirect('admin/giaovien')->with('noti', 'Thêm giao viên thành công');
     }
 
     /**
@@ -37,20 +42,14 @@ class GiaoVienController extends Controller
     public function create()
     {
         $dem = GiaoVien::count();
-        if($dem == 0) {
-            $currentMaGV = 'GV00';
-        }
-        else {
-            $currentMaGV =  GiaoVien::max('MaGV');
-        }
+        if($dem == 0) $currentMaGV = 'GV00';
+        else $currentMaGV =  GiaoVien::max('MaGV');
         $array_id = explode('V',$currentMaGV);
-        $array_id[0] .="V";
+        $array_id[0] .= "V";
         $array_id[1] = intval($array_id[1]) + 1;
-        if($array_id[1] < 10) {
-            $array_id[1] = "0" . $array_id[1];
-        }
+        if($array_id[1] < 10) $array_id[1] = "0" . $array_id[1];
         $data['text_id'] = implode('', $array_id);
-
+        
         $data['tinh'] = Tinh::get();
         $data['phuong'] = Phuong::orderBy('TenPhuong', 'asc')->get();
         return view('admin.giaovien.create', $data);
@@ -107,7 +106,6 @@ class GiaoVienController extends Controller
         $data->password = bcrypt($request->MatKhau);
         $data->Hinh = $nameImg; $data->id_phuong = $request->Phuong;
         $check = $data->save();
-        echo $check;
         if($check) {
             return redirect('admin/giaovien')->with('noti', 'Thêm giao viên thành công');
         }
@@ -155,27 +153,48 @@ class GiaoVienController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+    //VALIDATE INPUT 
+        $validate = Validator::make($request->all(),
+        [   'HoGV' => 'required', 'TenGV' => 'required', 
+            'Hinh' => 'image', 'DiaChi' => 'required', 
+            'SoDT' => 'required|min:10|max:11'
+        ],[
+            'required' => ":attribute không được để trống",
+            'file' => "Bạn chưa chọn file",
+            'image' => 'File tải lên phải là file hình',
+            'min' => ':attribute tổi thiểu phải từ :min chữ số',
+            'max' => ':attribute phải tối đa :max',
+            'integer' =>'là số',
+        ],[
+            'HoGV' => 'Họ','TenGV' => 'Tên', 'Hinh' => 'Hình ảnh',
+            'DiaChi' => 'Địa chỉ', 'SoDT' => 'Số điện thoại'
+        ]);
+
+        if($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate);
+        }
        
-        //GET NAME IMAGE AND UPLOAD UP FOLDER
-            $file = $request->file('Hinh');
-            if($file) {
-                $nameImg = $file->getClientOriginalName('Hinh');
-                $file->move(
-                    'assets/images', // FOLDER NEED SAVE
-                    $nameImg // NAME NEED SAVE
-                );
-            }
-            else {
-                $nameImg = GiaoVien::find($id)->toArray()['Hinh'];
-            }
+    //GET NAME IMAGE AND UPLOAD UP FOLDER
+        $file = $request->file('Hinh');
+        if($file) {
+            $nameImg = $file->getClientOriginalName('Hinh');
+            $file->move(
+                'assets/images', // FOLDER NEED SAVE
+                $nameImg // NAME NEED SAVE
+            );
+        }
+        else {
+            $nameImg = GiaoVien::find($id)->toArray()['Hinh'];
+        }
             
-        //GET INFOR FROM INPUT
-            $infor = [
-                'HoGV' => $request->HoGV,'TenGV' =>$request->TenGV,
-                'GioiTinh' => $request->GioiTinh,'NgaySinh' => $request->NgaySinh,
-                'DiaChi' => $request->DiaChi,'id_phuong' => $request->Phuong,
-                'Hinh' => $nameImg,'SoDT' => $request->SoDT
-            ];
+    //GET INFOR FROM INPUT
+        $infor = [
+            'HoGV' => $request->HoGV,'TenGV' =>$request->TenGV,
+            'GioiTinh' => $request->GioiTinh,'NgaySinh' => $request->NgaySinh,
+            'DiaChi' => $request->DiaChi,'id_phuong' => $request->Phuong,
+            'Hinh' => $nameImg,'SoDT' => $request->SoDT
+        ];
 
         //UPDATE TEACH
             $updateTeach  = GiaoVien::where('id', $id)->update($infor);

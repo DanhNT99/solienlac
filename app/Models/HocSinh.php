@@ -11,7 +11,7 @@ class HocSinh extends Model
     protected $table = "hocsinh";
 
     public function Hoc() {
-        return $this->hasOne(Hoc::class, 'id_hocsinh','id');
+        return $this->hasMany(Hoc::class, 'id_hocsinh','id');
     }
 
     public function ChiTietGiaDinh() {
@@ -19,7 +19,7 @@ class HocSinh extends Model
     }
 
     public function SoLienLac() {
-        return $this->hasOne(SoLienLac::class, 'id_hocsinh', 'id');
+        return $this->hasMany(SoLienLac::class, 'id_hocsinh', 'id');
     }
 
     public function Phuong() {

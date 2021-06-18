@@ -5,7 +5,7 @@ namespace App\Http\Controllers\MyController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-use Auth;
+use Auth, DB;
 use App\Models\Khoi;
 use App\Models\Lop;
 use App\Models\MonHoc;
@@ -29,8 +29,9 @@ class KQHTConTroller extends Controller
         //
         $data['ketquahoctap'] = KetQuaHocTap::orderBy('id_monhoc','desc')->get();
         $data['giaovien'] = GiaoVien::find(Auth::guard('giao_vien')->user()->id);
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->get()->first();
         $data['stt'] = 1;
-        return view('admin.ketquahoctap.index', $data);
+        return view('admin.ketquahoctap.index', $data)->with('danh', 'ketquahoctap');
     }
 
     /**
@@ -142,6 +143,20 @@ class KQHTConTroller extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSearch($idSubject) {
+        $data['giaovien'] = GiaoVien::find(Auth::guard('giao_vien')->user()->id);
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->get()->first();
+        $data['idSubject'] = $idSubject;
+        $data['stt'] = 1;
+        $idClass =  $data['giaovien']->Lop->toArray()['id'];
+        $where = [['id_monhoc','=',$idSubject], ['id_lop','=', $idClass],['solienlac.id_nienkhoa', '=', $data['nienkhoa']->id]];
+        $data['kqht'] = DB::table('ketquahoctap')->join('solienlac', 'ketquahoctap.id_sll', 'solienlac.id')
+        ->join('hocsinh', 'hocsinh.id', 'solienlac.id_hocsinh')
+        ->join('hoc', 'hocsinh.id', 'hoc.id_hocsinh')
+        ->join('lop', 'lop.id', 'hoc.id_lop')->where($where)->orderBy('TenHS', 'asc')->select('ketquahoctap.*')->get();
+        return view('admin.ketquahoctap.search', $data);
     }
 
 

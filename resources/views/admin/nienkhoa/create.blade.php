@@ -4,9 +4,10 @@
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm niên khóa
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-2"></i>Thêm niên khóa</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+             </div>
             <div class="adminFormAddBox">
                 <form action="{{route('nienkhoa.store')}}" method = "post" class="adminFormAdd" >
                     @csrf
@@ -20,8 +21,8 @@
                                     <div class="formBoxSelect">
                                         <select name="TrangThai" class="formSelect">
                                             <option selected disabled>Lựa chọn</option>
-                                            <option  value="1">Hiện tại</option>
-                                            <option  value="0">Bỏ trống</option>
+                                            <option value="1">Hiện tại</option>
+                                            <option value="0">Bỏ trống</option>
                                         </select>
                                         <div class="formSelectIcon"> <i class="fas fa-caret-down"></i></div>
                                     </div>
@@ -33,14 +34,14 @@
                             <tr>
                                 <td><p class="adminFormAddText">Năm bất đầu</p></td>
                                 <td>
-                                    <input type="text" name="NamBatDau" class="formInput capitalize" placeholder="Năm bất đầu">
+                                    <input type="text" name="NamBatDau" value = "{{old('NamBatDau')}}" class="formInput" placeholder="Năm bất đầu">
                                     @if ($errors->has('NamBatDau')) 
                                         <div class="notiFail" role="alert"> {{$errors->first('NamBatDau')}} </div>
                                     @endif
                                 </td>
                                  <td><p class="adminFormAddText">Năm kết thúc</p></td>
                                 <td>
-                                    <input type="text" name="NamKetThuc" class="formInput capitalize" placeholder="Năm kết thúc">
+                                    <input type="text" name="NamKetThuc" value = "{{old('NamKetThuc')}}" class="formInput" placeholder="Năm kết thúc">
                                     @if ($errors->has('NamKetThuc')) 
                                         <div class="notiFail" role="alert"> {{$errors->first('NamKetThuc')}} </div>
                                     @endif

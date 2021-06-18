@@ -18,7 +18,7 @@ class Nhapdiemgiuaky extends Migration
             $table->bigIncrements('id');
             $table->string('MaND', 10)->unique();
             $table->bigInteger('id_khoi');
-            $table->bigInteger('id_monhoc';
+            $table->bigInteger('id_monhoc');
             $table->timestamps();
         });
     }

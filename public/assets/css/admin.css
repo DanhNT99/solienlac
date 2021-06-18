@@ -15203,9 +15203,9 @@ a.text-dark:focus, a.text-dark:hover {
   right: 0px;
   transform: translateY(50px);
   background: #ffffff;
-  width: 150px;
   box-shadow: 0px 2px 5px 0px rgba(20, 20, 20, 0.5);
   opacity: 0;
+  width: 170px;
   pointer-events: none;
   transition: 0.5s;
   -webkit-transition: 0.5s;
@@ -15323,7 +15323,12 @@ a.text-dark:focus, a.text-dark:hover {
 .adminBoxTitle .adminBoxTitleIcon {
   color: #f4f2ec;
   font-size: 20px;
-  margin-right: 5px;
+}
+
+.adminBoxTitle .amdinBoxTitleLink {
+  text-decoration: none;
+  font-size: 16px;
+  color: #ffffff;
 }
 
 .adminBoxTitle .yearOfCourse {
@@ -15627,8 +15632,34 @@ ul, p {
   margin-right: 10px;
 }
 
-body {
-  background: #f4f2ec;
+.boxLoad {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.boxLoad #spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid rgba(14, 55, 70, 0.7);
+  border-right: 5px solid #be2623;
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .adminActive {
@@ -15789,6 +15820,78 @@ body {
   pointer-events: none;
 }
 
+.boxSubject {
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
+  background-color: #6fc7e1;
+  cursor: pointer;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  transform: scale(1);
+}
+
+.boxSubject.boxSubjectActive {
+  background-color: #0e3746;
+  animation: bigbox 0.5s forwards ease-in-out;
+}
+
+@keyframes bigbox {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btnSubject {
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
+  background-color: #6fc7e1;
+  cursor: pointer;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  transform: scale(1);
+}
+
+.btnSubject.boxSubjectActive {
+  background-color: #0e3746;
+  animation: bigbox 0.5s forwards ease-in-out;
+}
+
+@keyframes bigbox {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .adminFormAddContains {
   display: flex;
   align-items: center;
@@ -15885,9 +15988,49 @@ body {
 .modalBtn {
   background: #be2623;
   color: #ffffff;
+  text-decoration: none;
+}
+
+.modalBtn:hover {
+  text-decoration: none;
+  color: #ffffff;
 }
 
 .modelQuestion {
   color: #be2623;
+}
+
+@media print {
+  .header {
+    display: none;
+  }
+  .adminContent {
+    display: none;
+  }
+  .container .adminFormAddBox {
+    padding: 0;
+  }
+  .container .adminBoxTitle {
+    display: none;
+  }
+  .container .formInput {
+    width: 200px;
+  }
+  .container .title_main {
+    margin-top: 10px;
+  }
+  .container .modalBtn {
+    display: none;
+  }
+  .container .adminFormAddText {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .container .adminTable tr td th {
+    border: 2px solid #6fc7e1;
+  }
+  .container tr th {
+    color: #0e3746;
+  }
 }
 /*# sourceMappingURL=admin.css.map */

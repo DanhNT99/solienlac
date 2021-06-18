@@ -17,7 +17,10 @@ class Hoc extends Model
     public function Lop() {
         return $this->belongsTo(Lop::class, 'id_lop', 'id');
     }
-
+    public function Khoi() {
+        return $this->belongsTo(Lop::class, 'id_lop', 'id')
+                    ->join('khoi', 'khoi.id','lop.id_khoi')->select('khoi.*');
+    }
     public function NienKhoa() {
         return $this->belongsTo(NienKhoa::class, 'id_nienkhoa', 'id');
     }

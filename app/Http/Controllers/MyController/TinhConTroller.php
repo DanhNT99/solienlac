@@ -124,5 +124,12 @@ class TinhConTroller extends Controller
     public function destroy($id)
     {
         //
+        $checkDelete = Tinh::find($id)->delete();
+        if($checkDelete) {
+            return redirect('admin/tinh')->with('noti', 'Xóa Tỉnh thành công');
+        }
+        else {
+            return redirect('admin/tinh')->with('noti', 'Xóa Tỉnh thất bại');
+        }
     }
 }

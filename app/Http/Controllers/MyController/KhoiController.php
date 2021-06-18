@@ -55,10 +55,10 @@ class KhoiController extends Controller
         //
 
         $validate = Validator::make($request->all(),
-            ['TenKhoi' => 'required|unique:khoi', 'DuocPhep' => 'required'],
+            ['TenKhoi' => 'required|unique:khoi'],
             ['required' => ":attribute không được để trống",
             'unique' => ':attribute đã tồn tại'],
-            ['TenKhoi' =>'Tên khôi', 'DuocPhep' => 'Được phép']);
+            ['TenKhoi' =>'Tên khôi']);
         
         if($validate->fails()) {
             return redirect()->back()->withErrors($validate);
@@ -67,7 +67,6 @@ class KhoiController extends Controller
         $data = new Khoi;
         $data->MaKhoi = $request->MaKhoi;
         $data->TenKhoi = $request->TenKhoi;
-        $data->DuocPhep = $request->DuocPhep;
         $check = $data->save();
         if($check) {
             return redirect('admin/khoi')->with('noti', 'Thêm khối thành công');
@@ -112,15 +111,15 @@ class KhoiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $validate = Validator::make($request->all(),
-        //     ['TenKhoi' => 'required|unique:khoi'],
-        //     ['unique' => ':attribute đã tồn tại'],
-        //     ['TenKhoi' =>'Tên khôi']);
+        $validate = Validator::make($request->all(),
+            ['TenKhoi' => 'required'],
+            ['required' => ':attribute không được để trống'],
+            ['TenKhoi' =>'Tên khôi']);
         
-        // if($validate->fails()) {
-        //     return redirect()->back()->withErrors($validate);
-        // }
-        $updateGrade  = Khoi::where('id', $id)->update(['TenKhoi' => $request->TenKhoi, 'DuocPhep' => $request->DuocPhep]);
+        if($validate->fails()) {
+            return redirect()->back()->withErrors($validate);
+        }
+        $updateGrade  = Khoi::where('id', $id)->update(['TenKhoi' => $request->TenKhoi]);
 
         //CHECK UPDATE AND NOTIFINECAITON
             if($updateGrade)

@@ -6,9 +6,10 @@
     <section class="adminAdd">
 
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thông tin chi tiết giáo viên
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửa giáo viên</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <form action="{{route('giaovien.update','')}}/{{$giaovien->id}}" method = "post" enctype="multipart/form-data" class="adminFormAdd">
                 @method('PATCH')   @csrf
                 <div class="adminFormAddBox">
@@ -20,19 +21,32 @@
                             <div class="adminFormAddContainsIcon">
                                 <p><i class="fas fa-camera-retro"></i> Tải hình</p>
                             </div>
+                            @if ($errors->has('Hinh')) 
+                                <div class="notiFail" role="alert">{{$errors->first('Hinh')}}</div>
+                            @endif
                         </div>
                         <input type="file" name = "Hinh" class="adminFormAddFileImg">
                         
                         <table class="adminFormAddTable">
                             <tr>
                                 <td><p class="adminFormAddText">Mã giáo viên</p></td>
-                                <td> <input type="text" name="MaGV" value = "{{$giaovien->MaGV}}" class="formInput formInputMa"></td>
+                                <td><input type="text" name="MaGV" value = "{{$giaovien->MaGV}}" class="formInput formInputMa"> </td>
                                 <td><p class="adminFormAddText">Họ giáo viên </p></td>
-                                <td><input type="text" name="HoGV" value = "{{$giaovien->HoGV}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="HoGV" value = "{{$giaovien->HoGV}}" class="formInput capitalize">
+                                    @if ($errors->has('HoGV')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('HoGV')}}</div>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Tên giáo viên </p></td>
-                                <td><input type="text" name="TenGV" value = "{{$giaovien->TenGV}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="TenGV" value = "{{$giaovien->TenGV}}" class="formInput capitalize">
+                                    @if ($errors->has('TenGV')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('TenGV')}}</div>
+                                    @endif
+                                </td>
                                 <td><p class="adminFormAddText">Giới tính</p></td>
                                 <td>
                                     <div class="formBoxSelect">
@@ -48,7 +62,12 @@
                                 <td><p class="adminFormAddText">Ngày sinh</p></td>
                                 <td><input type="date" name="NgaySinh" value = "{{$giaovien->NgaySinh}}" class="formInput "></td>
                                 <td><p class="adminFormAddText">Địa chỉ</p></td>
-                                <td><input type="text" name="DiaChi" value = "{{$giaovien->DiaChi}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="DiaChi" value = "{{$giaovien->DiaChi}}" class="formInput capitalize">
+                                    @if ($errors->has('DiaChi')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('DiaChi')}}</div>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Phường</p></td>
@@ -62,16 +81,18 @@
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
-                                    @if ($errors->has('Phuong')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('Phuong')}}</div>
-                                    @endif
                                 </td>
                                 <td><p class="adminFormAddText">Tỉnh</p></td>
                                 <td><input type="text" value = "{{$giaovien->Phuong->Tinh->TenTinh}}" class="formInput"></td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Số điện thoại</p></td>
-                                <td><input type="text" name="SoDT" value = "{{$giaovien->SoDT}}" class="formInput"></td>
+                                <td>
+                                    <input type="text" name="SoDT" value = "{{$giaovien->SoDT}}" class="formInput">
+                                    @if ($errors->has('SoDT')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('SoDT')}}</div>
+                                    @endif
+                                </td>
                             </tr>
                         </table>
                     </div>

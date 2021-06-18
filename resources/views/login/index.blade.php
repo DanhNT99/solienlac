@@ -87,7 +87,6 @@
             </div>
         </div>
     </section>
-
     <script src="{{asset('assets/js/script.js')}}"></script>
     <script src="{{asset('assets/js/login.js')}}"></script>
 </body>

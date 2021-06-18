@@ -16,10 +16,12 @@ class Solienlac extends Migration
         Schema::create('solienlac', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('MaSLL', 10)->unique();
-            $table->longtext('HocLuc', 200)->nullable();
-            $table->longtext('NhanXet', 200)->nullable();
+            // $table->longtext('HocLuc', 200)->nullable();
+            // $table->longtext('NhanXet', 200)->nullable();
             $table->bigInteger('id_hocsinh')->unsigned()->nullable();
             $table->foreign('id_hocsinh')->references('id')->on('hocsinh')->onDelete('cascade');
+            $table->bigInteger('id_nienkhoa')->unsigned()->nullable();
+            $table->foreign('id_nienkhoa')->references('id')->on('nienkhoa')->onDelete('cascade');
             $table->timestamps();
         });
     }

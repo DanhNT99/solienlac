@@ -4,9 +4,10 @@
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm loại học kỳ
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-2"></i>Thêm loại học kỳ </h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+             </div>
             <div class="adminFormAddBox">
                 <form action="{{route('loaihocky.store')}}" method = "post" class="adminFormAdd" >
                     @csrf

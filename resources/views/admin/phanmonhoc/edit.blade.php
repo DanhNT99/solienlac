@@ -1,12 +1,13 @@
 @extends('admin/layouts/index')
 @section('title') Chỉnh sửa phân môn học @endsection
 @section('adminContent')
-    @include('admin/banhoc/tab')
+    @include('admin/khoi/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Phân công môn học
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửa phân môn học</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('phanmonhoc.update', '')}}/{{$phanmonhoc->id}}" method = "post" class="adminFormAdd" >
                     @method('PATCH') @csrf

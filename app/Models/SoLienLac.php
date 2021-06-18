@@ -14,12 +14,20 @@ class SoLienLac extends Model
         return $this->belongsTo(HocSinh::class, 'id_hocsinh', 'id');
     }
 
+    public function NienKhoa() {
+        return $this->belongsTo(NienKhoa::class, 'id_nienkhoa', 'id');
+    }
+
     public function KetQuaHocTap() {
         return $this->hasMany(KetQuaHocTap::class, 'id_sll', 'id');
     }
 
     public function KetQuaRenLuyen() {
         return $this->hasMany(KetQuaRenLuyen::class, 'id_sll', 'id');
+    }
+
+    public function NhanXet() {
+        return $this->hasMany(NhanXet::class, 'id_sll', 'id');
     }
     
 }

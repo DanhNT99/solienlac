@@ -1,8 +1,10 @@
 <section class="adminTab">
     <div class="container">
-        <h3 class="adminBoxTitle">
-            <a href = "admin/index"><i class="fas fa-house-user adminBoxTitleIcon"></i> Hệ thống</a>
-            <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+        <div class="adminBoxTitle py-1 px-2">
+            <h6 class = "m-0"><a href = "admin/index" class="amdinBoxTitleLink">
+                <i class="fas fa-house-user adminBoxTitleIcon mr-1"></i>Trang chủ</a></h6>
+            <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+        </div>
         <div class="row adminMainTab">
             <div class="adminTabItem">
                 <a href="admin/hocsinh" class="adminTabItemLink py-2 px-2">

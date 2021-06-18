@@ -54,9 +54,31 @@
     }
 }
 
-// .adminContent {
-//     margin-bottom: 100px;
-// }
-body {
-    background: $color3;
+.boxLoad {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: $color5;
+        #spinner {
+        width: 40px;
+        height: 40px;
+        border: 5px solid rgba($color: $color1, $alpha: 0.7);
+        border-right: 5px solid $color4;
+        border-radius: 50%;
+        animation: spinner 1s linear infinite;
+        }
+}
+
+
+@keyframes spinner {
+    from {
+      transform: rotate(0deg);
+    } to {
+      transform: rotate(360deg);
+    }
 }

@@ -7,9 +7,11 @@
         {{-- detail student --}}
         <div class="container">
             <h3 class="adminListTitle">Chi tiết Sổ liên lạc học sinh</h3>
-             <h3 class="adminBoxTitle"><i class="fas fa-address-book adminBoxTitleIcon"></i>Thông tin chi tiết học sinh
+            
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-user adminBoxTitleIcon mr-1"></i>Thông tin chi tiết học sinh</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <form class="adminFormAdd">
                 <div class="adminFormAddBox">
                     <div class="adminFormAddContains">
@@ -20,12 +22,12 @@
                         </div>
                         
                         <table class="adminFormAddTable">
-                            <tr>
+                            {{-- <tr>
                                 <td><p class="adminFormAddText">Khối</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Hoc->Lop->Khoi->TenKhoi}}" class="formInput formInputMa"></td>
+                                <td><input type="text" value = "{{$hocsinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->Lop->Khoi->TenKhoi}}" class="formInput formInputMa"></td>
                                 <td><p class="adminFormAddText">Lớp</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Hoc->Lop->TenLop}}" class="formInput formInputMa"></td>
-                            </tr>
+                                <td><input type="text" value = "{{$hocsinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->Lop->TenLop}}" class="formInput formInputMa"></td>
+                            </tr> --}}
                             <tr>
                                 <td><p class="adminFormAddText">Mã học sinh</p></td>
                                 <td> <input type="text" value = "{{$hocsinh->MaHS}}" class="formInput formInputMa"></td>
@@ -63,135 +65,131 @@
 
         {{-- detail result study of student --}}
         <div class="container">
-             <h3 class="adminBoxTitle"><i class="fas fa-book adminBoxTitleIcon"></i>Chi tiết sổ liên lạc
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-book adminBoxTitleIcon mr-1"></i>Kết quả học tập</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
-
+            </div>
+            @foreach ($hocsinh->SoLienLac as $sll)
             <form class="adminFormAdd">
                 <div class="adminFormAddBox  px-5">
-                    <h3 class="title_main">Kết quả học tập các môn học</h3>
-
-                    <table  class="adminTable">
-                        <tr>
-                            <th rowspan="2">Môn học</th>
-                             @foreach ($hocky->LoaiHocKy as $lhk)
-                                <th colspan="2">{{$lhk->TenLoaiHK}}</option>
-                            @endforeach
-                        </tr>
-                        <tr>
-                            @foreach ($hocky->LoaiHocKy as $lhk)
+                    @foreach ($sll->NienKhoa->HocKy as $hk)
+                        <span class="mr-2 mx-0 btnClass mt-0" style="font-size: 14px">
+                            Niên khóa : {{$sll->NienKhoa->NamBatDau . ' - ' . $sll->NienKhoa->NamKetThuc}}
+                            <span class="mx-1">|</span>
+                            {{$hk->TenHK}}
+                        </span>
+                        <h3 class="title_main mt-0" style="font-size: 20px">Kết quả học tập các môn học</h3>
+                        <table  class="adminTable mb-2">
+                            <tr>
+                                <th rowspan="2">Môn học</th>
+                                @foreach ($hk->LoaiHocKy as $lhk)
+                                    <th colspan="2">{{$lhk->TenLoaiHK}}</option>
+                                @endforeach
+                            </tr>
+                            <tr>
+                            @foreach ($hk->LoaiHocKY as $lhk)
                                 <th>Mức đạt được</th>
                                 <th>Điểm KTHK</th>
                             @endforeach
-
-                        </tr>
-                    {{-- in ra các môn hoc --}}
-                        @foreach ($monhoc as $mh)
-                            <tr>
-                                <td>
-                                    {{$mh->TenMH}}
-                                </td>
-                                {{-- in ra điểm theo học kỳ --}}
-                                @foreach ($hocky->LoaiHocKy as $lhk)
-                                    <td>
-                                        {{-- in ra điểm --}}
-                                        @foreach ($hocsinh->SoLienLac->KetQuaHocTap as $kqht)
-                                            @if ($kqht->id_loaihocky == $lhk->id && $mh->id == $kqht->id_monhoc)
-                                                @if ($kqht->MucDatDuoc)
-                                                    {{$kqht->MucDatDuoc}}
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @foreach ($hocsinh->SoLienLac->KetQuaHocTap as $kqht)
-                                            @if ($kqht->id_loaihocky == $lhk->id && $mh->id == $kqht->id_monhoc)
-                                                    {{$kqht->Diem}}
-                                            @endif 
-                                        @endforeach
-                                    </td>
-                                @endforeach
                             </tr>
-                            @endforeach
-                    </table>
-
-                    <h3 class="title_main mt-5">Kết quả rèn luyện</h3>
-
-                    <table class="adminTable">
-                        <tr>
-                            <th colspan="2">Nội dung</th>
-                             @foreach ($hocky->LoaiHocKy as $item)
-                                <th>{{$item->TenLoaiHK}}</option>
-                            @endforeach
-                        </tr>
-        
-                    {{-- in ra các môn hoc --}}
-                        <tr>
-                            <td rowspan="{{$countNL + 1 }}">Năng lực</td>
-                        </tr>
-                        @foreach ($listPCNL as $pcnl)
-                            @if ($pcnl->LoaiPCNL == 1)
-                            <tr>
-                                <td>{{$pcnl->TenPCNL}}</td>
-                                @foreach ($hocky->LoaiHocKy as $lhk)
-                                    <td>
-                                        {{-- in ra rating by semester --}}
-                                        @foreach ($hocsinh->SoLienLac->KetQuaRenLuyen as $kqrl)
-                                            @if ($kqrl->id_loaihocky == $lhk->id && $pcnl->id == $kqrl->id_pcnl)
-                                                @if ($kqrl->XepLoai)  {{$kqrl->XepLoai}} @endif
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                @endforeach
-                            </tr>
-                            @endif
-                        @endforeach
-                        <tr>
-                            <td rowspan="{{$countPC + 1 }}">Phẩm chất</td>
-                        </tr>
-                        @foreach ($listPCNL as $pcnl)
-                            @if ($pcnl->LoaiPCNL == 2)
+                            @foreach ($hocsinh->Hoc->where('id_nienkhoa', $sll->NienKhoa->id)->first()->Lop->Khoi->MonHoc as $mh)
                                 <tr>
-                                    <td>{{$pcnl->TenPCNL}}</td>
-                                    @foreach ($hocky->LoaiHocKy as $lhk)
-                                        <td>
-                                            {{-- in ra rating by semester --}}
-                                            @foreach ($hocsinh->SoLienLac->KetQuaRenLuyen as $kqrl)
-                                                @if ($kqrl->id_loaihocky == $lhk->id && $pcnl->id == $kqrl->id_pcnl)
-                                                    @if ($kqrl->XepLoai)  {{$kqrl->XepLoai}} @endif
+                                    <td>{{$mh->TenMH}}</td>
+                                    @foreach ($hk->LoaiHocKy as $lhk)
+                                        <td class = "mucdatduoc">
+                                            @foreach ($hocsinh->SoLienLac->where('id_nienkhoa', $sll->NienKhoa->id)->first()->KetQuaHocTap as $kqht)
+                                                @if ($kqht->id_loaihocky == $lhk->id && $mh->id == $kqht->id_monhoc)
+                                                    @if ($kqht->MucDatDuoc)
+                                                        {{$kqht->MucDatDuoc}}
+                                                    @endif
                                                 @endif
+                                            @endforeach
+                                        </td>
+                                        <td class = "diem">
+                                            @foreach ($hocsinh->SoLienLac->where('id_nienkhoa', $sll->NienKhoa->id)->first()->KetQuaHocTap as $kqht)
+                                                @if ($kqht->id_loaihocky == $lhk->id && $mh->id == $kqht->id_monhoc)
+                                                        {{$kqht->Diem}}
+                                                @endif 
                                             @endforeach
                                         </td>
                                     @endforeach
                                 </tr>
+                            @endforeach
+                        </table>
+                        <h3 class="title_main mt-0" style="font-size: 20px">Kết quả rèn luyện</h3>
+                        <table class="adminTable mb-4">
+                            <tr>
+                                <th colspan="2">Nội dung</th>
+                            @foreach ($hk->LoaiHocKy as $lhk)
+                                <th>{{$lhk->TenLoaiHK}}</option>
+                            @endforeach
+                            </tr>
+                            <tr>
+                                <td rowspan="{{$countNL + 1 }}">Năng lực</td>
+                            </tr>
+                    @foreach ($listPCNL as $pcnl)
+                        @if ($pcnl->LoaiPCNL == 1)
+                            <tr>
+                                <td>{{$pcnl->TenPCNL}}</td>
+                            @foreach ($hk->LoaiHocKy as $lhk)
+                                <td>
+                                    @foreach ($hocsinh->SoLienLac->where('id_nienkhoa', $sll->NienKhoa->id)->first()->KetQuaRenLuyen as $kqrl)
+                                        @if ($kqrl->id_loaihocky == $lhk->id && $pcnl->id == $kqrl->id_pcnl)
+                                            @if ($kqrl->XepLoai)  {{$kqrl->XepLoai}} @endif
+                                        @endif
+                                    @endforeach
+                                </td>
+                            @endforeach
+                            </tr>
+                         @endif
+                    @endforeach
+                            <tr>
+                                <td rowspan="{{$countPC + 1 }}">Phẩm chất</td>
+                            </tr>
+                    @foreach ($listPCNL as $pcnl)
+                        @if ($pcnl->LoaiPCNL == 2)
+                            <tr>
+                                <td>{{$pcnl->TenPCNL}}</td>
+                            @foreach ($hk->LoaiHocKy as $lhk)
+                                <td>
+                                    @foreach ($hocsinh->SoLienLac->where('id_nienkhoa', $sll->NienKhoa->id)->first()->KetQuaRenLuyen as $kqrl)
+                                        @if ($kqrl->id_loaihocky == $lhk->id && $pcnl->id == $kqrl->id_pcnl)
+                                            @if ($kqrl->XepLoai)  {{$kqrl->XepLoai}} @endif
+                                        @endif
+                                    @endforeach
+                                </td>
+                            @endforeach
+                            </tr>
+                         @endif
+                    @endforeach
+                        </table>
+                        <div class="d-flex">
+                            <div class="d-flex px-2 w-50">
+                                <h5 class="title_main text-left" style="font-size: 20px">Học lực của học sinh : 
+                            @if ($sll->NhanXet->where('id_hocky', $hk->id)->first())
+                                <span style="color: red;">{{$sll->NhanXet->where('id_hocky', $hk->id)->first()->HocLuc}}</span>
                             @endif
-                        @endforeach
-                    </table>
+                                </h5>
+                                
+                            </div>
+                            <div class="px-2 w-50">
+                            <h5 class="title_main text-left" style="font-size: 20px">Nhận xét của giáo viên</h5>
+                        @if ($sll->NhanXet->where('id_hocky', $hk->id)->first())
+                            <textarea name="NhanXet" class="mx-auto textarea p-2 w-100 formInputMa" placeholder="Nhập vào nhận xét">{{$sll->NhanXet->where('id_hocky', $hk->id)->first()->NhanXet}}</textarea>
+                        @endif
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </form>
+            @endforeach
+            <div class="text-center mt-5">
+                <button type="button" onclick="window.print()" class="px-3 py-1 border-0 rounded modalBtn ml-2 mb-2">
+                    <i class="fas fa-file-download mr-1"></i> Xuất Pdf
+                 </button>
+            </div>
         </div>
 
-        <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-book adminBoxTitleIcon"></i>Nhận xét giáo viên
-               <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-           </h3>
-           <form action="{{route('solienlac.update', '')}}/{{$hocsinh->id}}" method = "post" class="adminFormAdd">
-            @method('PATCH') @csrf
-                <input type="text" name="IdKhoi" value = "{{$hocsinh->Hoc->Lop->Khoi->id}}" class="d-none">
-                <div class="adminFormAddBox px-5">
-                    <h3 class="title_main text-left">Học lực của học sinh</h3>
-                    <textarea name="HocLuc" class="mx-auto textarea formInputMa p-2" id="" cols="100" rows="2" placeholder="">{{$text}}</textarea>
-                </div>
-               <div class="adminFormAddBox px-5">
-                   <h3 class="title_main text-left">Nhận xét của giáo viên</h3>
-                    <textarea name="NhanXet" class="mx-auto textarea p-2" id="" cols="100" rows="5" placeholder="Nhập vào nhận xét">{{$hocsinh->SoLienLac->NhanXet}}</textarea>
-                    <div  class="adminFormAddBox py-1 ">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn ml-2 mb-2">Lưu</button>
-                    </div>
-                </div>
- 
-           </form>
-       </div>
     </section>
 
     @if (Session::has('noti'))

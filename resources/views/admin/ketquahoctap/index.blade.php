@@ -4,85 +4,98 @@
     @include('admin/layouts/tab')
     <section class="adminForm">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
-                Tìm kiếm thông tin học sinh
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+            <div class="adminBoxTitle">
+                <div class="yearOfCourse">Năm học: {{$nienkhoa->NamBatDau . '- ' . $nienkhoa->NamKetThuc}}</div>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
             <div class="adminContainsFormSearch">
-                <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
-                    <table class="adminFormSeachTable">
-                        <tr>
-                            <td><p class="adminFormSearchText">Khối</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="" class="formSelect formInputMa">
-                                       @foreach ($giaovien->Lop as $item)
-                                            @if ($item->Khoi)
-                                                <option class="formBoxSelectOption" value="{{$item->Khoi->id}}">{{$item->Khoi->TenKhoi}}</option>
-                                            @else
-                                                <option class="formBoxSelectOption" value="">Trống</option>
-                                            @endif                                          
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
-                                </div>
-                            </td>
-                            </td>
-                            <td><p class="adminFormSearchText">Lớp</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="" class="formSelect formInputMa">
-                                       
-                                    @foreach ($giaovien->Lop as $item)
-                                        <option class="formBoxSelectOption" value="{{$item->id}}">{{$item->TenLop}}</option>
-                                    @endforeach
-                                    </select>
-                                    <div class="formSelectIcon"><i class="fas fa-caret-down"></i> </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    <div class="adminFormSearchContainsBtn">
-                        <button class="adminFormSearchBtn">Tìm kiếm</button>
+                <div class="px-4 d-flex">
+                    <div class="mr-2 mt-0 mx-0 btnClass">
+                        Lớp : {{$giaovien->Lop->TenLop}}
+                        <input type = "text" class = "d-none inputClass" value = "{{$giaovien->Lop->id}}"/>
                     </div>
-                </form>
+                 
+                    @foreach ($nienkhoa->HocKy as $item)
+                        @if ($item->TrangThai) 
+                        <div class = "mt-0 mx-0 btnClass d-flex">
+                            <div >{{$item->TenHK}}</div>
+                        </div>
+                        @endif
+                    @endforeach
+                </div>
+                <div class="mt-2">
+                   <p class = "px-4">Chọn môn học: </p>
+                    <ul class="d-flex w-90 px-5 flex-wrap mx-auto">
+                        @foreach ($giaovien->Lop->Khoi->PhanMonHoc as $item)
+                            <li class="mr-2">
+                                <a href = "admin/timkiemketquahoctap/{{$item->MonHoc->id}}"  @if ($item->MonHoc->id == 26) class = "btnSubject boxSubjectActive " 
+                                    @else class = "btnSubject"  @endif>{{$item->MonHoc->TenMH}}</a>
+                            </li>
+                        @endforeach   
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Danh sách kết quả học tập</h3>
+            <h3 class="adminListTitle">Điểm của học sinh</h3>
             <div class="adminActive">
                 <a href="admin/ketquahoctap/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Nhập điểm</a>
             </div>
             <table class="adminTable" border="1">
                 <tr>
-                    <th>Stt</th>
-                    <th>Mã học sinh</th>
-                    <th>Họ tên học sinh</th>
-                    <th>Tên môn học</th>
-                    <th>Học kỳ</th>
-                    <th>Mức đạt được</th>
-                    <th>Điểm số</th>
+                    <th rowspan="2">Mã học sinh</th>
+                    <th rowspan="2">Tên học sinh</th>
+                    @foreach ($nienkhoa->HocKy as $hk)
+                        @if ($hk->TrangThai)
+                            @foreach ($hk->LoaiHocKy as $lhk)
+                                <th colspan="2">{{$lhk->TenLoaiHK}}</option>
+                            @endforeach
+                        @endif
+                   @endforeach
                 </tr>
-                @foreach ($giaovien->Hoc as $hoc)
-                    @foreach ($hoc->HocSinh->SoLienLac->KetQuaHocTap as $item)
-                        <tr>
-                            <td>{{$stt++}}</td>
-                            <td>
-                                {{$item->SoLienLac->HocSinh->MaHS}}
-                            </td>
-                            <td>
-                                {{$item->SoLienLac->HocSinh->HoHS . ' ' . $item->SoLienLac->HocSinh->TenHS}}
-                            </td>
-                            <td>{{$item->MonHoc->TenMH}}</td>
-                            <td>@if ($item->id_loaihocky) {{$item->LoaiHK->TenLoaiHK}} 
-                                @else Chưa có @endif</td>
-                            <td>{{$item->MucDatDuoc}}</td>
-                            <td>{{$item->Diem}}</td>
-                        </tr>
+                <tr>
+                    @foreach ($nienkhoa->HocKy as $hk)
+                        @if ($hk->TrangThai)
+                            @foreach ($hk->LoaiHocKY as $lhk)
+                                <th>Mức đạt được</th>
+                                <th>Điểm KTHK</th>
+                            @endforeach
+                        @endif
                     @endforeach
+                </tr>
+                
+                @foreach ($giaovien->Hoc->where('id_nienkhoa', $nienkhoa->id) as $hoc)
+                    <tr>
+                        <td>{{$hoc->HocSinh->MaHS}}</td>
+                        <td>{{$hoc->HocSinh->HoHS . ' ' . $hoc->HocSinh->TenHS}}</td>
+                        @foreach ($nienkhoa->HocKy as $hk)
+                        @if ($hk->TrangThai)
+                            @foreach ($hk->LoaiHocKy as $lhk)
+                                <td class = "mucdatduoc">
+                                    {{-- in ra điểm --}}
+                                    @foreach ($hoc->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->KetQuaHocTap as $kqht)
+                                        @if ($kqht->id_loaihocky == $lhk->id && $kqht->id_monhoc == 26)
+                                            @if ($kqht->MucDatDuoc)
+                                                {{$kqht->MucDatDuoc}}
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td class = "diem">
+                                    @foreach ($hoc->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->KetQuaHocTap as $kqht)
+                                        @if ($kqht->id_loaihocky == $lhk->id && $kqht->id_monhoc == 26)
+                                                {{$kqht->Diem}}
+                                        @endif 
+                                    @endforeach
+                                </td>
+                            @endforeach
+                            @endif 
+                         @endforeach
+                        
+                    </tr>
                 @endforeach
             </table>
         </div>

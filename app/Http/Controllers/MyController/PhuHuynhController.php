@@ -18,19 +18,34 @@ class PhuHuynhController extends Controller
     //
     public function index() {
         $idPhuhuynh = Auth::guard('phu_huynh')->user()->id;
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->first();
         $data['ctgd'] = ChiTietGiaDinh::where('id_phuhuynh',  $idPhuhuynh)->get();
         $data['hocsinh'] = ChiTietGiaDinh::where('id_phuhuynh',  $idPhuhuynh)->first()->HocSinh;
         return view('admin.phuhuynh.index', $data);
     }
 
     public function ketquahoctap($id) {
-        $data['nienkhoa'] = NienKhoa::where('TrangThai', true)->first();
+        $data['nienKhoaHienTai'] = NienKhoa::where('TrangThai', true)->first();
+        $data['dsNienKhoa'] = NienKhoa::get();
         $data['hocky'] = HocKy::where('TrangThai', true)->first();
-        $data['SoLienLac'] = HocSinh::find($id)->SoLienLac;
+        $data['SoLienLac'] = HocSinh::find($id)->SoLienLac->where('id_nienkhoa', $data['nienKhoaHienTai']->id)->first();
         $data['hocsinh'] =  HocSinh::find($id);
         $data['listPCNL'] = PhamChatNangLuc::get();
         $data['countNL'] = PhamChatNangLuc::where('LoaiPCNL', 1)->count();
         $data['countPC'] = PhamChatNangLuc::where('LoaiPCNL', 2)->count();
         return view('admin.phuhuynh.kqht', $data);
+    }
+    public function searchResultStudy(Request $request) {
+
+        // $solienlac = SoLienLac::where('id_nienkhoa', '');
+        $data['listNienKhoa'] = NienKhoa::get();
+        $data['nienkhoaSearch'] = NienKhoa::find($request->nienkhoa);
+        $data['hocsinh'] =  HocSinh::find($request->idStudent);
+        $data['SoLienLac'] = $data['hocsinh']->SoLienLac->where('id_nienkhoa', $data['nienkhoaSearch']->id)->first();
+        $data['listPCNL'] = PhamChatNangLuc::get();
+        $data['countNL'] = PhamChatNangLuc::where('LoaiPCNL', 1)->count();
+        $data['countPC'] = PhamChatNangLuc::where('LoaiPCNL', 2)->count();
+
+        return view('admin.phuhuynh.search', $data);
     }
 }

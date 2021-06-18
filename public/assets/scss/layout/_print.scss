@@ -1,0 +1,39 @@
+@media print {
+    .header{
+        display: none;
+    }
+    .adminContent {
+        display: none;
+    }
+    .container {
+        .adminFormAddBox  {
+            padding: 0;
+        }
+        .adminBoxTitle {
+            display: none;
+        }
+        .formInput {
+            width: 200px;
+        }
+        .title_main  {
+            margin-top: 10px
+        }
+        .modalBtn {
+            display: none;
+        }
+        .adminFormAddText {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .adminTable tr td th{
+            border: 2px solid $color2;
+        }
+        tr {
+            th {
+                color: $color1;
+                
+            }
+        }
+
+    }
+}

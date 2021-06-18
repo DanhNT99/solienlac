@@ -22,6 +22,8 @@ class KQRLController extends Controller
         //
         $data['kqrl'] = KetQuaRenLuyen::get();
         $data['giaovien'] = GiaoVien::find(Auth::guard('giao_vien')->user()->id);
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->get()->first();
+        $data['phamchatnangluc'] = PhamChatNangLuc::orderBy('LoaiPCNL', 'asc')->get();
         $data['stt'] = 1;
         $data['kqrl'] = '';
         return view('admin.ketquarenluyen.index', $data);
@@ -36,7 +38,7 @@ class KQRLController extends Controller
     {
         //
         $data['giaovien'] = GiaoVien::find(Auth::guard('giao_vien')->user()->id);
-        $data['nienkhoas'] = NienKhoa::get();
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->get()->first();
         $data['pcnl'] = PhamChatNangLuc::get();
         $data['stt'] = 1;
 

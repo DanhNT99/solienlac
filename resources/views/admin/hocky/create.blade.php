@@ -4,9 +4,10 @@
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm học kỳ
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Thêm học kỳ</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('hocky.store')}}" method = "post" class="adminFormAdd" >
                     @csrf
@@ -19,9 +20,8 @@
                                     <select name="nienkhoa" id = "nienkhoa" class="formSelect">
                                             <option selected disabled>Lựa chọn</option>
                                             @foreach ($nienkhoa as $item)
-                                                <option @if ($item->TrangThai == 1) selected
-                                                    @endif value="{{$item->id}}">{{$item->NamBatDau . ' - ' .$item->NamKetThuc}}</option>
-                                                @endforeach
+                                                <option value="{{$item->id}}">{{$item->NamBatDau . ' - ' .$item->NamKetThuc}}</option>
+                                            @endforeach
                                         </select>
                                         <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
                                     </div>

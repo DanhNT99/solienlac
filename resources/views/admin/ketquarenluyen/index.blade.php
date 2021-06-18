@@ -4,11 +4,21 @@
     @include('admin/layouts/tab')
     <section class="adminForm">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
-                Tìm kiếm thông tin học sinh
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+            <div class="adminBoxTitle">
+                <div class="yearOfCourse">Năm học: {{$nienkhoa->NamBatDau . '- ' . $nienkhoa->NamKetThuc}}</div>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
             <div class="adminContainsFormSearch">
-                <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
+                <div class="px-4 d-flex">
+                    <div class="mr-2 mt-0 mx-0 btnClass">
+                        Lớp : {{$giaovien->Lop->TenLop}}
+                        <input type = "text" class = "d-none inputClass" value = "{{$giaovien->Lop->id}}"/>
+                    </div>
+                    @foreach ($nienkhoa->HocKy as $item)
+                        @if ($item->TrangThai)<div class = "mt-0 mx-0 btnClass d-flex">{{$item->TenHK}}</div>@endif
+                    @endforeach
+                </div>
+                {{-- <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
                     <table class="adminFormSeachTable">
                         <tr>
                             <td><p class="adminFormSearchText">Khối</p></td>
@@ -40,14 +50,14 @@
                     <div class="adminFormSearchContainsBtn">
                         <button class="adminFormSearchBtn">Tìm kiếm</button>
                     </div>
-                </form>
+                </form> --}}
             </div>
         </div>
     </section>
 
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Danh sách kết quả rèn luyện</h3>
+            <h3 class="adminListTitle">Danh sách đánh giá rèn luyện</h3>
             <div class="adminActive">
                 <a href="admin/ketquarenluyen/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Đánh giá</a>
             </div>
@@ -58,11 +68,11 @@
                     <th>Họ tên học sinh</th>
                     <th>Tên PCNL</th>
                     <th>Loai PCNL</th>
-                    <th>Học kỳ</th>
+                    <th>Loại học kỳ</th>
                     <th>Mức đạt được</th>
                 </tr>
-                @foreach ($giaovien->Hoc as $hoc)
-                    @foreach ($hoc->HocSinh->SoLienLac->KetQuaRenLuyen as $item)
+                @foreach ($giaovien->Hoc->where('id_nienkhoa', $nienkhoa->id) as $hoc)
+                    @foreach ($hoc->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->KetQuaRenLuyen as $item)
                         <tr>
                             <td>{{$stt++}}</td>
                             <td>
@@ -72,9 +82,8 @@
                                 {{$item->SoLienLac->HocSinh->HoHS . ' ' . $item->SoLienLac->HocSinh->TenHS}}
                             </td>
                             <td>{{$item->PCNL->TenPCNL}}</td>
-                            <td>@if ($item->PCNL->LoaiPCNL)Năng lực @else Phầm chất @endif</td>
-                            <td>@if ($item->id_loaihocky) {{$item->LoaiHK->TenLoaiHK}} 
-                                @else Chưa có @endif</td>
+                            <td>@if ($item->PCNL->LoaiPCNL == 1) Năng lực @else Phẩm chất @endif</td>
+                            <td>{{$item->LoaiHK->TenLoaiHK}}</td>
                             <td>{{$item->XepLoai}}</td>
                         </tr>
                     @endforeach

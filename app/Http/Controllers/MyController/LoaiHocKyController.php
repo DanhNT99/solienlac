@@ -122,15 +122,16 @@ class LoaiHocKyController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //VALIDATE INPUT AND NOTIFICATION
-          $validate = Validator::make($request->all(),
-          ['hocky' => 'required'],
-          ['required' => ":attribute không được để trống"],
-          ['hocky' =>'Học kỳ']);
 
-      if($validate->fails()) {
-          return redirect()->back()->withInput()->withErrors($validate);
-      }
+    //VALIDATE INPUT AND NOTIFICATION
+        $validate = Validator::make($request->all(),
+        ['TenLoaiHK' => 'required'],
+        ['required' => ":attribute không được để trống"],
+        ['TenLoaiHK' =>'Tên loại học kỳ']);
+
+        if($validate->fails()) {
+        return redirect()->back()->withInput()->withErrors($validate);
+        }
     //END
     
     //UPATE TYPE SEMESTER

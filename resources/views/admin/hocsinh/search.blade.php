@@ -4,9 +4,11 @@
     @include('admin/layouts/tab')
     <section class="adminForm">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
-                Tìm kiếm thông tin học sinh
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
+                Tìm kiếm thông tin học sinh</h6>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
             <div class="adminContainsFormSearch">
                 <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
                     <table class="adminFormSeachTable">

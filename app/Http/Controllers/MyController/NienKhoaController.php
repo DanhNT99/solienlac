@@ -53,7 +53,7 @@ class NienKhoaController extends Controller
             'TrangThai' => 'Trạng thái']);
     
         if($validate->fails()) {
-            return redirect()->back()->withErrors($validate);
+            return redirect()->back()->withInput()->withErrors($validate);
         }
     //END
 
@@ -65,14 +65,14 @@ class NienKhoaController extends Controller
         if(($request->NamBatDau > $request->NamKetThuc) || $request->NamBatDau == $request->NamKetThuc) {
             return redirect()->back()->with('noti', 'Năm bắt đầu không thể lớn hơn hoặc bằng năm kết thúc');
         }
-        if($request->trangthai) {
+        if($request->TrangThai) {
             $data = NienKhoa::where('TrangThai', 1)->update(['TrangThai' => 0]);
         }
         $data = new NienKhoa();
         $data->MaNK = $request->MaNK;
         $data->NamBatDau = $request->NamBatDau;
         $data->NamKetThuc = $request->NamKetThuc;
-        $data->TrangThai = $request->trangthai;
+        $data->TrangThai = $request->TrangThai;
         $check = $data->save();
         
         if($check) {
@@ -119,7 +119,17 @@ class NienKhoaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //VALIDATE INPUT ADN NOTIFINCATION
+         $validate = Validator::make($request->all(),
+         ['NamBatDau' => 'required|integer', 'NamKetThuc' => 'required|integer'],
+         ['required' => ":attribute không được để trống",
+         'integer' => ":attribute phải là số"],
+         ['NamBatDau' => 'Năm bất đầu','NamKetThuc' =>'Năm kết thúc']);
+ 
+        if($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate);
+        }
+    //END
         if($request->trangthai) {
             $data = NienKhoa::where('TrangThai', 1)->update(['TrangThai' => 0]);
         }

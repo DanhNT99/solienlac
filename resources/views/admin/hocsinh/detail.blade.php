@@ -6,9 +6,11 @@
     <section class="adminAdd">
 
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thông tin chi tiết học sinh
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-user adminBoxTitleIcon mr-1"></i>Thông tin học sinh</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
+
             <form action="{{route('hocsinh.store')}}" method = "post" class="adminFormAdd">
                 <div class="adminFormAddBox">
                     <div class="adminFormAddContains">
@@ -19,26 +21,6 @@
                         </div>
                         
                         <table class="adminFormAddTable">
-                            <tr>
-                                <td><p class="adminFormAddText">Khối</p></td>
-                                <td>
-                                    @if ($hocsinh->Hoc)
-                                        <input type="text" value = "{{$hocsinh->Hoc->Lop->Khoi->TenKhoi}}" class="formInput formInputMa">
-                                    @else
-                                        <input type="text" value = "Chưa có" class="formInput formInputMa">
-                                    @endif
-                                  
-                                </td>
-                                <td><p class="adminFormAddText">Lớp</p></td>
-                                <td>
-                                    @if ($hocsinh->Hoc)
-                                        <input type="text" value = "{{$hocsinh->Hoc->Lop->TenLop}}" class="formInput formInputMa">
-                                    @else
-                                        <input type="text" value = "Chưa có" class="formInput formInputMa">
-                                     @endif
-                                </td>
-                              
-                            </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Mã học sinh</p></td>
                                 <td> <input type="text" value = "{{$hocsinh->MaHS}}" class="formInput formInputMa"></td>

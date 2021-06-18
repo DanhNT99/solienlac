@@ -4,9 +4,11 @@
     @include('admin/layouts/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Cho phép nhập điểm
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Cho phép nhập điểm </h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
+            
             <div class="adminFormAddBox">
                 <form action="{{route('chophepnhapdiem.store')}}" method = "post" class="adminFormAdd" >
                     @csrf

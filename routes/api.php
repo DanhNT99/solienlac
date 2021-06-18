@@ -27,6 +27,6 @@ Route::post('filterRating', [FilterController::class, 'filterRating']);
 Route::post('filterRatingByScore', [FilterController::class, 'filterRatingByScore']);
 Route::post('filterSemester', [FilterController::class, 'filterSemester']);
 
+Route::post('filterScoreBySubject', [FilterController::class, 'filterScoreBySubject']);
 
-//detete chophepnhapdiem
-Route::delete('chophepnhapdiem/{id}/delete', [NDGKController::class, 'delete']);
+Route::post('improtTeach', [FilterController::class, 'improtTeach']);

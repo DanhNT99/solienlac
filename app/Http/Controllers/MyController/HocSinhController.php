@@ -31,9 +31,8 @@ class HocSinhController extends Controller
     // }
 
     public function index()
-    {
-
-      
+    {   
+        $data['nienkhoa'] = NienKhoa::where('TrangThai' ,1)->first();
         $data['khoi'] = Khoi::get();
         $data['lop'] = Lop::get();
         $data['phuong'] = Phuong::orderBy('TenPhuong', 'asc')->get();
@@ -45,7 +44,9 @@ class HocSinhController extends Controller
         if($roleUser) {
             $data['hocsinh'] = Array();
             $idGiaoVien = Auth::guard('giao_vien')->user()->id;
-            $hoc = Lop::where('id_giaovien', $idGiaoVien)->first()->Hoc->toArray();
+            $namhoc = NienKhoa::where('TrangThai' ,1)->get()->first()->toArray()['id'];
+            $lopByTeach = Lop::where('id_giaovien', $idGiaoVien)->first();
+            $hoc = $lopByTeach->Hoc->where('id_nienkhoa',$namhoc);
             foreach($hoc as $item) {
                 $hocsinh = HocSinh::find($item['id_hocsinh']);
                 Array_push($data['hocsinh'], $hocsinh);
@@ -91,38 +92,47 @@ class HocSinhController extends Controller
      */
     public function store(Request $request)
     {
-    //     $validate = Validator::make($request->all(),
-    //     [
-    //     'Lop' => 'required', 'Phuong' => 'required',
-    //     'GioiTinh' => 'required', 'NgaySinh' => 'required', 
-    //     'Hinh' => 'required|image' ,'HoHS' => 'required', 'TenHS' => 'required', 
-    //     'DiaChi' => 'required',
+        $validate = Validator::make($request->all(),
+        [
+            'HoHS' => 'required',
+        // 'Lop' => 'required', 'Phuong' => 'required',
+        // 'GioiTinh' => 'required', 'NgaySinh' => 'required', 
+        // 'Hinh' => 'required|image' ,, 'TenHS' => 'required', 
+        // 'DiaChi' => 'required',
+            'HoTen.cha' => 'required','HoTen.me' => 'required',
+            'NgheNghiep.cha' => 'required',  'NgheNghiep.me' => 'required',
+            'NoiLamViec.cha' => 'required',  'NoiLamViec.me' => 'required', 
+            'SoDT.cha' => 'required|min:10|max:11|unique:phuhuynh,SoDT', 
+            'SoDT.me' => 'required|min:10|max:11|unique:phuhuynh,SoDT', 
+            'MatKhau.cha' => 'required|min:8', 'MatKhau.me' => 'required|min:8'
 
-    //     'HoTen[]' => 'required', 'NgheNghiep[]' => 'required',
-    //     'NoiLamViec[]' => 'required', 'SoDT[]' => 'required|min:10|max:11|unique:phuhuynh', 
-    //     'MatKhau[]' => 'required|min:8',
-
-    //   ],[
-    //     'required' => ":attribute không được để trống",
-    //     'file' => "Bạn chưa chọn file",
-    //     'image' => 'File tải lên phải là file hình',
-    //     'min' => ':attribute tổi thiểu phải từ :min chữ số',
-    //     'max' => ':attribute phải tối đa :max',
-    //     'integer' =>'là số',
-    //     'unique' => ':attribute đã tồn tại'
-    //   ],[
-    //       'Khoi' =>'Khối', 'Lop' =>'Lớp', 'Phuong' =>'Phường', 
-    //       'Tinh' =>'Tỉnh', 'GioiTinh' =>'Giới tính', 'NgaySinh' =>'Ngày sinh',  
-    //       'HoHS' => 'Họ','TenHS' => 'Tên', 'Hinh' => 'Hình ảnh', 'DiaChi' => 'Địa chỉ',
-
-    //       'HoTen[]' => 'Họ tên', 'NgheNghiep[]' => 'Nghề nghiệp',
-    //       'NoiLamViec[]' => 'Nơi làm việc', 'SoDT[]' => 'Số điện thoại', 'MatKhau[]' => 'Mật Khẩu'
+      ],[
+        'required' => ":attribute không được để trống",
+        'file' => "Bạn chưa chọn file",
+        'image' => 'File tải lên phải là file hình',
+        'min' => ':attribute tối thiểu phải từ :min chữ số',
+        'max' => ':attribute phải tối đa :max',
+        'integer' =>'là số',
+        'unique' => ':attribute đã tồn tại'
+      ],[
+        //   'Khoi' =>'Khối', 'Lop' =>'Lớp', 'Phuong' =>'Phường', 
+        //   'Tinh' =>'Tỉnh', 'GioiTinh' =>'Giới tính', 'NgaySinh' =>'Ngày sinh',  
+            'HoHS' => 'Họ','TenHS' => 'Tên', 'Hinh' => 'Hình ảnh', 'DiaChi' => 'Địa chỉ',
+            'HoTen.cha' => 'Họ tên cha', 'HoTen.me' => 'Họ tên mẹ',
+            'NgheNghiep.cha' => 'Nghề nghiệp cha', 'NgheNghiep.me' => 'Nghề nghiệp me',
+            'SoDT.cha' => 'Số điện thoại cha', 'SoDT.me' => 'Số điện thoại me',
+            'NoiLamViec.cha' => 'Nơi làm việc cha', 'NoiLamViec.me' => 'Nơi làm việc me', 
+            'MatKhau.cha' => 'Mật khẩu cha', 'MatKhau.me' => 'Mật khẩu me', 
           
-    //   ]);
+      ]);
+    //   dd($request->HoTen);
 
-    //     if($validate->fails()) {
-    //         return redirect()->back()->withErrors($validate);
-    //     }
+
+        if($validate->fails()) {
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+
 
     //uplload file image up folder
         $file = $request->file('Hinh');
@@ -132,7 +142,7 @@ class HocSinhController extends Controller
             $nameImg // ten cần lưu
         );
     //end
-
+        // dd($request->all());
         foreach($request->HoTen as $key => $item) {
 
             $count = PhuHuynh::count();
@@ -184,14 +194,6 @@ class HocSinhController extends Controller
 
     //end 
 
-    // //allot student study class
-    //     $data = new Hoc();
-    //     $data->id_nienkhoa = NienKhoa::where('TrangThai', 1)->value('id');
-    //     $data->id_lop = $request->Lop;
-    //     $data->id_hocsinh =  $idStudent;
-    //     $data->save();
-    // //end
-
     //create contact book for new student
         //create new code for contact book
         $MaNK = NienKhoa::where('TrangThai', 1)->get()->toArray()[0]['MaNK'];
@@ -211,6 +213,7 @@ class HocSinhController extends Controller
         $data = new SoLienLac;
         $data->MaSLL =  $idHSArray;
         $data->id_hocsinh = $idStudent;
+        $data->id_nienkhoa = NienKhoa::where('TrangThai', 1)->get()->toArray()[0]['id'];
         $data->save();
     //end
     
@@ -264,28 +267,38 @@ class HocSinhController extends Controller
     public function update(Request $request, $id)
     {
 
-    //update class to student
-        // $idNienKhoa = NienKhoa::where('TrangThai', 1)->value('id');
-        // $data = Hoc::where([['id_hocsinh', '=', $id],['id_nienkhoa', '=', $idNienKhoa]])->get()->toArray();
-        // if(count($data)) {
-        //     $data = Hoc::where([['id_hocsinh', '=', $id],['id_nienkhoa', '=', $idNienKhoa]])->update(['id_lop' => $request->Lop]);
-        //     // $data = Hoc::where('id_hocsinh')
-        //     // $data = new Hoc();
-        //     // $data->id_nienkhoa =  $idNienKhoa;
-        //     // $data->id_lop = $request->Lop;
-        //     // $data->id_hocsinh =  $id;
-        //     // $data->save();
-        // }
-        // else {
-        //     $data = new Hoc();
-        //     $data->id_nienkhoa =  $idNienKhoa;
-        //     $data->id_lop = $request->Lop;
-        //     $data->id_hocsinh =  $id;
-        //     $data->save();
-        // }
+    //VALIDATE INPUT
+    $validate = Validator::make($request->all(),
+        [
+            'HoHS' => 'required','TenHS' => 'required' ,
+            'GioiTinh' => 'required', 'NgaySinh' => 'required', 
+           'DiaChi' => 'required', 'Phuong' => 'required',
+            'HoTen.cha' => 'required','HoTen.me' => 'required',
+            'NgheNghiep.cha' => 'required',  'NgheNghiep.me' => 'required',
+            'NoiLamViec.cha' => 'required',  'NoiLamViec.me' => 'required', 
+            'SoDT.cha' => 'required|min:10|max:11', 
+            'SoDT.me' => 'required|min:10|max:11'
 
+      ],[
+        'required' => ":attribute không được để trống",
+        'file' => "Bạn chưa chọn file",
+        'min' => ':attribute tối thiểu phải từ :min chữ số',
+        'max' => ':attribute phải tối đa :max',
+        'integer' =>'là số',
+        'unique' => ':attribute đã tồn tại'
+      ],[
+            'HoHS' => 'Họ','TenHS' => 'Tên', 'DiaChi' => 'Địa chỉ',
+            'HoTen.cha' => 'Họ tên cha', 'HoTen.me' => 'Họ tên mẹ',
+            'NgheNghiep.cha' => 'Nghề nghiệp cha', 'NgheNghiep.me' => 'Nghề nghiệp mẹ',
+            'SoDT.cha' => 'Số điện thoại cha', 'SoDT.me' => 'Số điện thoại mẹ',
+            'NoiLamViec.cha' => 'Nơi làm việc cha', 'NoiLamViec.me' => 'Nơi làm việc mẹ'
+          
+      ]);
+        if($validate->fails()) {
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
 
-    //update infor to student
+    //UPDATE INFOR STUDENT
 
          //GET NAME IMAGE AND UPLOAD UP FOLDER
          $file = $request->file('Hinh');
@@ -299,24 +312,24 @@ class HocSinhController extends Controller
          else {
              $nameImg = HocSinh::find($id)->toArray()['Hinh'];
          }
-     //END
+        //END
         $updateStudent  = HocSinh::where('id', $id)
                                     ->update(['HoHS' => ucwords($request->HoHS),'TenHS' => ucwords($request->TenHS),
                                             'GioiTinh' => $request->GioiTinh, 'NgaySinh' => $request->NgaySinh,
                                             'DiaChi' => ucwords($request->DiaChi),'id_phuong' => $request->Phuong,
                                             'Hinh' => $nameImg]);
 
-    //update infor to parent of student
-  
+    //UPDATE INFOR TO PARENT OF STUDENT
         foreach($request->MaPH as $key => $value) {
             $updateStudent = PhuHuynh::where('MaPH', $value)
-                            ->update(['HoTenPH' => ucwords($request->HoTenPH[$key]),
+                            ->update(['HoTenPH' => ucwords($request->HoTen[$key]),
                                     'GioiTinh' => $request->GioiTinhPH[$key],
                                     'NgheNghiep' => $request->NgheNghiep[$key],
                                     'NoiLamViec' => $request->NoiLamViec[$key],
                                     'SoDT' => $request->SoDT[$key],
             ]);
-        }                                      
+        }    
+    //END                                  
         if($updateStudent)
             return redirect('admin/hocsinh/' . $id)->with('noti', 'Chỉnh sửa thành công');
         else 

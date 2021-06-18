@@ -5,6 +5,11 @@
 .modalBtn {
     background: $color4;
     color: $color5;
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+        color: $color5;
+    }
 }
 .modelQuestion {
     color: $color4;

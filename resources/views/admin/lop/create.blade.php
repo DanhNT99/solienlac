@@ -1,12 +1,13 @@
 @extends('admin/layouts/index')
 @section('title')Thêm lớp @endsection
 @section('adminContent')
-    @include('admin/banhoc/tab')
+    @include('admin/khoi/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm lớp
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Thêm lớp</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('lop.store')}}" method = "post" class="adminFormAdd" >
                     @csrf
@@ -30,7 +31,7 @@
                                         <select name="giaovien" class="formSelect">
                                             <option selected disabled>Lựa chọn</option>
                                             @foreach ($giaovien as $item)
-                                                <option @if ($item->id == old('giaovien')) selected @endif value="{{$item->id}}">{{$item->HoGV . ' '. $item->TenGV}}</option>
+                                                <option @if ($item['id'] == old('giaovien')) selected @endif value="{{$item['id']}}">{{$item['HoGV'] . ' '. $item['TenGV']}}</option>
                                             @endforeach
                                         </select>
                                         <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>

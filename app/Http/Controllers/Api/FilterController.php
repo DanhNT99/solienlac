@@ -14,6 +14,7 @@ use App\Models\KetQuaRenLuyen;
 use App\Models\MonHoc;
 use App\Models\LoaiHocKy;
 use App\Models\NhapDiemGiuaKy;
+use DB;
 class FilterController extends Controller
 {
     //
@@ -54,7 +55,6 @@ class FilterController extends Controller
         $idSubject = MonHoc::where('id', $request->idSubject)->value('id');
         $idGrade = Khoi::where('id', $request->idGrade)->value('id');
         $choPhepNhapDiem = NhapDiemGiuaKy::where([['id_khoi','=' , $idGrade], ['id_monhoc','=' , $idSubject]])->get();
-        
         if(count($choPhepNhapDiem) > 0)   $data['nhapdiem1'] = 1;
         else  $data['nhapdiem1'] = 0;
         // NẾU KHÔNG TỒN TẠI GIƯA HỌC KỲ VÀ KHÔNG PHẢI LÀ MÔN TIẾNG VIỆT HAY TOÁN
@@ -104,5 +104,21 @@ class FilterController extends Controller
         
         return response()->json($data);
     }
+
+    public function filterScoreBySubject(Request $request) {
+        // $data = KetQuaHocTap::where('id_monhoc', $request->idSubject)->get();
+        $where = [['id_monhoc','=',$request->idSubject], ['id_lop','=',$request->idClass]];
+        $data['loaihocky'] = HocKy::where('TrangThai', 1)->first()->LoaiHocKy;
+        $data['kqht'] = DB::table('ketquahoctap')->join('solienlac', 'ketquahoctap.id_sll', 'solienlac.id')
+                    ->join('hocsinh', 'hocsinh.id', 'solienlac.id_hocsinh')
+                    ->join('hoc', 'hocsinh.id', 'hoc.id_hocsinh')
+                    ->join('lop', 'lop.id', 'hoc.id_lop')->where($where)->orderBy('TenHS', 'asc')->get();
+        return response()->json($data);
+    }
+
+    // public function improtTeach(Request $request) {
+    //     $data = [];
+    //     return response()->json($data);
+    // }
 
 }

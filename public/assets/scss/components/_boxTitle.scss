@@ -10,7 +10,12 @@
     .adminBoxTitleIcon {
         color: $color3;
         font-size: 20px;
-        margin-right: 5px;
+    }
+    
+    .amdinBoxTitleLink {
+        text-decoration: none;
+        font-size: 16px;
+        color: $color5;
     }
 
     .yearOfCourse {

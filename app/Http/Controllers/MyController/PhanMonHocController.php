@@ -4,7 +4,7 @@ namespace App\Http\Controllers\MyController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator;
+use Validator, DB;
 use App\Models\PhanMonHoc;
 use App\Models\Monhoc;
 use App\Models\Khoi;
@@ -19,8 +19,13 @@ class PhanMonHocController extends Controller
     public function index()
     {
         //
-        $data['phanmonhoc'] = PhanMonHoc::orderBy('id_khoi', 'asc')->paginate(10);
-        $data['stt'] =  $data['phanmonhoc']->firstItem();
+        // $data['phanmonhoc'] = PhanMonHoc::paginate(16);
+        // $data['phanmonhoc'] = DB::table('phanmonhoc')
+        //                     ->join('khoi', 'khoi.id', 'phanmonhoc.id_khoi')
+        //                     ->orderBy('khoi.TenKhoi', 'asc')->select('phanmonhoc.*')->paginate(10);
+        $data['phanmonhoc'] = PhanMonHoc::orderBy('id_khoi', 'asc')->get();
+        $data['khoi'] = Khoi::orderBy('TenKhoi', 'asc')->paginate(2);
+        $data['stt'] =  1;
         return view('admin.phanmonhoc.index', $data);
     }
 
@@ -32,7 +37,7 @@ class PhanMonHocController extends Controller
     public function create()
     {
         //
-        $data['monhoc'] = Monhoc::get();
+        $data['monhoc'] = Monhoc::orderBy('ChoPhepNhapDiem', 'asc')->get();
         $data['khoi'] = Khoi::orderBy('TenKhoi', 'asc')->get();
         return view('admin.phanmonhoc.create', $data);
     }
@@ -52,23 +57,30 @@ class PhanMonHocController extends Controller
         // ['monhoc' =>'Môn học']);
 
         // if($validate->fails()) return redirect()->back()->withErrors($validate);
-        $listGradeString = '';
         // dd($request->khoi);
-        if(!isset($request->khoi) && !isset($request->monhoc)) {
-            return redirect()->back()->with('noti', 'Bạn chưa chọn môn học hoặc khối');
+        if(!isset($request->khoi) || !isset($request->monhoc)) {
+            return redirect()->back()->with('noti', 'Bạn chưa chọn hoặc môn học hoặc khối');
         }
         else {
+            $arraySubjectAndGrade = array();
             foreach($request->khoi as $keyKhoi => $khoi) {
                 foreach($request->monhoc as $keyMH => $mh) {
-                    $checkPhanMonHoc = PhanMonHoc::where([['id_monhoc', '=', $mh], ['id_khoi', '=', $khoi]])->get();
-                    if(!count($checkPhanMonHoc)) {
+                    $checkPhanMonHoc = PhanMonHoc::where([['id_monhoc', '=', $mh], ['id_khoi', '=', $khoi]])->get()->toArray();
+                    if(!count($checkPhanMonHoc) > 0) {
                         $data = new PhanMonHoc;
                         $data->id_monhoc = $mh;
                         $data->id_khoi = $khoi;
                         $check = $data->save();
                     }
+                    else {
+                        $monhoc = MonHoc::where('id', $mh)->value('TenMH');
+                        $nameGrade = Khoi::where('id', $khoi)->value('TenKhoi');
+                        Array_push($arraySubjectAndGrade, ['TenMH' => $monhoc, 'TenKhoi' => $nameGrade]);
+                    }
                 }
-                
+            }
+            if(count($arraySubjectAndGrade) > 0) {
+                return redirect('admin/phanmonhoc/create')->with('loiphanmonhoc', $arraySubjectAndGrade);
             }
         }
         return redirect('admin/phanmonhoc')->with('noti', 'Phân môn học thành công');

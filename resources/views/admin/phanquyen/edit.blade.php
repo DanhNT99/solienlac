@@ -4,9 +4,10 @@
     @include('admin/quyen/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Phân công môn học
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Phần quyền </h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+             </div>
             <div class="adminFormAddBox">
                 <form action="{{route('phanquyen.update', '')}}/{{$phanquyen->model_id}}" method = "post" class="adminFormAdd" >
                     @method('PATCH') @csrf
@@ -41,4 +42,5 @@
             </div>
         </div>
     </section>
+    
 @endsection

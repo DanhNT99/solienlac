@@ -4,9 +4,10 @@
     @include('admin/khoi/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm khối
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửa khối</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('khoi.update', '')}}/{{$khoi->id}}" method = "post" class="adminFormAdd" >
                     @method('PATCH') @csrf
@@ -21,17 +22,6 @@
                                         <div class="notiFail" role="alert"> {{$errors->first('TenKhoi')}} </div>
                                     @endif
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><p class="adminFormAddText">Được phép</p></td>
-                                <td>
-                                    <div class="formBoxSelect">
-                                        <select name="DuocPhep" class="formSelect">
-                                            <option @if ($khoi->DuocPhep == 1) selected @endif value="1">Được</option>
-                                            <option @if ($khoi->DuocPhep == 0) selected @endif value="0">Không</option>
-                                        </select>
-                                        <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
-                                    </div>
                             </tr>
                         </table>
                     </div>

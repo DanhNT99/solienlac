@@ -19,7 +19,7 @@ class Lop extends Model
     }
 
     public function Gvcn(){
-        return $this->belongsto('App\Models\GiaoVien', 'id_giaovien','id');
+        return $this->belongsTo(GiaoVien::class, 'id_giaovien','id');
     }
     
 }

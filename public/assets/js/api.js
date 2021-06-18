@@ -38,12 +38,6 @@ $(document).ready(function () {
         let id  = {'id' : $(this).val()};
         getCodeSemester(id);
     });
-    let getNienKhoa = $('#nienkhoa').val();
-    
-    // if(getNienKhoa) {
-    //     let obj  = {'id' : getNienKhoa};
-    //     getCodeSemester(obj);
-    // }
 
     function getCodeSemester(obj) {
         $.ajax({
@@ -166,6 +160,7 @@ $(document).ready(function () {
                             }
                         });
                 });
+                console.log(response['nhapdiem1'], response['nhapdiem2']);
                 if(response['nhapdiem1'] || response['nhapdiem2']) {
                     $('.Diem').removeClass('formInputMa');
                 }
@@ -286,15 +281,55 @@ $(document).ready(function () {
     // $('.btnSubmit').click(function (e) { 
     //    $('.formDelete').submit();
     // }); 
-    var idBtn;
+    let idBtn;
     $('.btnButton').click(function (e) { 
         e.preventDefault();
         idBtn = $(this).attr('id');
     });
 
     $('.btnSubmit').click(function (e) { 
-           $(`.formDelete${idBtn}`).submit();
+        $(`.formDelete${idBtn}`).submit();
     }); 
 
+    // $('.btnSubject').click(function (e) { 
+    //     e.preventDefault();
+    //     $('.btnSubject').removeClass('boxSubjectActive');
+    //     $(this).addClass('boxSubjectActive');
+    //     let inputValue = $(this).next().val();
+    //     console.log(inputValue);
+    //     let idSubject  = {'idSubject': $(this).next().val(), 'idClass' : $('.inputClass').val()}
+    //     $.ajax({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         type: "post",
+    //         url: "http://127.0.0.1:8000/api/filterScoreBySubject",
+    //         data: idSubject,
+    //         success: function (response) {
+    //             let kqht = response['kqht'];
+    //             let loaihocky = response['loaihocky'];
+    //             $.each(loaihocky, function (indexInArray, loaihk) { 
+    //                  $kqht = kqht.map(item=> {
+    //                      return `<td>${item['TenHS']}</td>`;
+    //                  })
+    //                  console.log($kqht);
+    //             });
+    //         }
+    //     });
+    // });
+
+
+
+    $('.btnFormExcel').click(function (e) { 
+        e.preventDefault();
+        $('.formImprotExcel').click();
+    });
+
+    $('.formImprotExcel').change(function (e) { 
+        e.preventDefault();
+        if($(this).val()) {
+            $('.formImportExcel').submit();
+        }
+    });
 
 });

@@ -5,9 +5,11 @@
 
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Phân công học tập
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Phân công học tập</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
+
             <div class="adminFormAddBox">
                 <form action="{{route('hoc.store')}}" method = "post" class="adminFormAdd" >
                      @csrf
@@ -35,7 +37,7 @@
                                         <select name="hocsinh" id="" class="formSelect">
                                             <option selected disabled>Lựa chọn</option>
                                             @foreach ($hocsinh as $item)
-                                                @if (!$item->Hoc)
+                                                @if (count($item->Hoc) == 0)
                                                     <option value="{{$item->id}}">{{$item->HoHS . ' '. $item->TenHS}}</option>
                                                 @endif
                                             @endforeach

@@ -24,17 +24,6 @@ class PhanQuyenController extends Controller
         $data['giaovien'] = GiaoVien::orderBy('TenGV', 'asc')->get();
         $data['quyen'] = Role::get();
         $data['stt'] = 1;
-
-        // $dem = PhanQuyen::count();
-        // if($dem == 0) $current = 'PQ00';
-        // else $current =  PhanQuyen::max('MaQuyen');
-    
-        // $array_id = explode('PQ',$current);
-        // $array_id[0] .= "PQ";
-        // $array_id[1] = intval($array_id[1]) + 1;
-        // if($array_id[1] < 10) 
-        //     $array_id[1] = "0" . $array_id[1];
-        // $data['text_id'] = implode('', $array_id);
         return view('admin.phanquyen.index',$data);
     }
 
@@ -57,13 +46,17 @@ class PhanQuyenController extends Controller
     public function store(Request $request)
     {
         //
-        $giaovien = GiaoVien::find($request->giaovien);
-        $check = $giaovien->assignRole(['id'=>$request->quyen]);
-
-        if($check) 
-            return redirect('admin/phanquyen')->with('noti', 'Phân quyền thành công');
-        else
-            return redirect()->back()->with('noti', 'Phân quyền thành công');
+        if(!isset($request->giaovien) || !isset($request->quyen)) {
+            return redirect('admin/phanquyen')->with('noti', 'Bạn chưa điền đủ thông tin');
+        }
+        else {
+            $giaovien = GiaoVien::find($request->giaovien);
+            $check = $giaovien->assignRole(['id'=>$request->quyen]);
+            if($check) 
+                return redirect('admin/phanquyen')->with('noti', 'Phân quyền thành công');
+            else
+                return redirect()->back()->with('noti', 'Phân quyền thành công');
+        }
     }
 
     /**
@@ -116,15 +109,16 @@ class PhanQuyenController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function delete($id) {
-        $data['phanquyen'] = PhanQuyen::where('model_id', $id)->first();
-        return view('admin.phanquyen.delete', $data);
-    }
+    // public function delete($id) {
+    //     $data['phanquyen'] = PhanQuyen::where('model_id', $id)->first();
+    //     return view('admin.phanquyen.delete', $data);
+    // }
 
     public function destroy($id)
     {
         //
         $checkDelete = PhanQuyen::where('model_id', $id)->delete();
+
         if($checkDelete) {
             return redirect('admin/phanquyen')->with('noti', 'Xóa  thành công');
         }

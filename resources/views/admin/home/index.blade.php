@@ -13,14 +13,14 @@
 </head>
 <body>
     @include('admin/layouts/header')
-    @include ('admin/layouts/tab');
-
+    @include ('admin/layouts/tab')
     @if (Session::has('noti'))
         <div class="notiBox">
             <h4 class="notiBoxTitle">Thông báo <button class="notiBoxBtn"><i class="far fa-window-close"></i></button></h4>
             <p class="notiBoxContent"> {{Session('noti')}}!</p>
         </div>
     @endif
+
     
     <script src = "{{asset('assets/js/main.js')}}"></script>
     <script src = "{{asset('assets/js/admin.js')}}"></script>

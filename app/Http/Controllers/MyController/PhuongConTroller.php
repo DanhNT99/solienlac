@@ -129,5 +129,12 @@ class PhuongConTroller extends Controller
     public function destroy($id)
     {
         //
+        $checkDelete = Phuong::find($id)->delete();
+        if($checkDelete) {
+            return redirect('admin/phuong')->with('noti', 'Xóa phường thành công');
+        }
+        else {
+            return redirect('admin/phuong')->with('noti', 'Xóa phường  thất bại');
+        }
     }
 }

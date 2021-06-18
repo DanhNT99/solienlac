@@ -4,15 +4,16 @@
     @include('admin/giaovien/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm giáo viên
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chi tiết giáo viên</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form class = "adminFormAdd">
                     <div class="adminFormAddContains">
                         <div class="adminFormAddContainsImg">
                             <div class="wrapImgResize">
-                                <img src="{{asset('assets/images')}}/{{$giaovien->Hinh}}" class="adminFormAddImg" alt="">
+                                <img src="{{asset('assets/images')}}/{{$giaovien->Hinh}}" class="adminFormAddImg" alt="Ảnh thẻ">
                             </div>
                         </div>
                         <table class="adminFormAddTable">

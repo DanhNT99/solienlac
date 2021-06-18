@@ -70,7 +70,7 @@ class NDGKController extends Controller
         
         $checkData = NhapDiemGiuaKy::where([['id_khoi','=' , $request->khoi], ['id_monhoc','=' , $request->monhoc]])->get();
         if(count($checkData) > 0)
-            return redirect()->back()->with('noti', 'Dữ liệu này đã tồn tại');
+            return redirect()->back()->withInput()->with('noti', 'Dữ liệu này đã tồn tại');
             
         $data = new NhapDiemGiuaKy;
         $data->MaND = $request->MaND;

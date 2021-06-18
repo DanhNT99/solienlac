@@ -4,9 +4,11 @@
     @include('admin/layouts/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thông tin chi tiết học sinh
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửa thông tin học sinh</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
+
             <form action="{{route('hocsinh.update','')}}/{{$hocsinh->id}}" method = "post" enctype="multipart/form-data" class="adminFormAdd">
                 @method('PATCH')   @csrf
                 <div class="adminFormAddBox">
@@ -22,76 +24,56 @@
                         <input type="file" name = "Hinh" class="adminFormAddFileImg">
                         
                         <table class="adminFormAddTable">
-                            {{-- <tr>
-                                <td class=""><p class="adminFormAddText">Khối</p></td>
-                                <td>
-                                    <div class="formBoxSelect">
-                                        <select name="Khoi" id="khoi" class="formSelect">
-                                            <option selected disabled value="">Lựa chọn</option>
-                                            @foreach ($khoi as $item)
-                                                @if ($hocsinh->Hoc)
-                                                    <option @if ($hocsinh->Hoc->Lop->Khoi->id == $item->id) 
-                                                        {{$selected = 'selected'}}
-                                                    @endif value="{{$item->id}}">{{$item->TenKhoi}}</option>
-                                                @else
-                                                    <option  value="{{$item->id}}">{{$item->TenKhoi}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        <div class="formSelectIcon">
-                                            <i class="fas fa-caret-down"></i>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class=""><p class="adminFormAddText">Lop</p></td>
-                                <td>
-                                    <div class="formBoxSelect">
-                                        <select name="Lop" id="lop" class="formSelect">
-                                            <option selected disabled value="">Lựa chọn</option>
-                                            @foreach ($lop as $item)
-                                            @if ($hocsinh->Hoc)
-                                                <option @if ($hocsinh->Hoc->Lop->id == $item->id) selected @endif class = "formBoxSelectOption" value="{{$item->id}}">{{$item->TenLop}}</option>
-                                            @else
-                                                <option class = "formBoxSelectOption" value="{{$item->id}}">{{$item->TenLop}}</option>
-                                            @endif
-                                              
-                                            @endforeach
-                                        </select>
-                                        <div class="formSelectIcon">
-                                            <i class="fas fa-caret-down"></i>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr> --}}
                             <tr>
                                 <td><p class="adminFormAddText">Mã học sinh</p></td>
-                                <td> <input type="text" name="MaHS" value = "{{$hocsinh->MaHS}}" class="formInput formInputMa"></td>
+                                <td>
+                                    <input type="text" name="MaHS" value = "{{$hocsinh->MaHS}}" class="formInput formInputMa">
+                                </td>
                                 <td><p class="adminFormAddText">Họ học sinh </p></td>
-                                <td><input type="text" name="HoHS" value = "{{$hocsinh->HoHS}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="HoHS" value = "{{$hocsinh->HoHS}}" class="formInput capitalize">
+                                    @if ($errors->has('HoHS')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('HoHS')}}</div>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Tên học sinh </p></td>
-                                <td><input type="text" name="TenHS" value = "{{$hocsinh->TenHS}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="TenHS" value = "{{$hocsinh->TenHS}}" class="formInput capitalize">
+                                    @if ($errors->has('TenHS')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('TenHS')}}</div>
+                                    @endif
+                                </td>
                                 <td><p class="adminFormAddText">Giới tính</p></td>
                                 <td>
                                     <div class="formBoxSelect">
                                         <select name="GioiTinh" class="formSelect">
-                                            <option @if ($hocsinh->GioiTinh == 'Nam') 
-                                                {{$selected = 'selected'}}
-                                            @endif value="Nam">Nam</option>
-                                            <option @if ($hocsinh->GioiTinh == 'Nu') 
-                                                {{$selected = 'selected'}} 
-                                                @endif value="Nu">Nữ</option>
+                                            <option @if ($hocsinh->GioiTinh == 'Nam') {{$selected = 'selected'}} @endif value="Nam">Nam</option>
+                                            <option @if ($hocsinh->GioiTinh == 'Nu')  {{$selected = 'selected'}} @endif value="Nu">Nữ</option>
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
+                                    @if ($errors->has('GioiTinh')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('GioiTinh')}}</div>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Ngày sinh</p></td>
-                                <td><input type="date" name="NgaySinh" value = "{{$hocsinh->NgaySinh}}" class="formInput "></td>
+                                <td>
+                                    <input type="date" name="NgaySinh" value = "{{$hocsinh->NgaySinh}}" class="formInput">
+                                    @if ($errors->has('NgaySinh')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('NgaySinh')}}</div>
+                                    @endif
+                                </td>
                                 <td><p class="adminFormAddText">Địa chỉ</p></td>
-                                <td><input type="text" name="DiaChi" value = "{{$hocsinh->DiaChi}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="DiaChi" value = "{{$hocsinh->DiaChi}}" class="formInput capitalize">
+                                    @if ($errors->has('DiaChi')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('DiaChi')}}</div>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Phường</p></td>
@@ -122,21 +104,33 @@
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
                                         <td><p class="adminFormAddText">Mã PH</p></td>
-                                        <td><input type="text" name="MaPH[]" value="{{$item->PhuHuynh->MaPH}}" class="formInput capitalize">
+                                        <td>
+                                            <input type="text" name="MaPH[cha]" value="{{$item->PhuHuynh->MaPH}}" class="formInput capitalize">
+                                        </td>
                                     @else
-                                        <td><p class="adminFormAddText">Họ tên Me</p></td>
-                                        <td><input type="text" name="MaPH[]" value="{{$item->PhuHuynh->MaPH}}" class="formInput capitalize ">
+                                        <td><p class="adminFormAddText">Mã PH</p></td>
+                                        <td><input type="text" name="MaPH[me]" value="{{$item->PhuHuynh->MaPH}}" class="formInput capitalize "></td>
                                     @endif
                                 @endforeach
                             </tr>
                             <tr>
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
-                                        <td><p class="adminFormAddText">Họ tên Cha</p></td>
-                                        <td><input type="text" name="HoTenPH[]" value="{{$item->PhuHuynh->HoTenPH}}" class="formInput capitalize">
+                                        <td><p class="adminFormAddText">Họ tên cha</p></td>
+                                        <td>
+                                            <input type="text" name="HoTen[cha]" value="{{$item->PhuHuynh->HoTenPH}}" class="formInput capitalize">
+                                            @if ($errors->has('HoTen.cha')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('HoTen.cha')}}</div>
+                                            @endif
+                                        </td>
                                     @else
-                                        <td><p class="adminFormAddText">Họ tên Me</p></td>
-                                        <td><input type="text" name="HoTenPH[]" value="{{$item->PhuHuynh->HoTenPH}}" class="formInput capitalize">
+                                        <td><p class="adminFormAddText">Họ tên mẹ</p></td>
+                                        <td>
+                                            <input type="text" name="HoTen[me]" value="{{$item->PhuHuynh->HoTenPH}}" class="formInput capitalize">
+                                            @if ($errors->has('HoTen.me')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('HoTen.me')}}</div>
+                                            @endif
+                                        </td>
                                     @endif
                                 @endforeach
                             </tr>
@@ -146,7 +140,7 @@
                                     <td><p class="adminFormAddText">Giới tính</p></td>
                                     <td>
                                         <div class="formBoxSelect">
-                                            <select name="GioiTinhPH[]" class="formSelect">
+                                            <select name="GioiTinhPH[cha]" class="formSelect">
                                                 <option selected value="Nam">Nam</option>
                                                 <option value="Nu">Nữ</option> 
                                              </select>
@@ -157,7 +151,7 @@
                                     <td><p class="adminFormAddText">Giới tính</p></td>
                                     <td>
                                         <div class="formBoxSelect">
-                                            <select name="GioiTinhPH[]" class="formSelect">
+                                            <select name="GioiTinhPH[me]" class="formSelect">
                                                 <option value="Nam">Nam</option>
                                                 <option selected value="Nu">Nữ</option> 
                                              </select>
@@ -165,27 +159,26 @@
                                         </div>
                                     </td>
                                     @endif
-                                
                                 @endforeach
-                               
-                                {{-- @foreach ($hocsinh->ChiTietGiaDinh as $item)
-                                    @if ($item->Phuhuynh->GioiTinh == 'Nam')
-                                    <td><p class="adminFormAddText">Giới tính</p></td>
-                                    <td><input type="text" value = "Nam" class="formInput "></td>
-                                    @else
-                                        <td><p class="adminFormAddText">Giới tính</p></td>
-                                        <td><input type="text" value = "Nữ" class="formInput "></td>
-                                    @endif
-                                @endforeach --}}
                             </tr>
                             <tr>
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
                                         <td><p class="adminFormAddText">Nghề nghiệp</p></td>
-                                        <td><input type="text" name="NgheNghiep[]" value="{{$item->PhuHuynh->NgheNghiep}}" class="formInput ">
+                                        <td>
+                                            <input type="text" name="NgheNghiep[cha]" value="{{$item->PhuHuynh->NgheNghiep}}" class="formInput">
+                                            @if ($errors->has('NgheNghiep.cha')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('NgheNghiep.cha')}}</div>
+                                            @endif
+                                        </td>
                                     @else
                                         <td><p class="adminFormAddText">Nghề nghiệp</p></td>
-                                        <td><input type="text" name="NgheNghiep[]" value="{{$item->PhuHuynh->NgheNghiep}}" class="formInput ">
+                                        <td>
+                                            <input type="text" name="NgheNghiep[me]" value="{{$item->PhuHuynh->NgheNghiep}}" class="formInput">
+                                            @if ($errors->has('NgheNghiep.me')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('NgheNghiep.me')}}</div>
+                                            @endif
+                                        </td>
                                     @endif
                                 @endforeach
                             </tr>
@@ -193,10 +186,20 @@
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
                                         <td><p class="adminFormAddText">Nơi làm việc</p></td>
-                                        <td><input type="text" name="NoiLamViec[]" value="{{$item->PhuHuynh->NoiLamViec}}" class="formInput ">
+                                        <td>
+                                            <input type="text" name="NoiLamViec[cha]" value="{{$item->PhuHuynh->NoiLamViec}}" class="formInput">
+                                            @if ($errors->has('NoiLamViec.cha')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('NoiLamViec.cha')}}</div>
+                                            @endif
+                                        </td>
                                     @else
                                         <td><p class="adminFormAddText">Nơi làm việc</p></td>
-                                        <td><input type="text" name="NoiLamViec[]" value="{{$item->PhuHuynh->NoiLamViec}}" class="formInput ">
+                                        <td>
+                                            <input type="text" name="NoiLamViec[me]" value="{{$item->PhuHuynh->NoiLamViec}}" class="formInput">
+                                            @if ($errors->has('NoiLamViec.me')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('NoiLamViec.me')}}</div>
+                                            @endif
+                                        </td>
                                     @endif
                                 @endforeach
                             </tr>
@@ -204,12 +207,21 @@
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
                                         <td><p class="adminFormAddText">Số điện thoại</p></td>
-                                        <td><input type="text" name="SoDT[]" value="{{$item->PhuHuynh->SoDT}}" class="formInput NumberPhone">
-                                        <div class="notiFail hide" role="alert"></div>
+                                        <td>
+                                            <input type="text" name="SoDT[cha]" value="{{$item->PhuHuynh->SoDT}}" class="formInput">
+                                            @if ($errors->has('SoDT.cha')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('SoDT.cha')}}</div>
+                                            @endif
+                                        </td>
+                                  
                                     @else
                                         <td><p class="adminFormAddText">Số điện thoại</p></td>
-                                        <td><input type="text" name="SoDT[]" value="{{$item->PhuHuynh->SoDT}}" class="formInput NumberPhone">
-                                        <div class="notiFail hide" role="alert"></div>
+                                        <td>
+                                            <input type="text" name="SoDT[me]" value="{{$item->PhuHuynh->SoDT}}" class="formInput">
+                                            @if ($errors->has('SoDT.me')) 
+                                                <div class="notiFail" role="alert">{{$errors->first('SoDT.me')}}</div>
+                                            @endif
+                                        </td>
                                     @endif
                                 @endforeach
                                

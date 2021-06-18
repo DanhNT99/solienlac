@@ -4,9 +4,10 @@
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm niên khóa
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửu niên khóa</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+             </div>
             <div class="adminFormAddBox">
                 <form action="{{route('nienkhoa.update', '')}}/{{$nienkhoa->id}}" method = "post" class="adminFormAdd" >
                    @method('PATCH') @csrf
@@ -16,26 +17,32 @@
                                 <td><p class="adminFormAddText">Năm bất đầu</p></td>
                                 <td>
                                     <input type="text" value="{{$nienkhoa->NamBatDau}}" name="NamBatDau" class="formInput capitalize" placeholder="Năm bất đầu">
+                                    @if ($errors->has('NamBatDau')) 
+                                        <div class="notiFail" role="alert"> {{$errors->first('NamBatDau')}}</div>
+                                    @endif
                                 </td>
                                  <td><p class="adminFormAddText">Năm kết thúc</p></td>
                                 <td>
                                     <input type="text" value="{{$nienkhoa->NamKetThuc}}" name="NamKetThuc" class="formInput capitalize" placeholder="Năm kết thúc">
+                                    @if ($errors->has('NamKetThuc')) 
+                                        <div class="notiFail" role="alert"> {{$errors->first('NamKetThuc')}}</div>
+                                    @endif
                                 </td>
-                                </tr>
-                                <tr>
-                                    <td><p class="adminFormAddText">Mã niên khóa</p></td>
-                                    <td><input type="text" name="MaNK" value="{{$nienkhoa->MaNK}}" class="formInput formInputMa"></td>
-                                    <td><p class="adminFormAddText">Trạng thái</p></td>
-                                    <td>
-                                        <div class="formBoxSelect">
-                                            <select name="trangthai" class="formSelect">
-                                                <option @if ($nienkhoa->TrangThai  == 1) selected @endif value="1">Hiện tại</option>
-                                                <option @if ($nienkhoa->TrangThai  == 0) selected @endif value="0">Bỏ trống</option>
-                                            </select>
-                                            <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            </tr>
+                            <tr>
+                                <td><p class="adminFormAddText">Mã niên khóa</p></td>
+                                <td><input type="text" name="MaNK" value="{{$nienkhoa->MaNK}}" class="formInput formInputMa"></td>
+                                <td><p class="adminFormAddText">Trạng thái</p></td>
+                                <td>
+                                    <div class="formBoxSelect">
+                                        <select name="trangthai" class="formSelect">
+                                            <option @if ($nienkhoa->TrangThai  == 1) selected @endif value="1">Hiện tại</option>
+                                            <option @if ($nienkhoa->TrangThai  == 0) selected @endif value="0">Bỏ trống</option>
+                                        </select>
+                                        <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div class="adminFormAddGroup">

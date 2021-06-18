@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Hoc;
 use App\Models\NienKhoa;
 use App\Models\Lop;
+use App\Models\Khoi;
 use App\Models\HocSinh;
 use Validator;
 
@@ -19,7 +20,9 @@ class PCHTController extends Controller
      */
     public function index()
     {
-        $data['pcht'] = Hoc::get();
+        $data['khoi'] = Khoi::get();
+        $data['lop'] = LOp::get();
+        $data['pcht'] = Hoc::orderBy('id_lop', 'desc')->get();
         $data['stt'] = 1;
         return view('admin.hoc.index', $data);
     }
@@ -122,11 +125,6 @@ class PCHTController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function delete($id) {
-        $data['hoc'] = Hoc::find($id);
-        return view('admin.hoc.delete', $data);
-    }
 
     public function destroy($id)
     {

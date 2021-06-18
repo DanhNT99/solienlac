@@ -17,6 +17,9 @@
     <div class="adminContent">
         @yield('adminContent')
     </div>
+        <div class="boxLoad">
+        <div id="spinner"></div>
+    </div>
 
     @if (Session::has('noti'))
         <div class="notiBox">

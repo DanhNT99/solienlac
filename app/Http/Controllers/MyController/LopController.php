@@ -8,6 +8,7 @@ use Validator;
 use App\Models\Lop;
 use App\Models\Khoi;
 use App\Models\GiaoVien;
+use Spatie\Permission\Models\Role;
 
 
 class LopController extends Controller
@@ -20,7 +21,7 @@ class LopController extends Controller
     public function index()
     {
         //
-        $data['lop'] = Lop::orderBy('TenLop', 'asc')->paginate(5);
+        $data['lop'] = Lop::orderBy('TenLop', 'asc')->paginate(10);
         $data['stt'] = $data['lop']->firstItem();
         return view ('admin.lop.index', $data);
     }
@@ -33,12 +34,8 @@ class LopController extends Controller
     public function create()
     {
         $dem = Lop::count();
-        if($dem == 0) {
-            $currentMaLop = 'L00';
-        }
-        else {
-            $currentMaLop =  Lop::max('MaLop');
-        }
+        if($dem == 0)  $currentMaLop = 'L00';
+        else $currentMaLop =  Lop::max('MaLop');
         $array_id = explode('L',$currentMaLop);
         $array_id[0] .="L";
         $array_id[1] = intval($array_id[1]) + 1;
@@ -47,7 +44,12 @@ class LopController extends Controller
         }
         $data['text_id'] = implode('', $array_id);
         $data['khoi'] = Khoi::orderBy('TenKhoi', 'asc')->get();
-        $data['giaovien'] = GiaoVien::orderBy('TenGV', 'asc')->get();
+        $data['giaovien'] = array();
+        foreach(GiaoVien::with('Lop')->get()->toArray() as $gv){
+           if($gv['lop'] == null) {
+               array_push($data['giaovien'], $gv);
+           }
+        }
         return view ('admin.lop.create', $data);
     }
 
@@ -81,6 +83,9 @@ class LopController extends Controller
         $data->id_khoi = $request->khoi;
         $data->id_giaovien = $request->giaovien;
         $check = $data->save();
+        $giaovien = GiaoVien::find($request->giaovien);
+        $idRole = Role::where('name', 'Giáo viên chủ nhiệm')->first()->id;
+        $check = $giaovien->assignRole(['id'=> $idRole]);
         if($check) {
             return redirect('admin/lop')->with('noti', 'Thêm lớp thành công');
         }

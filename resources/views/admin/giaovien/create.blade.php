@@ -4,9 +4,10 @@
     @include('admin/giaovien/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm giáo viên
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-user-plus adminBoxTitleIcon mr-1"></i>Thêm giáo viên</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('giaovien.store')}}" method = "post" enctype="multipart/form-data" class="adminFormAdd" >
                     @csrf

@@ -3,10 +3,11 @@
 @section('adminContent')
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
-        <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Chỉnh sửa học kỳ
+        <div class="container">    
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửa học kỳ</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('hocky.update', '')}}/{{$hocky->id}}" method = "post" class="adminFormAdd" >
                    @method('PATCH') @csrf
@@ -32,7 +33,12 @@
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Tên học kỳ</p></td>
-                                <td><input type="text" name="TenHK" value="{{$hocky->TenHK}}" class="formInput capitalize"></td>
+                                <td>
+                                    <input type="text" name="TenHK" value="{{$hocky->TenHK}}" class="formInput capitalize">
+                                    @if ($errors->has('TenHK')) 
+                                        <div class="notiFail" role="alert"> {{$errors->first('TenHK')}}</div>
+                                    @endif
+                                </td>
                                 <td><p class="adminFormAddText">Trạng thái</p></td>
                                 <td>
                                     <div class="formBoxSelect">

@@ -36,4 +36,19 @@ $(document).ready(function () {
         e.preventDefault();
         $('.notiBox').addClass('hideNotiBox');
     });
+    $('.boxSubject').click(function (e) { 
+        e.preventDefault();
+        $(this).toggleClass('boxSubjectActive');
+        if($(this).next().prop('checked')) {
+            $(this).next().prop('checked', false);
+        }
+        else {
+            $(this).next().prop('checked', true);
+        }
+    });
+    if($('checkBox').prop('checked')) {
+        $(this).prev().addClass('boxSubjectActive');
+    }
+
+    $('.boxLoad').hide();
 });

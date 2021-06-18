@@ -28,13 +28,15 @@ class GiaoVien extends Authenticatable
     protected $guard_name =  'web';
 
     protected $table = "giaovien";
+    protected $fillable = ['MaGV', 'HoGV', 'TenGV', 'GioiTinh', 'NgaySinh', 'DiaChi', 
+                        'SoDT', 'Hinh', 'TaiKhoan', 'password', 'id_phuong'];
 
     public function phuong() {
         return $this->belongsto(Phuong::class, 'id_phuong', 'id');
     }
 
     public function Lop() {
-        return $this->hasMany(Lop::class, 'id_giaovien', 'id');
+        return $this->hasOne(Lop::class, 'id_giaovien', 'id');
     }
     public function Hoc() {
         return $this->hasManyThrough(Hoc::class, Lop::class, 'id_giaovien', 'id_lop', 'id')->join('hocsinh', 'hocsinh.id', '=', 'hoc.id_hocsinh')

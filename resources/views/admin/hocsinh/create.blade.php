@@ -6,9 +6,10 @@
     <section class="adminAdd">
 
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm học sinh
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-user-plus adminBoxTitleIcon mr-1"></i>Thêm học sinh</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('hocsinh.store')}}" method = "post" enctype="multipart/form-data" class="adminFormAdd">
                     @csrf
@@ -59,7 +60,7 @@
                                 <td><p class="adminFormAddText">Mã học sinh</p></td>
                                 <td> <input type="text" name="MaHS" value = "{{$idHocSinh}}" class="formInput formInputMa"></td>
                                 <td><p class="adminFormAddText">Họ học sinh</p></td>
-                                <td><input type="text" name="HoHS" value = "{{ old('HoHS') }}" class="formInput capitalize" placeholder="Họ và tên lót">
+                                <td><input type="text" name="HoHS" value = "{{old('HoHS')}}" class="formInput capitalize" placeholder="Họ và tên lót">
                                     @if ($errors->has('HoHS')) 
                                         <div class="notiFail" role="alert">{{$errors->first('HoHS')}}</div>
                                     @endif
@@ -107,8 +108,8 @@
                                     <div class="formBoxSelect">
                                         <select name="Tinh" id="" class="formSelect">
                                             @foreach ($tinh as $item)
-                                            <option value="{{$item->id}}">{{$item->TenTinh}}</option>
-                                        @endforeach
+                                                <option value="{{$item->id}}">{{$item->TenTinh}}</option>
+                                            @endforeach
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
@@ -139,15 +140,15 @@
                         <table class="adminFormAddTable adminFormAddTableSmall">
                             <tr>
                                 <td><p class="adminFormAddText">Họ tên cha</p></td>
-                                <td><input type="text" name="HoTen[]" value="{{old('HoTen[]')}}" class="formInput capitalize" placeholder="Họ và tên cha">
-                                    @if ($errors->has('HoTen[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('HoTen[]')}}</div>
+                                <td><input type="text" name="HoTen[cha]" value="{{old('HoTen.cha')}}" class="formInput capitalize" placeholder="Họ và tên cha">
+                                    @if ($errors->has('HoTen.cha')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('HoTen.cha')}}</div>
                                     @endif
                                 </td>                                
                                 <td><p class="adminFormAddText">Họ tên mẹ</p></td>
-                                <td><input type="text" name="HoTen[]" value="{{old('HoTen[]')}}" class="formInput capitalize" placeholder="Họ và tên mẹ">
-                                    @if($errors->has('HoTen[]'))
-                                        <div class="notiFail" role="alert">{{$errors->first('HoTen[]')}}</div>
+                                <td><input type="text" name="HoTen[me]" value="{{old('HoTen.me')}}" class="formInput capitalize" placeholder="Họ và tên mẹ">
+                                    @if($errors->has('HoTen.me'))
+                                        <div class="notiFail" role="alert">{{$errors->first('HoTen.me')}}</div>
                                     @endif
                                 </td>
                             </tr>
@@ -155,7 +156,7 @@
                                 <td><p class="adminFormAddText">Giới tính</p></td>
                                 <td>
                                     <div class="formBoxSelect">
-                                        <select name="GioiTinh[]" class="formSelect">
+                                        <select name="GioiTinh[cha]" class="formSelect">
                                             <option value="Nam">Nam</option>
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
@@ -164,7 +165,7 @@
                                 <td><p class="adminFormAddText">Giới tính</p></td>
                                 <td>
                                     <div class="formBoxSelect">
-                                        <select name="GioiTinh[]" class="formSelect">
+                                        <select name="GioiTinh[me]" class="formSelect">
                                             <option value="Nu">Nữ</option>
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
@@ -173,66 +174,64 @@
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Nghề nghiệp</p></td>
-                                <td><input type="text" name="NgheNghiep[]" value="{{old('NgheNghiep[]')}}" class="formInput" placeholder="Nghề nghiệp">
-                                    @if ($errors->has('NgheNghiep[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('NgheNghiep[]')}}</div>
+                                <td><input type="text" name="NgheNghiep[cha]" value="{{old('NgheNghiep.cha')}}" class="formInput" placeholder="Nghề nghiệp">
+                                    @if ($errors->has('NgheNghiep.cha')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('NgheNghiep.cha')}}</div>
                                     @endif
                                 </td>
                                 <td><p class="adminFormAddText">Nghề nghiệp</p></td>
-                                <td><input type="text" name="NgheNghiep[]" value="{{old('NgheNghiep[]')}}" class="formInput" placeholder="Nghề nghiệp">
-                                    @if ($errors->has('NgheNghiep[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('NgheNghiep[]')}}</div>
+                                <td><input type="text" name="NgheNghiep[me]" value="{{old('NgheNghiep.me')}}" class="formInput" placeholder="Nghề nghiệp">
+                                    @if ($errors->has('NgheNghiep.me')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('NgheNghiep.me')}}</div>
                                     @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Nơi làm việc</p></td>
-                                <td><input type="text" name="NoiLamViec[]" value="{{old('NoiLamViec[]')}}" class="formInput" placeholder="Nơi làm việc">
-                                    @if ($errors->has('NoiLamViec[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('NoiLamViec[]')}}</div>
+                                <td><input type="text" name="NoiLamViec[cha]" value="{{old('NoiLamViec.cha')}}" class="formInput" placeholder="Nơi làm việc">
+                                    @if ($errors->has('NoiLamViec.cha')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('NoiLamViec.cha')}}</div>
                                     @endif
                                 </td>
                                 <td><p class="adminFormAddText">Nơi làm việc</p></td>
-                                <td><input type="text" name="NoiLamViec[]" value="{{old('NoiLamViec[]')}}" class="formInput" placeholder="Nơi làm việc">
-                                    @if ($errors->has('NoiLamViec[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('NoiLamViec[]')}}</div>
+                                <td><input type="text" name="NoiLamViec[me]" value="{{old('NoiLamViec.me')}}" class="formInput" placeholder="Nơi làm việc">
+                                    @if ($errors->has('NoiLamViec.me')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('NoiLamViec.me')}}</div>
                                     @endif
                                 </td>
                             </tr>
-
-                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Số điện thoại</p></td>
-                                <td><input type="text" name="SoDT[]" value="{{old('SoDT')}}" class="formInput" placeholder="Số điện thoại">
-                                    @if ($errors->has('SoDT[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('SoDT[]')}}</div>
+                                <td><input type="text" name="SoDT[cha]" value="{{old('SoDT.cha')}}" class="formInput" placeholder="Số điện thoại">
+                                    @if ($errors->has('SoDT.cha')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('SoDT.cha')}}</div>
                                     @endif
                                 </td>
                                 <td><p class="adminFormAddText">Số điện thoại</p></td>
-                                <td><input type="text" name="SoDT[]" value="{{old('SoDT')}}" class="formInput" placeholder="Số điện thoại">
-                                    @if ($errors->has('SoDT[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('SoDT')}}</div>
+                                <td><input type="text" name="SoDT[me]" value="{{old('SoDT.me')}}" class="formInput" placeholder="Số điện thoại">
+                                    @if ($errors->has('SoDT.me')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('SoDT.me')}}</div>
                                     @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Mật khẩu</p></td>
-                                <td><input type="password" name="MatKhau[]" class="formInput" placeholder="Mật khẩu">
-                                    @if ($errors->has('MatKhau')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('MatKhau')}}</div>
+                                <td><input type="password" name="MatKhau[cha]" class="formInput" placeholder="Mật khẩu">
+                                    @if ($errors->has('MatKhau.cha')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('MatKhau.cha')}}</div>
                                     @endif
                                 </td>
                                 <td><p class="adminFormAddText">Mật khẩu</p></td>
-                                <td><input type="password" name="MatKhau[]" class="formInput" placeholder="Mật khẩu">
-                                    @if ($errors->has('MatKhau[]')) 
-                                        <div class="notiFail" role="alert">{{$errors->first('MatKhau[]')}}</div>
+                                <td><input type="password" name="MatKhau[me]" class="formInput" placeholder="Mật khẩu">
+                                    @if ($errors->has('MatKhau.me')) 
+                                        <div class="notiFail" role="alert">{{$errors->first('MatKhau.me')}}</div>
                                     @endif
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submmit" class="adminFormAddBtn">Thêm</button>
+                        <button class="adminFormAddBtn">Thêm</button>
                         <a href = "admin/hocsinh" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

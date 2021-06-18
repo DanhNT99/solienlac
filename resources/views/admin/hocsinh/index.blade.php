@@ -2,46 +2,38 @@
 @section('title') Học sinh @endsection
 @section('adminContent')
     @include('admin/hocsinh/tab')
+    <div class="container mt-2">
+        <div class="adminBoxTitle py-1 px-2" style="width: fit-content;">
+            <div>
+                <span>Năm học : {{$nienkhoa->NamBatDau . ' - ' . $nienkhoa->NamKetThuc}}</span>
+                <span class="mx-2">|</span>
+                <span>
 
-    <section class="adminForm">
+                    @foreach ($nienkhoa->HocKy as $item)
+                        @if ($item->TrangThai) {{$item->TenHK}}@endif
+                     @endforeach
+                </span>
+                @if (Auth::guard('giao_vien')->user()->hasrole('Giáo viên chủ nhiệm'))
+                <span class="mx-2">|</span>
+                <span>
+                    Lớp: {{Auth::guard('giao_vien')->user()->Lop->TenLop}}
+                </span>
+                @endif
+            </div>
+        </div>
+    </div>
+    <section class="adminForm pt-1">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus adminBoxTitleIcon"></i>
-                Tìm kiếm thông tin học sinh
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-search-plus adminBoxTitleIcon"></i> Tìm kiếm thông tin học sinh</h6>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
+            
             <div class="adminContainsFormSearch">
                 <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
                     <table class="adminFormSeachTable">
                         @if (Auth::guard('giao_vien')->user()->hasrole('Quản trị viên'))
-                        <tr>
-                            <td class=""><p class="adminFormSearchText">Khối</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="Khoi" id="khoi" class="formSelect">
-                                        <option selected disabled>Lựa chọn</option>
-                                        @foreach ($khoi as $item)
-                                            <option value="{{$item->id}}">{{$item->TenKhoi}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><p class="adminFormSearchText">Lớp</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="Lop" class="formSelect" id = "lop">
-                                        <option selected disabled>Lựa chọn</option>
-                                        @foreach ($lop as $item)
-                                            <option class="formBoxSelectOption" value="{{$item->id}}">{{$item->TenLop}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        
                         @endif
                         <tr>
                             <td><p class="adminFormSearchText">Giới Tính</p></td>
@@ -104,7 +96,6 @@
                     <th>Họ và tên</th>
                     <th>Giới tính</th>
                     <th>Ngày sinh</th>
-                    <th>Lớp</th>
                     <th>Địa chỉ</th>
                     <th>Chọn</th>
                 </tr>
@@ -116,13 +107,6 @@
                         <td>@if ($item->GioiTinh == 'Nu') Nữ
                             @else Nam @endif</td>
                         <td>{{$item->NgaySinh}}</td>
-                        <td>
-                            @if ($item->Hoc)
-                                {{$item->Hoc->Lop->TenLop}}
-                            @else
-                                Chưa có
-                            @endif
-                        </td>
                         <td>{{$item->DiaChi}}</td>
                         <td>
                             <a href="admin/hocsinh/{{$item->id}}"><i class="fas fa-info-circle"></i></a>

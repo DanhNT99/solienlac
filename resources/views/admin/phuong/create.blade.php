@@ -4,9 +4,10 @@
     @include('admin/tinh/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm phường
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-2"></i>Thêm phường</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+             </div>
             <div class="adminFormAddBox">
                 <form action="{{route('phuong.store')}}" method = "post" class="adminFormAdd" >
                     @csrf

@@ -13,7 +13,6 @@
                     <th>Stt</th>
                     <th>Mã Khối</th>
                     <th>Tên Khối</th>
-                    <th>Được phép</th>
                     <th>Chọn</th>
                 </tr>
                 @foreach ($khoi as $item)
@@ -21,16 +20,43 @@
                         <td>{{$stt++}}</td>
                         <td>{{$item->MaKhoi}}</td>
                         <td>{{$item->TenKhoi}}</td>
-                        <td> @if ($item->DuocPhep) Được @else Không @endif </td>
                         <td>
                             <a href="admin/khoi/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
-                            <a href="admin/khoi/{{$item->id}}/delete"><i class="fas fa-trash"></i></a>
+                            <form action="{{route('khoi.destroy','')}}/{{$item->id}}" method = "post" class="adminFormAdd {{'formDelete' . $item->id}} d-inline" >
+                                @method('DELETE') @csrf
+                                <button type="button" class="bg-none border-0 btnButton" id="{{$item->id}}" data-toggle="modal" data-target="#exampleModal">
+                                  <i class="fas fa-trash text-danger"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </table>
         </div>
     </section>
+
+    
+ 
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header  py-1">
+          <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"> Bạn có chắc chắn khối xóa không? </div>
+        <div class="modal-footer py-1">
+          <button type="button" class="btn btn-danger py-1 btnSubmit" data-dismiss="modal">Thực hiện</button>
+          <button type="button" class="btn btn-primary py-1 ">Hủy bỏ</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     @if (Session::has('noti'))
         <div class="notiBox">
