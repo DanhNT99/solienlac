@@ -34,4 +34,11 @@
         return $bool;
     }
 
+    function deleteValueNullOfArray($array) {
+        foreach($array as $key => $value) {
+            if($value == NULL) unset($array[$key]);
+        }
+        return $array;
+    }
+
 ?>

@@ -18,7 +18,7 @@ class HocKyController extends Controller
     public function index()
     {
         //
-        $data['hocky'] = HocKy::paginate(5);
+        $data['hocky'] = HocKy::paginate(10);
         $data['stt'] = $data['hocky']->firstItem();
         return view ('admin.hocky.index', $data);
     }
@@ -62,7 +62,7 @@ class HocKyController extends Controller
         }
         $data = new HocKy ();
         $data->MaHK = $request->MaHK;
-        $data->TenHK = ucwords($request->TenHK);
+        $data->TenHK = ucfirst($request->TenHK);
         $data->id_nienkhoa = $request->nienkhoa;
         $data->TrangThai = $request->TrangThai;
         $check = $data->save();

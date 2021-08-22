@@ -17,52 +17,43 @@
                     <th>Chọn</th>
                 </tr>
                 @foreach ($pcnl as $item)
-                        <tr class = "trContainsBox">
-                            <td>{{$stt++}}</td>
-                            <td > {{$item->MaPCNL}} </td>
-                            <td>{{$item->TenPCNL}}</td>
-                            <td>@if ($item->LoaiPCNL == 1) Năng lực @else Phẩm chất @endif</td>
-                            <td>
-                                <a href="admin/phamchatnangluc/{{$item->id}}"><i class="fas fa-info-circle"></i></a>
-                                <a href="admin/phamchatnangluc/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
-                                <a href="admin/phamchatnangluc/{{$item->id}}/delete"><i class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-                          <!-- Modal -->
-                    </form>
+                <tr class = "trContainsBox">
+                    <td>{{$stt++}}</td>
+                    <td> {{$item->MaPCNL}} </td>
+                    <td class = "text-left pl-3">{{$item->TenPCNL}}</td>
+                    <td>@if ($item->LoaiPCNL == 1) Năng lực @else Phẩm chất @endif</td>
+                    <td>
+                        <a href="admin/phamchatnangluc/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
+                        <form action="{{route('phamchatnangluc.destroy','')}}/{{$item->id}}" method = "post" class="adminFormAdd {{'formDelete' . $item->id}} d-inline" >
+                            @method('DELETE') @csrf
+                            <button type="button" class="bg-none border-0 btnButton" id="{{$item->id}}" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-trash text-danger"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
             </table>
         </div>
-       {{-- @foreach ($banhoc as $item)
-       <div class="modal fade" id="exampleModal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modalBox" role="document">
-            <div class="modal-content">
-                <form class="adminFormSearch py-2" action="{{route('banhoc.destroy', '')}}/{{$item->id}}" method = "post">
-                    @method('DELETE') @csrf
-                    <h4 class = "modelTitle">Thông tin ban học</h4>
-                    <table class="adminFormSeachTable">
-                        <tr>
-                            <td class=""><p class="adminFormSearchText">Mã ban học</p></td>
-                            <td><input type="text" disabled value="{{$item->MaBH}}" class="formInput"></td>
-                        </tr>
-                        <tr>
-                            <td class=""><p class="adminFormSearchText">Tên ban học</p></td>
-                            <td><input type="text" disabled value="{{$item->TenBH}}" class="formInput"></td>
-                        </tr>
-                    </table>
-                    <div class="d-flex mt-2 mb-1 align-items-center justify-content-between px-2">
-                        <p class="modelQuestion">Bạn có muốn xóa ban học này không?</p>
-                        <div>
-                            <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
-                            <button type="button" class="px-3 py-1 border-0 rounded btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-                        </div>
-                    </div>
-                </form>
+    </section>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header  py-1">
+            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body"> Bạn có chắc chắn xóa môn học này không ? </div>
+            <div class="modal-footer py-1">
+            <button type="button" class="btn btn-danger py-1 btnSubmit" data-dismiss="modal">Thực hiện</button>
+            <button type="button" class="btn btn-primary py-1 ">Hủy bỏ</button>
             </div>
         </div>
+        </div>
     </div>
-       @endforeach --}}
-    </section>
 
     @if (Session::has('noti'))
         <div class="notiBox">

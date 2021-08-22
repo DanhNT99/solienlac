@@ -29,4 +29,9 @@
                 </div>
             </div>
         </div>
-    </section>
+        <script>
+            $(document).ready(function () {
+                $('.adminMainTab').slideDown(0);
+            });
+        </script>
+</section>

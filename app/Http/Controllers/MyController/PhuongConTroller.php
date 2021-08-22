@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Phuong;
-use App\Models\Tinh;
 
 class PhuongConTroller extends Controller
 {
@@ -18,7 +17,7 @@ class PhuongConTroller extends Controller
     public function index()
     {
         //
-        $data['phuong'] = Phuong::orderBy('TenPhuong', 'asc')->paginate(10);
+        $data['phuong'] = Phuong::paginate(10);
         $data['stt'] =   $data['phuong']->firstItem();
         return view('admin.phuong.index', $data);
     }
@@ -45,7 +44,6 @@ class PhuongConTroller extends Controller
             $array_id[1] = "0" . $array_id[1];
         }
         $data['text_id'] = implode('', $array_id);
-        $data['tinh'] = Tinh::get();
         return view('admin.phuong.create', $data);
     }
 
@@ -59,15 +57,9 @@ class PhuongConTroller extends Controller
     {
         //
         $validate = Validator::make($request->all(),
-        [
-            'TenPhuong' => 'required', 'tinh' => 'required',
-            'donvi' => 'required'
-        ],[
-            'required' => ":attribute không được để trống",
-        ],[
-            'TenPhuong' => 'Tên phường','tinh' => 'Tên tỉnh',
-            'donvi' =>'Đơn vị'
-        ]);
+        ['TenPhuong' => 'required','donvi' => 'required'],
+        ['required' => ":attribute không được để trống"],
+        ['TenPhuong' => 'Tên phường','donvi' =>'Đơn vị']);
 
         if($validate->fails()) {
             return redirect()->back()->withErrors($validate);
@@ -76,7 +68,6 @@ class PhuongConTroller extends Controller
         $data->MaPhuong = $request->MaPhuong;
         $data->TenPhuong =ucwords( $request->TenPhuong);
         $data->DonVi = $request->donvi;
-        $data->id_tinh = $request->tinh;
         $check = $data->save();
         if($check) {
             return redirect('admin/phuong')->with('noti', 'Thêm phường thành công');
@@ -106,6 +97,9 @@ class PhuongConTroller extends Controller
     public function edit($id)
     {
         //
+
+        $data['phuong'] = Phuong::find($id);
+        return view('admin.phuong.edit', $data);
     }
 
     /**
@@ -117,7 +111,24 @@ class PhuongConTroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+    //VALIDATE INPUT
+     $validate = Validator::make($request->all(),
+        ['TenPhuong' => 'required'],
+        ['required' => ":attribute không được để trống"],
+        ['TenPhuong' => 'Tên phường']);
+
+        if($validate->fails()) {
+            return redirect()->back()->withErrors($validate);
+        }
+    //UPATE PHUONG
+        $update = Phuong::where('id', $id)
+                        ->update(['TenPhuong' => $request->TenPhuong,
+                                    'DonVi' => $request->DonVi]);
+        if($update)
+            return redirect('admin/phuong')->with('noti', 'Chỉnh sửa phường thành công');
+        else 
+            return redirect('admin/phuong')->with('noti', 'Chỉnh sửa phường thất bại');
     }
 
     /**
@@ -128,13 +139,32 @@ class PhuongConTroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        
         $checkDelete = Phuong::find($id)->delete();
         if($checkDelete) {
             return redirect('admin/phuong')->with('noti', 'Xóa phường thành công');
         }
         else {
             return redirect('admin/phuong')->with('noti', 'Xóa phường  thất bại');
+        }
+    }
+
+    public function search(Request $request) {
+        if(isset($request->DonVi) || isset($request->TenPhuong)) {
+            $tenPhuong = str_replace('%', ' ', $request->TenPhuong);
+            $where = array(
+                $request->DonVi ? ['DonVi', '=', $request->DonVi] : '',
+                $request->TenPhuong ? ['TenPhuong', 'like', '%'.$tenPhuong.'%']: '',
+            );
+            foreach($where as $key => $value) {
+                if($value == NULL) unset($where[$key]);
+            }
+            $data['phuong'] = Phuong::where($where)->get();
+            $data['stt'] = 1;
+            return view('admin.phuong.search', $data);
+        }
+        else {
+            return redirect()->back()->with('noti', 'Bạn vui lòng nhập dữ liệu');
         }
     }
 }

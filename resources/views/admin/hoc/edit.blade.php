@@ -16,29 +16,18 @@
                         <table class="adminFormAddTable adminFormAddTableSmall">
                             <tr>
                                 <td><p class="adminFormAddText">Niên khóa</p></td>
-                                {{-- <td><input type="text" name="MaBH" value="{{$hoc->id_nienkhoa}}" class="formInput formInputMa"></td> --}}
-                               <td>
-                                    <div class="formBoxSelect">
-                                        <select name="nienkhoa" id="" class="formSelect">
-                                            @foreach ($nienkhoa as $item)
-                                                <option @if ($item->id == $hoc->id_nienkhoa) selected @endif 
-                                                    value="{{$item->id}}">{{$item->NamBatDau . '- '. $item->NamKetThuc}}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
-                                    </div>
-                               </td>
-                                <td><p class="adminFormAddText">Học sinh</p></td>
                                 <td>
                                     <div class="formBoxSelect">
-                                        <select name="hocsinh" id="" class="formSelect">
-                                            @foreach ($hocsinh as $item)
-                                                <option @if ($item->id == $hoc->id_hocsinh) selected @endif 
-                                                    value="{{$item->id}}">{{$item->HoHS . ' '. $item->TenHS}}</option>
-                                            @endforeach
+                                        <select name="nienkhoa" id="" class="formSelect">
+                                            <option value="{{$hoc->NienKhoa->id}}">{{$hoc->NienKhoa->NamBatDau . '- '. $hoc->NienKhoa->NamKetThuc}}</option>
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
+                                </td>
+                                <td><p class="adminFormAddText">Học sinh</p></td>
+                                <td>
+                                 <input type="text" class="formInput formInputMa capitalize" 
+                                        value= "{{$hocsinh->HoHS. ' ' . $hocsinh->TenHS}}">
                                </td>
                             </tr>
                             <tr>
@@ -58,8 +47,8 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
-                        <a href = "admin/hoc" class="adminFormAddLink">Quay lại</a>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
+                        <a href = "{{url()->previous()}}" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>
             </div>

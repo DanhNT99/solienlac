@@ -18,4 +18,9 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('.adminMainTab').slideDown(0);
+            });
+        </script>
     </section>

@@ -3,7 +3,11 @@
 @section('adminContent')
     <section class="scores">
         <div class="container">  
-            <div class="adminContainsFormSearch">
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-search-plus adminBoxTitleIcon mr-1"></i>Tìm kiếm kết quả học tập</h6>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
+            <div class="adminContainsFormSearch py-2">
                 <form action="{{route('searchResultStudy')}}" class="adminFormSearch" method = "get">
                     <table class = "mx-auto my-2">
                         <tr>
@@ -24,11 +28,13 @@
                             <td class="d-none">
                                 <input type="text" name="idStudent" value =  {{$hocsinh->id}}>
                             </td>
+                            <td>  
+                                <div class="adminFormSearchContainsBtn">
+                                    <button class="adminFormSearchBtn mt-0 ml-2">Tìm kiếm</button>
+                                </div>
+                            </td>
                         </tr>
                     </table>
-                    <div class="adminFormSearchContainsBtn">
-                        <button class="adminFormSearchBtn">Tìm kiếm</button>
-                    </div>
                 </form>
             </div>
         </div>
@@ -145,7 +151,9 @@
                         <div class="px-2 w-50">
                         <h5 class="title_main text-left" style="font-size: 20px">Nhận xét của giáo viên</h5>
                     @if ($SoLienLac->NhanXet->where('id_hocky', $hk->id)->first())
-                        <textarea name="NhanXet" class="mx-auto textarea p-2 w-100 formInputMa" placeholder="Nhập vào nhận xét">{{$SoLienLac->NhanXet->where('id_hocky', $hk->id)->first()->NhanXet}}</textarea>
+                        <textarea name="NhanXet" class="mx-auto textarea p-2 w-100 formInputMa" placeholder="Nhập vào nhận xét">
+                            {{$SoLienLac->NhanXet->where('id_hocky', $hk->id)->first()->NoiDungNhanXet}}
+                        </textarea>
                     @endif
                         </div>
                     </div>

@@ -5,9 +5,9 @@
 
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Danh sách khối được nhập điểm giữa kỳ</h3>
+            <h3 class="adminListTitle">Danh sách khối được nhập điểm giữa kì</h3>
             <div class="adminActive">
-                <a href="admin/chophepnhapdiem/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Phân công</a>
+                <a href="admin/chophepnhapdiem/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Thêm quy định</a>
             </div>
             <table class="adminTable" border="1">
                 <tr>

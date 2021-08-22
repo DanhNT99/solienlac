@@ -29,7 +29,7 @@ class GiaoVien extends Authenticatable
 
     protected $table = "giaovien";
     protected $fillable = ['MaGV', 'HoGV', 'TenGV', 'GioiTinh', 'NgaySinh', 'DiaChi', 
-                        'SoDT', 'Hinh', 'TaiKhoan', 'password', 'id_phuong'];
+                        'SoDT', 'Hinh', 'password', 'id_phuong'];
 
     public function phuong() {
         return $this->belongsto(Phuong::class, 'id_phuong', 'id');

@@ -4,9 +4,10 @@
     @include('admin/layouts/tab')
     <section class="adminAdd">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-user-plus adminBoxTitleIcon"></i>Thêm phẩm chất năng lực
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Cho phép nhập điểm </h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
-            </h3>
+            </div>
             <div class="adminFormAddBox">
                 <form action="{{route('phamchatnangluc.store')}}" method = "post" class="adminFormAdd" >
                     @csrf
@@ -29,7 +30,6 @@
                                 <td>
                                     <div class="formBoxSelect">
                                         <select name="LoaiPCNL" class="formSelect">
-                                            <option selected disabled>Lựa chọn</option>
                                             <option value="1">Năng lực</option>
                                             <option value="2">Phẩm chất</option>
                                         </select>
@@ -43,7 +43,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submmit" class="adminFormAddBtn">Thêm</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/phamchatnangluc" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

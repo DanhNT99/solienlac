@@ -2,7 +2,7 @@
 @section('title') Giáo viên @endsection
 @section('adminContent')
 
-    @include('admin/giaovien/tab')
+    @include('admin/layouts/tab')
     <section class="adminForm">
         <div class="container">
             <div class="adminBoxTitle py-1 px-2">
@@ -18,16 +18,14 @@
                                 <input type="text" name="MaGV" class="formInput" placeholder="Mã giáo viên">
                             </td>
                             <td><p class="adminFormSearchText">Tên giáo viên</p></td>
-                            <td> <input type="text" name="TenGV" class="formInput" placeholder="Họ và tên"></td>
+                            <td><input type="text" name="TenGV" class="formInput capitalize" placeholder="Tên giáo viên"></td>
                         </tr>
                         <tr>
-                          
-
                             <td><p class="adminFormSearchText">Giới Tính</p></td>
                             <td>
                                 <div class="formBoxSelect">
                                     <select name="GioiTinh" id="" class="formSelect">
-                                        <option selected disabled>Tất cả</option>
+                                        <option selected disabled>Lựa chọn</option>
                                         <option value="Nam">Nam</option>
                                         <option value="Nu">Nữ</option>
                                     </select>
@@ -36,7 +34,7 @@
                                     </div>
                                 </div>
                             </td>
-                              <td><p class="adminFormSearchText">Phường</p></td>
+                              <td><p class="adminFormSearchText">Phường/xã</p></td>
                             <td>
                                 <div class="formBoxSelect">
                                     <select name="Phuong" id="" class="formSelect">
@@ -61,15 +59,14 @@
     <section class="adminList">
         <div class="container">
             <h3 class="adminListTitle">Danh sách giáo viên</h3>
-           
             <div class="adminActive">
-                <form action="{{route('importExcel')}}" class="formImportExcel d-none" method="post" enctype="multipart/form-data">
+                {{-- <form action="{{route('importExcel')}}" class="formImportExcel d-none" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <input type="file" name="fileExcel"  class="form-control formImprotExcel">
+                        <input type="file" name="fileExcel"  class="form-control formInputExcel">
                     </div>
                 </form>
-                 <button type="submit" class="btnFormExcel adminActiveItem border-0">Nhâp Excel</button>
+                <button type="submit" class="btnFormExcel adminActiveItem border-0">Nhập Excel</button> --}}
                 <a href="admin/giaovien/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Thêm</a>
             </div>
             <table class="adminTable" border="1">
@@ -81,22 +78,27 @@
                     <th>Ngày sinh</th>
                     <th>Số điện thoại</th>
                     <th>Địa chỉ</th>
+                     <th>Phường/Xã</th>
                     <th>Chọn</th>
                 </tr>
                 @foreach ($giaovien as $item)
                 <tr class="trContainsBox">
                     <td>{{$stt++}}</td>
                     <td>{{$item->MaGV}}</td>
-                    <td>{{$item->HoGV . ' ' . $item->TenGV}}</td>
+                    <td class="text-left pl-1">{{$item->HoGV . ' ' . $item->TenGV}}</td>
                     <td>@if ($item->GioiTinh == 'Nu') Nữ
                         @else Nam @endif</td>
                     <td>{{$item->NgaySinh}}</td>
-                    <td>{{$item->DiaChi}}</td>
                     <td>{{$item->SoDT}}</td>
+                    <td class="text-left pl-1">{{$item->DiaChi}}</td>
+                    <td class="text-left pl-1">{{$item->Phuong->DonVi}} {{$item->Phuong->TenPhuong}}</td>
                     <td>
                         <a href="admin/giaovien/{{$item->id}}"><i class="fas fa-info-circle"></i></a>
                         <a href="admin/giaovien/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
-                        <a href="admin/giaovien/{{$item->id}}/delete"><i class="fas fa-trash"></i></a>
+                        @if (!(Auth::guard('giao_vien')->user()->id == $item->id))
+                            <a href="admin/giaovien/{{$item->id}}/delete"><i class="fas fa-trash text-danger"></i></a>
+                        @endif
+                    
                     </td>
                 </tr>
                 @endforeach

@@ -1,6 +1,6 @@
 
 .studentAdd {
-    padding: 20px 0px
+    padding: 20px 0px;
     
 }
 
@@ -52,21 +52,22 @@
     margin: 25px 0px 10px 0px;
     font-size: 25px;
 }
-.formInputMa {
-    pointer-events: none;
-    
-}
+
 
 @mixin subjectBox() {
-     @include btnMain();
+    @include btnMain();
     background-color: $color2;
     cursor: pointer;
+    text-decoration: none;
     @include transition(0.5s);
     transform: scale(1);
-    
     &.boxSubjectActive {
         background-color: $color1;
         animation: bigbox 0.5s forwards ease-in-out;
+    }
+    &:hover {
+        text-decoration: none;
+        color: $color5;
     }
 
     @keyframes bigbox {
@@ -87,4 +88,21 @@
 }
 .btnSubject {
  @include subjectBox();
+
 }
+
+.pop-div {
+    font-size: 13px;
+    margin-top: 100px;
+    .pop-title {
+        display: none;
+        color: blue;
+        font-size: 15px;
+    }
+    .pop-content {
+        display: none;
+        color: red;
+        font-size: 10px;
+    }
+}
+

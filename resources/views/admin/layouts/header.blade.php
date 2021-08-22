@@ -6,14 +6,15 @@
                     <img src="{{asset('assets/images/logo.png')}}" class="header-Logo" title="b-contact">
                 </a>
             </div>
-            <div class="col-6">
+            <div class="col-7">
                <div class="header_inforSchool">
                     <h1 class="header_inforSchoolName">
                         Trường Tiểu Học Phương Sơn
                     </h1>
                     <ul class="header_listContact">
                         <li class="header_listContactItem">
-                            <a href="#" title="037416657" class="header_listContactItemLink" ><i class="fas fa-phone-alt"></i> 037416657</a>
+                            <a href="tel:025835611988" title="037416657" class="header_listContactItemLink" >
+                                <i class="fas fa-phone-alt"></i>025835611988</a>
                         </li>
                         <li class="header_listContactItem">
                             <a href="#" title="037416657" class="header_listContactItemLink">
@@ -22,7 +23,7 @@
                     </ul>
                </div>
             </div>
-            <div class="col-4 pr-0">
+            <div class="col-3 pr-0">
                 <div class="header_containsUser">
                         <div class = "header_userName">
                              <i class="fas fa-user-circle header_userIcon"></i> 
@@ -48,7 +49,7 @@
                                 <form action = "{{route('handleLogout')}}" class="header_formLogout" method ="post">
                                     @csrf
                                     <button class = "header_formLogoutBtn">
-                                        <i class="fas fa-sign-out-alt header_userDropIcon"></i> logout
+                                        <i class="fas fa-sign-out-alt header_userDropIcon"></i> Đăng xuất
                                     </button>
                                 </form>
                             </div>

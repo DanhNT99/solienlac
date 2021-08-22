@@ -3,91 +3,89 @@
 @section('adminContent')
     @include('admin/layouts/tab')
     <section class="adminForm">
-        <div class="container">
-            <div class="adminBoxTitle">
-                <div class="yearOfCourse">Năm học: {{$nienkhoa->NamBatDau . '- ' . $nienkhoa->NamKetThuc}}</div>
+        <div class="container-xl">
+            <div class="adminBoxTitle py-1 px-2 mb-2" style="width: fit-content;">
+                <span>Năm học : {{$nienkhoa->NamBatDau . ' - ' . $nienkhoa->NamKetThuc}}</span>
+                <span class="mx-2">|</span>
+                <span>{{$hocky->TenHK}}</span>
+                <span class="mx-2">|</span>
+                <span> Lớp: {{$giaovien->Lop->TenLop}}</span>
+            </div>
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="far fa-eye adminBoxTitleIcon mr-1"></i>Xem đánh giá rèn luyện</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </div>
             <div class="adminContainsFormSearch">
-                <div class="px-4 d-flex">
-                    <div class="mr-2 mt-0 mx-0 btnClass">
-                        Lớp : {{$giaovien->Lop->TenLop}}
-                        <input type = "text" class = "d-none inputClass" value = "{{$giaovien->Lop->id}}"/>
-                    </div>
-                    @foreach ($nienkhoa->HocKy as $item)
-                        @if ($item->TrangThai)<div class = "mt-0 mx-0 btnClass d-flex">{{$item->TenHK}}</div>@endif
-                    @endforeach
-                </div>
-                {{-- <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
-                    <table class="adminFormSeachTable">
-                        <tr>
-                            <td><p class="adminFormSearchText">Khối</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="" class="formSelect formInputMa">
-                                       @foreach ($giaovien->Lop as $item)
-                                            <option class="formBoxSelectOption" value="{{$item->Khoi->id}}">{{$item->Khoi->TenKhoi}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
-                                </div>
-                            </td>
-                            </td>
-                            <td><p class="adminFormSearchText">Lớp</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="" class="formSelect formInputMa">
-                                    @foreach ($giaovien->Lop as $item)
-                                        <option class="formBoxSelectOption" value="{{$item->id}}">{{$item->TenLop}}</option>
-                                    @endforeach
-                                    </select>
-                                    <div class="formSelectIcon"><i class="fas fa-caret-down"></i> </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    <div class="adminFormSearchContainsBtn">
-                        <button class="adminFormSearchBtn">Tìm kiếm</button>
-                    </div>
-                </form> --}}
+                <div class="mt-2">
+                    <p class = "px-lg-4">Chọn phẩm chất năng lực: </p>
+                     <ul class="d-flex w-90 px-2 px-lg-5 flex-wrap mx-auto">
+                         @foreach ($pcnl as $item)
+                             <li class="mr-2">
+                                 <a href = "admin/timkiemketquarenluyen/{{$item->id}}" @if ($item->id == $pcnlfirst->id)
+                                    class = "btnSubject boxSubjectActive" @endif class = "btnSubject">{{$item->TenPCNL}}</a>
+                             </li>
+                         @endforeach   
+                     </ul>
+                 </div>
             </div>
         </div>
     </section>
 
     <section class="adminList">
-        <div class="container">
+        <div class="container-xl">
             <h3 class="adminListTitle">Danh sách đánh giá rèn luyện</h3>
             <div class="adminActive">
-                <a href="admin/ketquarenluyen/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Đánh giá</a>
+                <form action="admin/ketquarenluyen/create" method = "get">
+                    <input type="text" name="idPCNL" value="{{$pcnlfirst->id}}" class="d-none">
+                    <button href="admin/ketquarenluyen/create" class="adminActiveItem  border-0 outline-none"><i class="fas fa-plus-circle"></i>Đánh giá</button>
+                </form>
             </div>
             <table class="adminTable" border="1">
                 <tr>
-                    <th>Stt</th>
-                    <th>Mã học sinh</th>
-                    <th>Họ tên học sinh</th>
-                    <th>Tên PCNL</th>
-                    <th>Loai PCNL</th>
-                    <th>Loại học kỳ</th>
-                    <th>Mức đạt được</th>
+                    <th rowspan="2">Stt</th>
+                    <th rowspan="2">Mã học sinh</th>
+                    <th rowspan="2">Tên học sinh</th>
+                    @foreach ($nienkhoa->HocKy as $hk)
+                        @if ($hk->TrangThai)
+                            @foreach ($hk->LoaiHocKy as $lhk)
+                                <th>{{$lhk->TenLoaiHK}}</option>
+                            @endforeach
+                        @endif
+                   @endforeach
+                </tr>
+                <tr>
+                    @foreach ($nienkhoa->HocKy as $hk)
+                        @if ($hk->TrangThai)
+                            @foreach ($hk->LoaiHocKY as $lhk)
+                                <th>Mức đạt được</th>
+                            @endforeach
+                        @endif
+                    @endforeach
                 </tr>
                 @foreach ($giaovien->Hoc->where('id_nienkhoa', $nienkhoa->id) as $hoc)
-                    @foreach ($hoc->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->KetQuaRenLuyen as $item)
-                        <tr>
-                            <td>{{$stt++}}</td>
-                            <td>
-                                {{$item->SoLienLac->HocSinh->MaHS}}
+                <tr>
+                    <td>{{$stt++}}</td>
+                    <td>{{$hoc->HocSinh->MaHS}}</td>
+                    <td class = "text-left pl-3">{{$hoc->HocSinh->HoHS . ' ' . $hoc->HocSinh->TenHS}}</td>
+                    @foreach ($nienkhoa->HocKy as $hk)
+                    @if ($hk->TrangThai)
+                        @foreach ($hk->LoaiHocKy as $lhk)
+                            <td class = "mucdatduoc">
+                                {{-- in ra điểm --}}
+                                @foreach ($hoc->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->KetQuaRenLuyen as $kqrl)
+                                    @if ($kqrl->id_loaihocky == $lhk->id && $kqrl->id_pcnl == 1)
+                                        @if ($kqrl->XepLoai)
+                                            {{$kqrl->XepLoai}}
+                                        @endif
+                                    @endif
+                                @endforeach
                             </td>
-                            <td>
-                                {{$item->SoLienLac->HocSinh->HoHS . ' ' . $item->SoLienLac->HocSinh->TenHS}}
-                            </td>
-                            <td>{{$item->PCNL->TenPCNL}}</td>
-                            <td>@if ($item->PCNL->LoaiPCNL == 1) Năng lực @else Phẩm chất @endif</td>
-                            <td>{{$item->LoaiHK->TenLoaiHK}}</td>
-                            <td>{{$item->XepLoai}}</td>
-                        </tr>
-                    @endforeach
-                @endforeach
+                        @endforeach
+                        @endif 
+                     @endforeach
+                    
+                </tr>
+            @endforeach
             </table>
         </div>
     </section>

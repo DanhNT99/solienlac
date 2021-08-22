@@ -4,7 +4,7 @@
 @include('admin/khoi/tab')
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Phân môn học khối</h3>
+            <h3 class="adminListTitle">Phân môn học theo khối</h3>
             <div class="adminActive">
                 <a href="admin/phanmonhoc/create" class="adminActiveItem"><i class = "fas fa-plus-circle"></i> Phân môn học</a>
             </div>
@@ -27,7 +27,7 @@
                             <td>{{$pmh->MonHoc->TenMH}}</td>
                             <td>
                                 <a href="admin/phanmonhoc/{{$pmh->id}}/edit"><i class="fas fa-edit"></i></a>
-                                <form action="{{route('phanmonhoc.destroy','')}}/{{$pmh->id}}" method = "get" class="adminFormAdd {{'formDelete' . $pmh->id}} d-inline" >
+                                <form action="{{route('phanmonhoc.destroy','')}}/{{$pmh->id}}" method = "post" class="adminFormAdd {{'formDelete' . $pmh->id}} d-inline" >
                                     @method('DELETE') @csrf
                                     <button type="button" class="bg-none border-0 btnButton" id="{{$pmh->id}}" data-toggle="modal" data-target="#exampleModal">
                                       <i class="fas fa-trash text-danger"></i>
@@ -52,7 +52,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body"> Bạn có chắc chắn xóa không ? </div>
+        <div class="modal-body"> Bạn có chắc chắn xóa không?</div>
         <div class="modal-footer py-1">
           <button type="button" class="btn btn-danger py-1 btnSubmit" data-dismiss="modal">Thực hiện</button>
           <button type="button" class="btn btn-primary py-1 ">Hủy bỏ</button>

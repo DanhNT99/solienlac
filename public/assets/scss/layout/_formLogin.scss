@@ -4,7 +4,7 @@
     background-size: cover;
     width: 100%;
     height: 100vh;
-
+    
     .wrapLoginTitle {
         text-align: center;
         color: $color1;
@@ -14,13 +14,6 @@
         font-weight: 900;
         text-shadow: 3px 3px 3px $color3;
         margin-bottom: 0px;
-    }
-
-    .wrapLoginSub {
-        text-align: center;
-        color: $color3;
-        font-size: 30px;
-        line-height: 39px;
     }
 
     .wrapLogin_ContainsForm{ 
@@ -51,6 +44,8 @@
            }
 
            .wrapLogin__formGroup{ 
+               position: relative;
+               
                width: 80%;
                margin: 20px auto;
              
@@ -83,27 +78,44 @@
                     padding: 7px 7px;
                     margin-top: 5px;
                 }
+                .showPass {
+                    position: absolute;
+                    right: 10px;
+                    top: 40px;
+                    cursor: pointer;
+                    i {
+                        font-size: 19px;
+                    }
+                }
 
                 .warapLogin_reset {
                     display: flex;
-                    align-items: center;
                     flex-wrap: wrap;
 
                     img {
-                        width: 40%;
+                        width: 35%;
                         height: 35px;
+                        border-radius: 3px;
+                        margin: 0px 5px;
                     }
-
-                    .wrapLogin_formInputRest{ 
-                        width: 58%;
-                        border-radius: 5px;
-                        outline: none;
-                        border: none;
-                        background: lightgray;
-                        padding: 7px 5px;
-                        margin-left: auto;
+                    .iconRefresh {
+                        cursor: pointer;
+                        color: $color1;
+                        margin-top: 7px;
                     }
-
+                    .rapLogin_formGroup {
+                        width: 55%;
+                        .wrapLogin_formInputRest{ 
+                            width: 100%;
+                            border-radius: 5px;
+                            outline: none;
+                            border: none;
+                            background: lightgray;
+                            padding: 7px 5px;
+                            margin-left: auto;
+                            text-transform: uppercase;
+                        }
+                    }
                     .wrapLogin_formRestText {
                         text-align: center;
                         color: $color4;

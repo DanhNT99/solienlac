@@ -6,6 +6,9 @@
         display: none;
     }
     .container {
+        .adminForm {
+            display: none;
+        }
         .adminFormAddBox  {
             padding: 0;
         }
@@ -30,10 +33,16 @@
         }
         tr {
             th {
-                color: $color1;
+                color: $color5;
                 
             }
         }
-
+        .adminFormSearch {
+            .adminFormSearchContainsBtn  {
+                .adminFormSearchBtn {
+                    display: none;
+                }
+            }   
+        }
     }
 }

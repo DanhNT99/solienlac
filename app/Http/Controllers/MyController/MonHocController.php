@@ -117,7 +117,9 @@ class MonHocController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $updateSubject = MonHoc::where('id', $id)->update(['TenMH' => ucfirst($request->TenMH)]);
+        $updateSubject = MonHoc::where('id', $id)
+                                ->update(['TenMH' => ucfirst($request->TenMH),
+                                        'ChoPhepNhapDiem' => $request->ChoPhepNhapDiem]);
         if($updateSubject)
             return redirect('admin/monhoc')->with('noti', 'Chỉnh sửa môn học thành công');
         else 

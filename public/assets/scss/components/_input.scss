@@ -3,9 +3,20 @@
     border: none;
     width: 270px;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 3px;
+    border: 1px solid $color1;
     background: $color3;
     &.capitalize {
         text-transform: capitalize;
     }
+
+}
+.iconInput {
+    font-size: 22px;
+    font-weight: bold;
+    color: $color4;
+}
+.formInputMa {
+    pointer-events: none;
+    user-select: none;
 }

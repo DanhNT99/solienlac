@@ -3,26 +3,26 @@
 @section('adminContent')
     @include('admin/layouts/tab')
     <section class="adminAdd">
-        <div class="container">
-
-            <div class="adminBoxTitle">
-                <div class="yearOfCourse">Năm học: {{$nienkhoa->NamBatDau . '- ' . $nienkhoa->NamKetThuc}}</div>
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+        <div class="container-xl container-lg-fluid">
+            <div class="adminBoxTitle py-1 px-2 mb-2" style="width: fit-content;">
+                <span>Năm học : {{$nienkhoa->NamBatDau . ' - ' . $nienkhoa->NamKetThuc}}</span>
+                <span class="mx-2">|</span>
+                <span>{{$hocky->TenHK}}</span>
+                <span class="mx-2">|</span>
+                <span> Lớp: {{$giaovien->Lop->TenLop}}</span>
+            </div>
+                        
+            <div class="adminBoxTitle py-1 px-2">
+            <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Nhập điểm học sinh</h6>
+            <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </div>
 
             <div class="adminFormAddBox pt-0">
-                <div class="px-4 d-flex">
-                    <div class="mr-2 mx-0 btnClass">Lớp : {{$giaovien->Lop->TenLop}}</div>
-                        <div class = "mx-0 btnClass d-flex">
-                            @foreach ($nienkhoa->HocKy as $item)
-                                @if ($item->TrangThai)   <div >{{$item->TenHK}}</div>  @endif
-                            @endforeach
-                        </div>
-
+                <div class="ml-2">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btnClass ml-auto mr-0" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btnClass" data-toggle="modal" data-target="#exampleModalCenter">
                         Hướng dẫn <i class="far fa-comment-dots"></i>
-                      </button>
+                        </button>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog justify-content-center modal-dialog-centered" role="document">
@@ -37,8 +37,7 @@
                                     <ol class = "ml-2">
                                         <li>Các môn học chỉ đánh giá bằng mức đạt được
                                             <ol class="ml-2" type="a">
-                                                <li>Ở các lớp 1, 2, 3: Đạo đức, Thể dục, Âm nhạc, Mỹ thuật, Kỹ thuật, Tự nhiên xã hội</li>
-                                                <li>Ở các lớp 4, 5: Đạo đức, Thể dục, Âm nhạc, Mỹ thuật, Kỹ thuật.</li>
+                                                <li>Đạo đức, Thể dục, Âm nhạc, Mỹ thuật, Kỹ thuật, Tự nhiên xã hội</li>
                                             </ol>
                                         </li>
                                         <li>Chỉ có khối 4 và khối 5 mới có thể nhập điểm giữa kì môn toán và tiếng việt</li>
@@ -52,10 +51,8 @@
                         </div>
                     </div>
                 </div>
-
                 <form action="{{route('ketquahoctap.store')}}" method="post" class="adminFormAdd">
                     @csrf
-
                     <table class="adminFormAddTable adminFormAddTableSmall">
                         <tr class="d-none">
                             <td>
@@ -73,7 +70,7 @@
                                     <select name="monhoc" id = "subject" class="formSelect">
                                         <option selected disabled>Lựa chọn</option>
                                             @foreach ($giaovien->Lop->Khoi->PhanMonHoc as $item)
-                                                <option @if ($item->MonHoc->id == old('monhoc')) selected
+                                                <option @if ($item->MonHoc->id == Request::get('idSubject')) selected
                                                 @endif value="{{$item->MonHoc->id}}">{{$item->MonHoc->TenMH}}</option>
                                             @endforeach 
                                     </select>
@@ -91,8 +88,7 @@
                                             @foreach ($nienkhoa->HocKy as $hocky)
                                                 @if ($hocky->TrangThai)
                                                     @foreach ($hocky->LoaiHocKy as $loaihk)
-                                                        <option @if ($loaihk->id == old('LoaiHK')) selected
-                                                            @endif value="{{$loaihk->id}}"> {{$loaihk->TenLoaiHK}}</option>
+                                                        <option value="{{$loaihk->id}}"> {{$loaihk->TenLoaiHK}}</option>
                                                     @endforeach
                                                 @endif
                                             @endforeach
@@ -108,7 +104,7 @@
                         </tr>
                     </table>
                     
-                    <table border = "1" class="adminTable w-75 mt-5">
+                    <table border = "1" class="adminTable  w-75 mt-2 mt-lg-5">
                         <tr>
                             <th>stt</th>
                             <th>Tên học sinh</th>
@@ -118,35 +114,33 @@
                             @foreach ($giaovien->Hoc->where('id_nienkhoa', $nienkhoa->id) as $item)
                             <tr>
                                 <td>{{$stt++}}</td>
-                                <td><input type="text" class="d-none solienlac" name="SoLienLac[]" value = "{{$item->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->id}}" >
+                                <td class="text-left pl-3"><input type="text" class="d-none solienlac" name="SoLienLac[]" value = "{{$item->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->id}}" >
                                     {{$item->HocSinh->HoHS . ' ' .$item->HocSinh->TenHS}}</td>
                                 <td>
-                                    <select name="MucDatDuoc[]" class="MucDatDuoc text-center">
-                                        <option selected value="" >Lựa chọn</option>
-                                        <option value="T">T</option>
-                                        <option value="H">H</option>
-                                        <option value="C">C</option>
-                                    </select>
+                                    <div class="formBoxSelect">
+                                        <select name="MucDatDuoc[]" class="MucDatDuoc formSelect formSelectSmall">
+                                            <option selected value="" >Lựa chọn</option>
+                                            <option value="T">T</option>
+                                            <option value="H">H</option>
+                                            <option value="C">C</option>
+                                        </select>
+                                        <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
+                                    </div>
                                 </td>
                                 <td>
-                                    <input type="text" name="Diem[]"  class="formInput formInputMa Diem"></td>
+                                    <input type="number" name="Diem[]" min = "1" max = "10" 
+                                            class="formInput formInputMa Diem text-center">
+                                    <div class="notiFail w-75 mx-auto text-left hide" role="alert"></div>
                                 </td>
                             </tr>
                         @endforeach
                     </table>
                     <div class="adminFormSearchContainsBtn adminFormAddGroup">
-                        <button class="adminFormAddBtn" name = "luu">lưu</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/ketquahoctap" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-
-  
-    {{-- <script type="text/javascript">
-       function clickTr(id) {
-        console.log('đã click');
-    }
-    </script> --}}
 @endsection

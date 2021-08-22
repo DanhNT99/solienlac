@@ -24,13 +24,15 @@
                         <td>{{$item->GiaoVien->HoGV . ' ' . $item->GiaoVien->TenGV}}</td>
                         <td>{{$item->Quyen->name}}</td>
                         <td>
-                            <a href="admin/phanquyen/{{$item->GiaoVien->id}}/edit"><i class="fas fa-edit"></i></a>
-                            <form action="{{route('phanquyen.destroy','')}}/{{$item->GiaoVien->id}}" method = "post" class="adminFormAdd {{'formDelete' . $item->GiaoVien->id}} d-inline" >
-                                @method('DELETE') @csrf
-                                 <button type="button" class="bg-none border-0 btnButton" id="{{$item->GiaoVien->id}}" data-toggle="modal" data-target="#exampleModal">
-                                  <i class="fas fa-trash text-danger"></i>
-                                  </button>
-                             </form>
+                            @if (!(Auth::guard('giao_vien')->user()->id == $item->GiaoVien->id))
+                                <a href="admin/phanquyen/{{$item->GiaoVien->id}}/edit"><i class="fas fa-edit"></i></a>
+                                <form action="{{route('phanquyen.destroy','')}}/{{$item->GiaoVien->id}}" method = "post" class="adminFormAdd {{'formDelete' . $item->GiaoVien->id}} d-inline" >
+                                    @method('DELETE') @csrf
+                                     <button type="button" class="bg-none border-0 btnButton" id="{{$item->GiaoVien->id}}" data-toggle="modal" data-target="#exampleModal">
+                                      <i class="fas fa-trash text-danger"></i>
+                                      </button>
+                                 </form>
+                            @endif
                          </td>
                     </tr>
                 @endforeach

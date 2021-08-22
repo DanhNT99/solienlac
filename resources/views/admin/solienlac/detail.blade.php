@@ -1,7 +1,7 @@
 @extends('admin/layouts/index')
 @section('title') Chỉnh sửa sổ liên lạc @endsection
 @section('adminContent')
-    @include('admin/layouts/tab');
+    @include('admin/layouts/tab')
 
     <section class="adminList pt-0">
         {{-- detail student --}}
@@ -22,12 +22,6 @@
                         </div>
                         
                         <table class="adminFormAddTable">
-                            {{-- <tr>
-                                <td><p class="adminFormAddText">Khối</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->Lop->Khoi->TenKhoi}}" class="formInput formInputMa"></td>
-                                <td><p class="adminFormAddText">Lớp</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->Lop->TenLop}}" class="formInput formInputMa"></td>
-                            </tr> --}}
                             <tr>
                                 <td><p class="adminFormAddText">Mã học sinh</p></td>
                                 <td> <input type="text" value = "{{$hocsinh->MaHS}}" class="formInput formInputMa"></td>
@@ -50,12 +44,14 @@
                             <tr>
                                 <td><p class="adminFormAddText">Địa chỉ</p></td>
                                 <td><input type="text" value = "{{$hocsinh->DiaChi}}" class="formInput formInputMa"></td>
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/Xã</p></td>
                                 <td><input type="text" value = "{{$hocsinh->Phuong->TenPhuong}}" class="formInput formInputMa"></td>
                             </tr>
-                            <tr>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Phuong->Tinh->TenTinh}}" class="formInput formInputMa"></td>
+                             <tr>
+                                <td><p class="adminFormAddText">Khối</p></td>
+                                <td><input type="text" value = "{{$khoi->first()->TenKhoi}}" class="formInput formInputMa"></td>
+                                <td><p class="adminFormAddText">Lớp</p></td>
+                                <td><input type="text" value = "{{$khoi->first()->TenLop}}" class="formInput formInputMa"></td>
                             </tr>
                         </table>
                     </div>
@@ -175,7 +171,9 @@
                             <div class="px-2 w-50">
                             <h5 class="title_main text-left" style="font-size: 20px">Nhận xét của giáo viên</h5>
                         @if ($sll->NhanXet->where('id_hocky', $hk->id)->first())
-                            <textarea name="NhanXet" class="mx-auto textarea p-2 w-100 formInputMa" placeholder="Nhập vào nhận xét">{{$sll->NhanXet->where('id_hocky', $hk->id)->first()->NhanXet}}</textarea>
+                            <textarea name="NhanXet" class="mx-auto textarea p-2 w-100 formInputMa" placeholder="Nhập vào nhận xét">
+                                {{$sll->NhanXet->where('id_hocky', $hk->id)->first()->NoiDungNhanXet}}
+                            </textarea>
                         @endif
                             </div>
                         </div>

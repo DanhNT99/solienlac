@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-    //api filter table class by khối
+//API FILTER CLASS BY GRADE
     function filterClass(obj) {
         $.ajax({
             headers: {
@@ -19,20 +19,22 @@ $(document).ready(function () {
             }
         });
     }
-    if($('#khoi').val()) {
-        filterClass({'id' : $('#khoi').val()})
-    }
-    // filterClass({'id' : $('#khoi').val()})
-    $('#khoi').change(function (e) { 
-        e.preventDefault();
-        //get id of grade
-        let id  = {'id' : $(this).val()};
-        //call funciton filterClasss
-            filterClass(id);
-      });
 
 
-    //get ma hoc ky by niên khóa
+    // $('#khoi').change(function (e) { 
+    //     e.preventDefault();
+    //     //get id of grade
+    //     let id  = {'id' : $(this).val()};
+    //     //call funciton filterClasss
+    //         filterClass(id);
+    // });
+
+    // if($('#khoi').val()) {
+    //     filterClass({'id' : $('#khoi').val()})
+    // }
+//EMD
+
+//GET CODE SEMESTER BY NIENKHOA
     $('#nienkhoa').change(function () { 
 
         let id  = {'id' : $(this).val()};
@@ -50,6 +52,7 @@ $(document).ready(function () {
             success:function(response) {
                 let indexKeyK = response['nienkhoa']['MaNK'].search('K') + 1;
                 let year = response['nienkhoa']['MaNK'].substring(indexKeyK);
+                console.log(response['count']);
                 if(response['count'] >= 0 && response['count'] < 2) {
                         response['count'] += 1;
                     //CODE SEMESTER FOR CASE HAVE 0 AND 1 HỌC KỲ LÀ 1
@@ -67,13 +70,14 @@ $(document).ready(function () {
                         }
                         $('.filterMaHK').val(ma);
                 }else {
-                    alert('Năm học này đã đủ 2 học kỳ. Vui lòng chọn năm học khác')
+                    alert('Niên khóa này đã đủ 2 học kì')
                 }
             }
         });
     }
-    
-    //api filter student by class
+//END
+
+//API FILTER STUDENT BY CLASS
     $('#lop').change(function (e) { 
         e.preventDefault();
         let id = {'id' : $(this).val()}
@@ -85,7 +89,7 @@ $(document).ready(function () {
             url: "http://127.0.0.1:8000/api/filterStudent",
             data: id,
             success: function (response) {
-                let listStudent = response['hocsinh'].map(hocsinh => {
+                let listStudent = response['hs'].map(hocsinh => {
                     return `<tr class = "trAddByClass"><td><input type="text" class="d-none solienlac" name="idHocSinh[]" value = ${hocsinh['id']} > ${hocsinh['HoHS']} ${hocsinh['TenHS']}</td>
                                 <td><input type="text" name="MucDatDuoc[]" class="formInput"></td>
                                 <td><input type="text" name="Diem[]" class="formInput"></td></tr>`
@@ -96,7 +100,50 @@ $(document).ready(function () {
         });
     });
 
-    //fillter score by subject and semester
+    // $('#lop').change(function (e) { 
+    //     e.preventDefault();
+    //     let id = {'id' : $(this).val()}
+    //     $.ajax({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         type: "post",
+    //         url: "http://127.0.0.1:8000/api/filterStudent",
+    //         data: id,
+    //         success: function (response) {
+    //             let stt = 1;
+    //             console.log(response['hs']);
+    //             let listStudentByClass = response['hs'].map(item => {
+    //                 return ` <tr class = 'trRemove'>
+    //                         <td>${stt++}</td>
+    //                         <td>${item['MaHS']}</td>
+    //                         <td>${item['HoHS']} ${item['TenHS']}</td>
+    //                         <td>${item['TenLop']} </td>
+    //                         <td>${response['nienkhoa']['NamBatDau']} - ${response['nienkhoa']['NamKetThuc']}</td>
+    //                         <td>
+    //                             <a href="admin/hoc/${item['id_hocsinh']}/edit"><i class="fas fa-edit"></i></a>
+    //                             <form action="{{route('hoc.destroy','')}}/${item['id_hocsinh']}" method = "post" class="adminFormAdd {{'formDelete' . $item->id}} d-inline" >
+    //                                 @method('DELETE') @csrf
+    //                             <button type="button" class="bg-none border-0 btnButton" id="{{$item->id}}" data-toggle="modal" data-target="#exampleModal">
+    //                               <i class="fas fa-trash text-danger"></i>
+    //                             </button>
+    //                         </form>
+    //                         </td>
+    //                 </td>
+    //             </tr>`
+    //             });
+    //             $('.trRemove').remove();
+    //             $('.adminTable').append(listStudentByClass);
+    //             console.log(listStudentByClass);
+
+    //         }
+    //     });
+    // });
+//END
+
+
+//FILTER SCORE BY SUBJECT AND TYPE SEMESTER
+
     $('#subject').change(function (e) { 
         e.preventDefault();
         //check user selected semester?
@@ -141,9 +188,10 @@ $(document).ready(function () {
                 let listDiem = $('.Diem'); //HTML INPUT
                 let listIdSll = $('.solienlac'); //HTML INPUT
             //END
+
+            
             //GET INOUT IN LITST INPUT
                 $.each( listIdSll, function (indexInArray, valueOfElement) { 
-
                         $(listMucDatDuoc[indexInArray]).val('');
                         $(listDiem[indexInArray]).val('');
                     //GET DATA FROM CONTROLLER SEND
@@ -160,7 +208,7 @@ $(document).ready(function () {
                             }
                         });
                 });
-                console.log(response['nhapdiem1'], response['nhapdiem2']);
+                // console.log(response['nhapdiem1'], response['nhapdiem2']);
                 if(response['nhapdiem1'] || response['nhapdiem2']) {
                     $('.Diem').removeClass('formInputMa');
                 }
@@ -170,10 +218,9 @@ $(document).ready(function () {
             }
         });
     }
+//END
 
-    //end
-
-    //filter rating by pcnl and semester
+//FILTER RATING BY pcnl AND TYPE SEMESTER
     $('#pcnl').change(function (e) { 
         e.preventDefault();
         //check user selected semester?
@@ -193,63 +240,28 @@ $(document).ready(function () {
             data: obj,
             success: function (response) {
                 let listIdSll = $('.solienlac'); //get dom input have name = "solienlac[]"
-                let listRating = $('.XepLoai'); //get dom input have name = "XepLoai[]"
+                let listRating = $('.xeploai'); //get dom input have name = "XepLoai[]"
         
                 $.each( listIdSll, function (indexInArray, valueOfElement) { 
+                    $(listRating[indexInArray]).val('');
                     response.forEach(element => {
                         //check solienlac
                          if($(listIdSll[indexInArray]).val() == element['id_sll']){
-                                 let getRating = element['XepLoai']
+                            let getRating = element['XepLoai']
                             //GET LIST OPTION OF SELCT
-                                let listOption = $(listRating[indexInArray]).children("option");
-                                listOption.removeAttr('selected').filter(`[value= ${getRating}]`).prop('selected', true);
-                            //ADD VALUE SCORE TO INPUT
+                            console.log(getRating);
+                            let listOption = $(listRating[indexInArray]).children("option");
+                            listOption.removeAttr('selected').filter(`[value = "${getRating}"]`).prop('selected', true);
                         }
-                        // console.log(getRaing);
                     });
                 });
             }
         });
   
     }
-    //enter score for student
+//END
 
-
-    //FILTER RATING BY DIEM
-    // $('.Diem').change(function (e) { 
-    //     e.preventDefault();
-    //     let listRating = $('.MucDatDuoc');
-    //     let index = $('.Diem').index($(this));
-    //     console.log($(this).val())
-    //     if($(this).val())
-    //         $(listRating[index]).addClass('formInputMa');
-    //     else 
-    //         $(listRating[index]).removeClass('formInputMa');
-    //     let diem = {'diem': $(this).val()}
-    //     $.ajax({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         type: "post",
-    //         url: "http://127.0.0.1:8000/api/filterRatingByScore",
-    //         data: diem,
-    //         success: function (response) {
-    //             $.each(listRating[index], function (indexInArray, ElementOption) { 
-    //                 //UPDATE ALL OPTION SELECT IS FALSE
-    //                 $(ElementOption).attr('selected', false);
-    //                   //CHECL VALUE OPTION WITH MUCDATDUOC
-    //                if( $(ElementOption).val() === response) {
-    //                    //ADD ATTRIBUTE TO OPTION
-    //                     $(ElementOption).attr('selected', true);
-    //                }
-    //                console.log(response)
-    //             });
-    //         }
-    //     });
-    // });
-
-
-    //GET SEMESTER BY NIEN KHOA
+//GET SEMESTER BY NIEN KHOA
     $('#yeaOfCourse').change(function () {
         let id = {'idYearOfCourse' : $(this).val()}
         getSemester(id);
@@ -277,59 +289,33 @@ $(document).ready(function () {
             }
         });
     }
+//END
 
-    // $('.btnSubmit').click(function (e) { 
-    //    $('.formDelete').submit();
-    // }); 
-    let idBtn;
-    $('.btnButton').click(function (e) { 
+
+//API DELET ALL
+    $("[name = 'deleteList']").click(function (e) { 
         e.preventDefault();
-        idBtn = $(this).attr('id');
-    });
-
-    $('.btnSubmit').click(function (e) { 
-        $(`.formDelete${idBtn}`).submit();
-    }); 
-
-    // $('.btnSubject').click(function (e) { 
-    //     e.preventDefault();
-    //     $('.btnSubject').removeClass('boxSubjectActive');
-    //     $(this).addClass('boxSubjectActive');
-    //     let inputValue = $(this).next().val();
-    //     console.log(inputValue);
-    //     let idSubject  = {'idSubject': $(this).next().val(), 'idClass' : $('.inputClass').val()}
-    //     $.ajax({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         type: "post",
-    //         url: "http://127.0.0.1:8000/api/filterScoreBySubject",
-    //         data: idSubject,
-    //         success: function (response) {
-    //             let kqht = response['kqht'];
-    //             let loaihocky = response['loaihocky'];
-    //             $.each(loaihocky, function (indexInArray, loaihk) { 
-    //                  $kqht = kqht.map(item=> {
-    //                      return `<td>${item['TenHS']}</td>`;
-    //                  })
-    //                  console.log($kqht);
-    //             });
-    //         }
-    //     });
-    // });
-
-
-
-    $('.btnFormExcel').click(function (e) { 
-        e.preventDefault();
-        $('.formImprotExcel').click();
-    });
-
-    $('.formImprotExcel').change(function (e) { 
-        e.preventDefault();
-        if($(this).val()) {
-            $('.formImportExcel').submit();
+        let array = [];
+        if(confirm('Bạn có chắc xóa không?')) {
+            $.each($('.checkBoxStudent'), function (indexInArray, valueOfElement) { 
+                let checked = $(valueOfElement).prop('checked');
+                if(checked) {
+                    array.push($(valueOfElement).val());
+                }
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "post",
+                url: "http://127.0.0.1:8000/api/removeAll",
+                data: {array},
+                success: function (response) {
+                    location.reload()
+                }
+            });
         }
-    });
 
+    });
+//END
 });

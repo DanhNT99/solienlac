@@ -14,7 +14,7 @@
                     <th>Mã niên khóa</th>
                     <th>Năm bắt đâu</th>
                     <th>Năm kết thúc</th>
-                    <th>Trạng thái</th>
+                    <th>Niên khóa hiện tại</th>
                     <th>Chọn</th>
                 </tr>
             @foreach ($nienkhoa as $item)
@@ -24,7 +24,7 @@
                         <td>{{$item->NamBatDau}}</td>
                         <td>{{$item->NamKetThuc}}</td>
                         <td>
-                            <input type="checkbox" @if ($item->TrangThai) checked @endif>
+                            <input type="checkbox" class="formInputMa" @if ($item->TrangThai) checked @endif>
                         </td>
                         <td>
                             <a href="admin/nienkhoa/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>

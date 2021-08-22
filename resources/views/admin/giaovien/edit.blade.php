@@ -21,6 +21,7 @@
                             <div class="adminFormAddContainsIcon">
                                 <p><i class="fas fa-camera-retro"></i> Tải hình</p>
                             </div>
+                            <div class="notiFail notiFileImg hide" role="alert">Vui lòng chọn file đúng định dạng ( jpg, jpeg, png, gif )</div>
                             @if ($errors->has('Hinh')) 
                                 <div class="notiFail" role="alert">{{$errors->first('Hinh')}}</div>
                             @endif
@@ -70,7 +71,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/xã</p></td>
                                 <td>
                                     <div class="formBoxSelect">
                                         <select name="Phuong" id="" class="formSelect">
@@ -82,10 +83,6 @@
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
                                 </td>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$giaovien->Phuong->Tinh->TenTinh}}" class="formInput"></td>
-                            </tr>
-                            <tr>
                                 <td><p class="adminFormAddText">Số điện thoại</p></td>
                                 <td>
                                     <input type="text" name="SoDT" value = "{{$giaovien->SoDT}}" class="formInput">
@@ -94,10 +91,13 @@
                                     @endif
                                 </td>
                             </tr>
+                            <tr>
+                               
+                            </tr>
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/giaovien" class="adminFormAddLink">Quay lại</a>
                     </div>
                 

@@ -10,7 +10,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/images/logo.png')}}"/>
+    @yield('css')
+    <script src = "{{asset('assets/js/jquery.js')}}"></script>
+    <script src = "{{asset('assets/js/admin.js')}}"></script>
+    <script src = "{{asset('assets/js/api.js')}}"></script>
     <title>@yield('title')</title>
+
 </head>
 <body class="body">
     @include('admin/layouts/header')
@@ -27,10 +32,6 @@
             <p class="notiBoxContent"> {{Session('noti')}}!</p>
         </div>
     @endif
-    
-    <script src = "{{asset('assets/js/main.js')}}"></script>
-    <script src = "{{asset('assets/js/admin.js')}}"></script>
-    <script src = "{{asset('assets/js/api.js')}}"></script>
-
+    @yield('scripts')
 </body>
 </html>

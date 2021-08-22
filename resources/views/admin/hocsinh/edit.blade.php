@@ -1,28 +1,33 @@
 @extends('admin/layouts/index')
 @section('title')Chỉnh sửa học sinh @endsection
 @section('adminContent')
-    @include('admin/layouts/tab')
+@if (Auth::guard('giao_vien')->user()->hasrole('Giáo viên chủ nhiệm'))
+@include('admin/layouts/tab')
+@endif
+@if (Auth::guard('giao_vien')->user()->hasrole('Quản trị viên'))
+@include('admin/hocsinh/tab')
+@endif
     <section class="adminAdd">
         <div class="container">
             <div class="adminBoxTitle py-1 px-2">
                 <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon mr-1"></i>Chỉnh sửa thông tin học sinh</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </div>
-
             <form action="{{route('hocsinh.update','')}}/{{$hocsinh->id}}" method = "post" enctype="multipart/form-data" class="adminFormAdd">
-                @method('PATCH')   @csrf
+                @method('PATCH') @csrf
                 <div class="adminFormAddBox">
                     <div class="adminFormAddContains">
                         <div class="adminFormAddContainsImg wrapImgResize">
                             <div class="wrapImgResize">
                                 <img src="{{asset('assets/images')}}/{{$hocsinh->Hinh}}" class="adminFormAddImg" alt="ảnh thẻ">
-                            </div>
+                        </div>
                             <div class="adminFormAddContainsIcon">
                                 <p><i class="fas fa-camera-retro"></i> Tải hình</p>
                             </div>
+                            <div class="notiFail notiFileImg hide" role="alert">Vui lòng chọn file đúng định dạng ( jpg, jpeg, png, gif )</div>
                         </div>
-                        <input type="file" name = "Hinh" class="adminFormAddFileImg">
                         
+                        <input type="file" name = "Hinh" class="adminFormAddFileImg">
                         <table class="adminFormAddTable">
                             <tr>
                                 <td><p class="adminFormAddText">Mã học sinh</p></td>
@@ -76,7 +81,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/xã</p></td>
                                 <td>
                                     <div class="formBoxSelect">
                                         <select name="Phuong" id="" class="formSelect">
@@ -92,13 +97,12 @@
                                         <div class="notiFail" role="alert">{{$errors->first('Phuong')}}</div>
                                     @endif
                                 </td>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Phuong->Tinh->TenTinh}}" class="formInput "></td>
                             </tr>
                         </table>
                     </div>
                     <div class="">
                         <p class="adminFormTitle">Thông tin phụ huynh</p>
+                        @if (count($hocsinh->ChiTietGiaDinh))
                         <table class="adminFormAddTable mx-auto">
                             <tr class="d-none">
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
@@ -134,7 +138,7 @@
                                     @endif
                                 @endforeach
                             </tr>
-                            <tr>
+                            <tr class = "d-none">
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
                                     <td><p class="adminFormAddText">Giới tính</p></td>
@@ -224,16 +228,19 @@
                                         </td>
                                     @endif
                                 @endforeach
-                               
                             </tr>
-                            
                         </table>
-                    </div>
+                        @else
+                        <table class="adminFormAddTable mx-auto">
+                            <tr>
+                                <td colspan="4">Không có dữ liệu</td>
+                            </tr>
+                        </table>
+                        @endif
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
                         <a href = "admin/hocsinh" class="adminFormAddLink">Quay lại</a>
                     </div>
-                
                 </div>
                 </form>
             </div>

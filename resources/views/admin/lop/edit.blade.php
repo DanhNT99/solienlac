@@ -24,19 +24,19 @@
                             <tr>
                                 <td><p class="adminFormAddText">Tên giáo viên</p></td>
                                 <td>
+                            
                                     <div class="formBoxSelect">
                                         <select name="giaovien" class="formSelect">
                                             @if (!$lop->id_giaovien)
                                                 <option selected disabled>Lựa chọn</option>
                                             @endif
                                                 @foreach ($giaovien as $item)
-                                                    <option value="{{$item->id}}" @if ($item->id == $lop->id_giaovien)selected
-                                                    @endif>{{$item->HoGV . ' '. $item->TenGV}}</option>
+                                                    <option value="{{$item['id']}}" @if ($item['id'] == $lop->id_giaovien) selected
+                                                    @endif>{{$item['HoGV'] . ' '. $item['TenGV']}}</option>
                                                 @endforeach 
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i> </div>
                                     </div>
-
                                 </td>
                                 <td><p class="adminFormAddText">Khối</p></td>
                                 <td>
@@ -56,7 +56,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
+                          <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/lop" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

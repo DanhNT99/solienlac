@@ -30,3 +30,7 @@ Route::post('filterSemester', [FilterController::class, 'filterSemester']);
 Route::post('filterScoreBySubject', [FilterController::class, 'filterScoreBySubject']);
 
 Route::post('improtTeach', [FilterController::class, 'improtTeach']);
+
+Route::post('removeAll', [FilterController::class, 'removeAll']);
+
+Route::post('resetPass', [FilterController::class, 'resetPass']);

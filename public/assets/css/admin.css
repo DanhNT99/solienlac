@@ -15261,11 +15261,24 @@ a.text-dark:focus, a.text-dark:hover {
   vertical-align: middle;
 }
 
+.footer {
+  padding: 20px 0px;
+  background-color: rgba(20, 20, 20, 0.9);
+  background-clip: content-box;
+}
+
+.footer .footer-title {
+  color: #ffffff;
+}
+
+.footer .footer-infor {
+  color: #6fc7e1;
+}
+
 .formBoxSelect {
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -15277,11 +15290,14 @@ a.text-dark:focus, a.text-dark:hover {
   padding: 5px;
   cursor: pointer;
   background: #f4f2ec;
+  border: 1px solid #0e3746;
+  border-radius: 3px;
 }
 
 .formBoxSelect .formSelect.formSelectSmall {
   width: 110px;
   font-size: 14px;
+  text-align-last: center;
 }
 
 .formBoxSelect .formSelectIcon {
@@ -15295,6 +15311,8 @@ a.text-dark:focus, a.text-dark:hover {
   justify-content: center;
   color: #f4f2ec;
   pointer-events: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 .formInput {
@@ -15302,12 +15320,24 @@ a.text-dark:focus, a.text-dark:hover {
   border: none;
   width: 270px;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 3px;
+  border: 1px solid #0e3746;
   background: #f4f2ec;
 }
 
 .formInput.capitalize {
   text-transform: capitalize;
+}
+
+.iconInput {
+  font-size: 22px;
+  font-weight: bold;
+  color: #be2623;
+}
+
+.formInputMa {
+  pointer-events: none;
+  user-select: none;
 }
 
 .adminBoxTitle {
@@ -15433,14 +15463,14 @@ a.text-dark:focus, a.text-dark:hover {
 
 .notiFail {
   font-size: 14px;
-  color: #be2623;
-  background: rgba(190, 38, 35, 0.5);
+  color: #ffffff;
+  background: #be2623;
   padding: 2px 5px;
   margin-top: 5px;
   border-radius: 2px;
 }
 
-.hide {
+.notiFail.hide {
   display: none;
 }
 
@@ -15468,6 +15498,94 @@ a.text-dark:focus, a.text-dark:hover {
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
   border: none;
+}
+
+.input-group {
+  width: fit-content;
+  margin-left: auto;
+  background: #be2623;
+  border-radius: 3px;
+}
+
+.input-group .checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.input-group .checkbox:active .text {
+  transform: scale(0.9);
+}
+
+.input-group .checkbox .text {
+  display: inline-block;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  user-select: none;
+}
+
+.input-group .checkbox .icon {
+  display: inline-block;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+
+.input-group .checkbox .icon::after, .input-group .checkbox .icon::before {
+  content: "";
+  display: block;
+  position: absolute;
+}
+
+.input-group .checkbox .icon::before {
+  height: 100%;
+  width: 100%;
+  border: 1px solid currentColor;
+  background: transparent;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.input-group .checkbox .icon::after {
+  border: 3px solid transparent;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  width: 0px;
+  height: 0px;
+  bottom: 9px;
+  left: 1px;
+  border-radius: 4px;
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+}
+
+.input-group .inputCheckAll:checked + .checkbox .icon::before {
+  background: red;
+}
+
+.input-group .inputCheckAll:checked + .checkbox .icon::after {
+  width: 8px;
+  height: 20px;
+  border-right-color: currentColor;
+  border-bottom-color: currentColor;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
 }
 
 .wrapImgResize {
@@ -15526,18 +15644,21 @@ ul, p {
 }
 
 .adminTab .adminMainTab .adminTabItem {
+  min-width: 160px;
+  max-width: 200px;
   height: fit-content;
   border-radius: 7px;
   text-align: center;
   border: 1px solid #6fc7e1;
   margin-right: 30px;
   background: #ffffff;
-  box-shadow: 0px 0px 10px 0px rgba(111, 199, 225, 0.4);
+  box-shadow: 5px -5px 0px 0px rgba(111, 199, 225, 0.9);
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
+  overflow: hidden;
 }
 
 .adminTab .adminMainTab .adminTabItem:hover {
@@ -15553,13 +15674,29 @@ ul, p {
   text-decoration: none;
 }
 
+.adminTab .adminMainTab .adminTabItem .adminTabItemLink.tabBtn {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.adminTab .adminMainTab .adminTabItem .adminTabItemLink.adminMainTabBgColor {
+  background-color: #81ecec;
+}
+
+.adminTab .adminMainTab .adminTabItem .adminTabItemLink.adminMainTabBgColor p {
+  color: #ffffff;
+}
+
 .adminTab .adminMainTab .adminTabItem .adminTabItemLink .adminTabItemIcon {
   width: 70px;
   height: 70px;
 }
 
 .adminTab .adminMainTab .adminTabItem .adminTabItemLink p {
-  color: #6fc7e1;
+  color: #0e3746;
+  font-weight: 600;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -15742,9 +15879,13 @@ ul, p {
   display: block;
   padding: 5px 10px;
   border-radius: 5px;
-  margin: 15px auto 0px auto;
+  margin: 0px auto;
   color: #ffffff;
   background-color: #0e3746;
+}
+
+.tableSmall {
+  width: 70%;
 }
 
 .studentAdd {
@@ -15816,10 +15957,6 @@ ul, p {
   font-size: 25px;
 }
 
-.formInputMa {
-  pointer-events: none;
-}
-
 .boxSubject {
   border: none;
   outline: none;
@@ -15831,6 +15968,7 @@ ul, p {
   background-color: #0e3746;
   background-color: #6fc7e1;
   cursor: pointer;
+  text-decoration: none;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -15842,6 +15980,11 @@ ul, p {
 .boxSubject.boxSubjectActive {
   background-color: #0e3746;
   animation: bigbox 0.5s forwards ease-in-out;
+}
+
+.boxSubject:hover {
+  text-decoration: none;
+  color: #ffffff;
 }
 
 @keyframes bigbox {
@@ -15867,6 +16010,7 @@ ul, p {
   background-color: #0e3746;
   background-color: #6fc7e1;
   cursor: pointer;
+  text-decoration: none;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -15880,6 +16024,11 @@ ul, p {
   animation: bigbox 0.5s forwards ease-in-out;
 }
 
+.btnSubject:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+
 @keyframes bigbox {
   0% {
     transform: scale(1);
@@ -15890,6 +16039,23 @@ ul, p {
   100% {
     transform: scale(1);
   }
+}
+
+.pop-div {
+  font-size: 13px;
+  margin-top: 100px;
+}
+
+.pop-div .pop-title {
+  display: none;
+  color: blue;
+  font-size: 15px;
+}
+
+.pop-div .pop-content {
+  display: none;
+  color: red;
+  font-size: 10px;
 }
 
 .adminFormAddContains {
@@ -16007,6 +16173,9 @@ ul, p {
   .adminContent {
     display: none;
   }
+  .container .adminForm {
+    display: none;
+  }
   .container .adminFormAddBox {
     padding: 0;
   }
@@ -16030,7 +16199,110 @@ ul, p {
     border: 2px solid #6fc7e1;
   }
   .container tr th {
-    color: #0e3746;
+    color: #ffffff;
   }
+  .container .adminFormSearch .adminFormSearchContainsBtn .adminFormSearchBtn {
+    display: none;
+  }
+}
+
+.studentAdd {
+  padding: 20px 0px;
+}
+
+.adminFormAdd .adminFormAddGroup {
+  text-align: center;
+}
+
+.adminFormAdd .adminFormAddGroup .adminFormAddBtn {
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
+}
+
+.adminFormAdd .adminFormAddGroup .adminFormAddLink {
+  width: fit-content;
+  border: none;
+  outline: none;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 15px auto 0px auto;
+  color: #ffffff;
+  background-color: #0e3746;
+  background: #6fc7e1;
+  text-decoration: none;
+}
+
+.adminFormAddBox {
+  background-color: #ffffff;
+  padding: 20px 0px;
+}
+
+.adminAddTitle {
+  padding: 5px 10px;
+  font-size: 18px;
+  color: #f4f2ec;
+  background-color: #6fc7e1;
+  margin-bottom: 0px;
+}
+
+.selectedOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(20, 20, 20, 0.9);
+}
+
+.selectedOverlay .selectForm {
+  background: white;
+}
+
+.selectedOverlay .selectedContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.selectedOverlay .selectedContent .selctedContentTitle {
+  padding: 5px;
+  color: #f4f2ec;
+  background: #0e3746;
+  font-size: 17px;
+  padding: 10px 10px;
+  margin-bottom: 0px;
+}
+
+.boxHandleStudent {
+  position: relative;
+}
+
+.boxHandleStudent .listHandele {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 5px 0px #141414;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.boxHandleStudent .listHandele.showListHandele {
+  opacity: 1;
+  visibility: inherit;
 }
 /*# sourceMappingURL=admin.css.map */

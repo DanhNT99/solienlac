@@ -13,7 +13,7 @@
                     @csrf
                     <div class="adminFormAddContain ">
                         <p class = "px-4">Chọn môn học: </p>
-                        <ul class="d-flex w-90 px-5 flex-wrap mx-auto">
+                        <ul class="d-flex px-5 flex-wrap w-75">
                             @foreach ($monhoc as $item)
                             <li class="mr-2">
                                     <div class = "boxSubject">{{$item->TenMH}}</div>
@@ -32,7 +32,7 @@
                         </ul>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submmit" class="adminFormAddBtn">Thêm</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/phanmonhoc" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

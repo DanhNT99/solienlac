@@ -1,7 +1,7 @@
 @extends('admin/layouts/index')
 @section('title')Chi tiết giáo viên @endsection
 @section('adminContent')
-    @include('admin/giaovien/tab')
+    @include('admin/layouts/tab')
     <section class="adminAdd">
         <div class="container">
             <div class="adminBoxTitle py-1 px-2">
@@ -48,20 +48,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/xã</p></td>
                                 <td>
                                      <input  type="text" name="DiaChi" value = "{{$giaovien->phuong->TenPhuong}}" class="formInput formInputMa">
                                 </td>
-                                 <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td>
-                                     <input  type="text" name="DiaChi" value = "{{$giaovien->phuong->tinh->TenTinh}}" class="formInput formInputMa">
-                                </td>
-                            </tr>
-                            <tr>
                                 <td><p class="adminFormAddText">Số điện thoại</p></td>
                                 <td>
                                     <input  type="text" name="DiaChi" value = "{{$giaovien->SoDT}}" class="formInput formInputMa">
-                                </td>    
+                                </td>  
                             </tr>
                         </table>
                     </div>

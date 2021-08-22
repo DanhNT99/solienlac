@@ -17,7 +17,7 @@
                     <div class="adminFormAddContains">
                         <div class="adminFormAddContainsImg wrapImgResize">
                             <div class="wrapImgResize">
-                                <img src="{{asset('assets/images')}}/{{$giaovien->Hinh}}" class="adminFormAddImg" alt="">
+                                <img src="{{asset('assets/images')}}/{{$giaovien->Hinh}}" class="adminFormAddImg" alt="Ảnh thẻ">
                             </div>
                         </div>
                         
@@ -43,16 +43,13 @@
                             </tr>
                             <tr>
                                 <td><p class="adminFormAddText">Số điện thoại</p></td>
-                                <td><input type="date" value = "{{$giaovien->SoDT}}" class="formInput formInputMa">
+                                <td><input type="text" value = "{{$giaovien->SoDT}}" class="formInput formInputMa">
                                 <td><p class="adminFormAddText">Địa chỉ</p></td>
                                 <td><input type="text" value = "{{$giaovien->DiaChi}}" class="formInput formInputMa"></td>
                             </tr>
                             <tr>
-                             
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/xã</p></td>
                                 <td><input type="text" value = "{{$giaovien->Phuong->TenPhuong}}" class="formInput formInputMa"></td>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$giaovien->Phuong->Tinh->TenTinh}}" class="formInput formInputMa"></td>
                             </tr>
                         </table>
                     </div>

@@ -18,13 +18,26 @@ class PCHTController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $data['khoi'] = Khoi::get();
-        $data['lop'] = LOp::get();
-        $data['pcht'] = Hoc::orderBy('id_lop', 'desc')->get();
+        $data['lop'] = Lop::get();
+        $data['nienkhoa'] = NienKhoa::get();
+        $data['pcht'] = Hoc::join('hocsinh', 'hoc.id_hocsinh', 'hocsinh.id')
+                        ->where([['hoc.id_lop','=',$request->Lop],
+                        ['hoc.id_nienkhoa','=', $request->nienkhoa]])
+                        ->orderBy('hocsinh.TenHS', 'asc')->select('hoc.*')->get();
+        // dd($data['pcht']);
         $data['stt'] = 1;
         return view('admin.hoc.index', $data);
+    }
+
+    public function selected() {
+        $data['nienkhoa'] = NienKhoa::get();
+        $data['khoi'] = Khoi::orderBy('TenKhoi', 'asc')->get();
+        $data['lop'] = Lop::orderBy('TenLop', 'asc')->get();
+        return view('admin.hoc.selected', $data);
     }
 
     /**
@@ -32,11 +45,12 @@ class PCHTController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
-        $data['nienkhoa']  = NienKhoa::get();
+        $data['nienkhoa']  = NienKhoa::where('TrangThai', 1)->first();
         $data['hocsinh']  = HocSinh::get();
+        $data['stt'] = 1;
         $data['lop'] = Lop::orderBy('TenLop', 'asc')->get();
         return view('admin.hoc.create' ,$data);
     }
@@ -51,25 +65,35 @@ class PCHTController extends Controller
     {
         //
         $validate = Validator::make($request->all(),
-        ['nienkhoa' => 'required', 'hocsinh' => 'required', 'lop' => 'required'],
+        ['nienkhoa' => 'required', 'lop' => 'required'],
         ['required' => ":attribute không được để trống"],
-        ['nienkhoa' =>'Niên khóa', 'hocsinh' => 'Học sinh', 'lop' =>'Lớp ']);
+        ['nienkhoa' =>'Niên khóa', 'lop' =>'Lớp ']);
     
         if($validate->fails()) {
             return redirect()->back()->withErrors($validate);
         }
+    //CHECK USER HAVA SELECT STUDENT
+        $lop = Lop::where('id', $request->lop)->first();
+        $path = 'admin/hoc?nienkhoa=' . $request->nienkhoa .'Khoi=' .$lop->Khoi->id . '&Lop='.$lop->id;
+        if($request->TrangThai) {
+            foreach($request->TrangThai as $key => $value) {
+                $data = new Hoc();
+                $data->id_nienkhoa = $request->nienkhoa;
+                $data->id_lop = $request->lop;
+                $data->id_hocsinh = $value;
+                $check = $data->save();
+            }
 
-        $data = new Hoc();
-        $data->id_nienkhoa = $request->nienkhoa;
-        $data->id_lop = $request->lop;
-        $data->id_hocsinh = $request->hocsinh;
-        $check = $data->save();
-        if($check) {
-            return redirect('admin/hoc')->with('noti', 'Phân công thành công');
+            switch($check) {
+                case true: return redirect($path)->with('noti', 'Phân công thành công'); break;
+                default :  return redirect()->back()->with('noti', 'Phân công không thành công'); break;
+
+            }
         }
         else {
-            return redirect()->back()->with('noti', 'Phân công thành công');
+            return redirect()->back()->with('noti', 'Vui lòng chọn học sinh');
         }
+       
     }
 
     /**
@@ -94,9 +118,9 @@ class PCHTController extends Controller
     {
         //
         $data['hoc'] = Hoc::find($id);
-        $data['nienkhoa']  = NienKhoa::get();
+        $data['hocsinh'] = HocSinh::find($data['hoc']->id_hocsinh);
+        $data['nienkhoa']  = NienKhoa::where('TrangThai', 1)->first();
         $data['lop']  = Lop::orderBY('TenLop', 'asc')->get();
-        $data['hocsinh']  = HocSinh::get();
         return view('admin.hoc.edit', $data);
     }
 
@@ -110,13 +134,14 @@ class PCHTController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $updateStudy = Hoc::where('id', $id)->update(['id_hocsinh' => $request->hocsinh,
-                                                        'id_nienkhoa' => $request->nienkhoa,
+        $updateStudy = Hoc::where('id', $id)->update(['id_nienkhoa' => $request->nienkhoa,
                                                         'id_lop' => $request->lop]);
+        $lop = Lop::where('id', $request->lop)->first();
+        $path = 'admin/hoc?nienkhoa=' . $request->nienkhoa . '&Khoi=' . $lop->id_khoi . '&Lop=' .$request->lop;
         if($updateStudy)
-            return redirect('admin/hoc')->with('noti', 'Chỉnh sửa học tập thành công');
+            return redirect($path)->with('noti', 'Chỉnh sửa học tập thành công');
         else 
-            return redirect('admin/hoc')->with('noti', 'Chỉnh sửa học tập thất bại');
+            return redirect($path)->with('noti', 'Chỉnh sửa học tập thất bại');
     }
 
     /**
@@ -126,15 +151,47 @@ class PCHTController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+    public function destroy(Request $reuqest,$id)
     {
         //
-        $checkDelete = Hoc::find($id)->toArray();
+        $lop = Hoc::where('id', $id)->first()->Lop;
+        $path =  url()->previous();
+        $checkDelete = Hoc::find($id)->delete();
         if($checkDelete) {
-            return redirect('admin/hoc')->with('noti', 'Xóa  thành công');
+            return redirect($path)->with('noti', 'Xóa  thành công');
         }
         else {
-            return redirect('admin/hoc')->with('noti', 'Xóa thất bại');
+            return redirect($path)->with('noti', 'Xóa thất bại');
         }
+    }
+
+    public function search(Request $request) {
+        $data['khoi'] = Khoi::get();
+        $data['lop'] = Lop::get();
+
+        $MaHS = $request->MaHS || $request->MaHS == '0' ? '%'. $request->MaHS .'%' : ' ';
+        $idClass = $request->Lop != 'NULL' ? $request->Lop : NULL;
+        $idGrade = $request->Khoi != 'NULL' ? $request->Khoi : NULL;
+        $where = array(
+            $request->nienkhoa ? ['hoc.id_nienkhoa', '=', $request->nienkhoa ] : "",
+            $idGrade ? ['id_khoi', $idGrade] : "",
+            $idClass ? ['hoc.id_lop', '=', $idClass] : "",
+            $request->TenHS ? ['TenHS', 'like', '%'. $request->TenHS .'%'] : '',
+            $request->MaHS ? ['MaHS', 'like', $MaHS] : '',
+        );
+        //DELETE ' ' IN ARRAY
+        foreach($where as $key => $value) {
+            if($value == NULL) unset($where[$key]);
+        }
+        $data['stt'] = 1;
+        // $data['pcht'] = Hoc::join('hocsinh', 'hocsinh.id', '=','hoc.id_hocsinh')
+        //                     ->where($where)->get();
+        $data['nienkhoa'] = NienKhoa::get();
+        $data['pcht'] = Khoi::join('lop', 'lop.id_khoi', '=','khoi.id')
+                            ->join('hoc', 'hoc.id_lop', '=','lop.id')
+                            ->join('hocsinh', 'hocsinh.id', '=','hoc.id_hocsinh')
+                            ->where($where)->orderBy('hocsinh.TenHS', 'asc')
+                            ->select('*', 'hoc.id as idPCHT')->get();
+        return view('admin.hoc.search', $data);
     }
 }

@@ -1,7 +1,7 @@
 @extends('admin/layouts/index')
 @section('title') Chỉnh sửa sổ liên lạc @endsection
 @section('adminContent')
-    @include('admin/layouts/tab');
+    @include('admin/layouts/tab')
 
     <section class="adminList pt-0">
         {{-- detail student --}}
@@ -54,8 +54,10 @@
                                 <td><input type="text" value = "{{$hocsinh->Phuong->TenPhuong}}" class="formInput formInputMa"></td>
                             </tr>
                             <tr>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Phuong->Tinh->TenTinh}}" class="formInput formInputMa"></td>
+                                <td><p class="adminFormAddText">Khối</p></td>
+                                <td><input type="text" value = "{{$hocsinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Khoi->TenKhoi}}" class="formInput formInputMa"></td>
+                                <td><p class="adminFormAddText">Lớp</p></td>
+                                <td><input type="text" value = "{{$hocsinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->TenLop}}" class="formInput formInputMa"></td>
                             </tr>
                         </table>
                     </div>
@@ -207,17 +209,13 @@
                                 <input type="text" name="HocLuc" style = 'color: red; font-size: 18px;' value = "{{$text}}" class = "border-0 ml-2 formInputMa">       
                         </div>
                         @endif
-                      
-                      
-                        {{-- @endif --}}
                     @endforeach
-                    
-                    <div class="px-5">
+                <div class="px-5">
                     <h5 class="title_main text-left" style = "font-size: 20px">Nhận xét của giáo viên</h3>
-                        <textarea name="NhanXet" class="mx-auto textarea p-2" id="" cols="100" rows="5" placeholder="Nhập vào nhận xét">
+                        <textarea name="NhanXet" spellcheck="false" class="mx-auto textarea p-2" id="" cols="100" rows="5" placeholder="Nhập vào nhận xét">
                         @if (count($hocsinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->NhanXet))
-                             @if ($hocsinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->NhanXet->where('id_hocky', $hocky->id)->first()->NhanXet)
-                                {{$hocsinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->NhanXet->where('id_hocky', $hocky->id)->first()->NhanXet}}
+                            @if (count($hocsinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->NhanXet->where('id_hocky', $hocky->id)))
+                                {{$hocsinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->NhanXet->where('id_hocky', $hocky->id)->first()->NoiDungNhanXet}}
                             @endif
                         @endif
                         </textarea>

@@ -1,11 +1,11 @@
 @extends('admin/layouts/index')
-@section('title')Thêm học kỳ @endsection
+@section('title')Thêm học kì @endsection
 @section('adminContent')
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
             <div class="adminBoxTitle py-1 px-2">
-                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Thêm học kỳ</h6>
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Thêm học kì</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </div>
             <div class="adminFormAddBox">
@@ -20,7 +20,9 @@
                                     <select name="nienkhoa" id = "nienkhoa" class="formSelect">
                                             <option selected disabled>Lựa chọn</option>
                                             @foreach ($nienkhoa as $item)
-                                                <option value="{{$item->id}}">{{$item->NamBatDau . ' - ' .$item->NamKetThuc}}</option>
+                                                @if ($item->TrangThai == 1)
+                                                    <option value="{{$item->id}}">{{$item->NamBatDau . ' - ' .$item->NamKetThuc}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                         <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
@@ -29,7 +31,7 @@
                                         <div class="notiFail" role="alert"> {{$errors->first('nienkhoa')}} </div>
                                      @endif
                                 </td>
-                                <td><p class="adminFormAddText">Mã học kỳ</p></td>
+                                <td><p class="adminFormAddText">Mã học kì</p></td>
                                 <td>
                                     <input type="text" name="MaHK" value  = "{{old('MaHK')}}" class="formInput capitalize filterMaHK formInputMa">
                                     @if ($errors->has('MaHK')) 
@@ -38,9 +40,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><p class="adminFormAddText">Tên học kỳ</p></td>
+                                <td><p class="adminFormAddText">Tên học kì</p></td>
                                 <td>
-                                    <input type="text" name="TenHK"  value  = "{{old('TenHK')}}" class="formInput capitalize" placeholder="Tên học kỳ">
+                                    <input type="text" name="TenHK"  value  = "{{old('TenHK')}}" class="formInput capitalize" placeholder="Tên học kì">
                                     @if ($errors->has('TenHK')) 
                                         <div class="notiFail" role="alert">  {{$errors->first('TenHK')}} </div>
                                     @endif
@@ -63,7 +65,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submmit" class="adminFormAddBtn">Thêm</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/hocky" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

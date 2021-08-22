@@ -15261,11 +15261,24 @@ a.text-dark:focus, a.text-dark:hover {
   vertical-align: middle;
 }
 
+.footer {
+  padding: 20px 0px;
+  background-color: rgba(20, 20, 20, 0.9);
+  background-clip: content-box;
+}
+
+.footer .footer-title {
+  color: #ffffff;
+}
+
+.footer .footer-infor {
+  color: #6fc7e1;
+}
+
 .formBoxSelect {
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -15277,11 +15290,14 @@ a.text-dark:focus, a.text-dark:hover {
   padding: 5px;
   cursor: pointer;
   background: #f4f2ec;
+  border: 1px solid #0e3746;
+  border-radius: 3px;
 }
 
 .formBoxSelect .formSelect.formSelectSmall {
   width: 110px;
   font-size: 14px;
+  text-align-last: center;
 }
 
 .formBoxSelect .formSelectIcon {
@@ -15295,6 +15311,8 @@ a.text-dark:focus, a.text-dark:hover {
   justify-content: center;
   color: #f4f2ec;
   pointer-events: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 .formInput {
@@ -15302,12 +15320,24 @@ a.text-dark:focus, a.text-dark:hover {
   border: none;
   width: 270px;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 3px;
+  border: 1px solid #0e3746;
   background: #f4f2ec;
 }
 
 .formInput.capitalize {
   text-transform: capitalize;
+}
+
+.iconInput {
+  font-size: 22px;
+  font-weight: bold;
+  color: #be2623;
+}
+
+.formInputMa {
+  pointer-events: none;
+  user-select: none;
 }
 
 .adminBoxTitle {
@@ -15433,14 +15463,14 @@ a.text-dark:focus, a.text-dark:hover {
 
 .notiFail {
   font-size: 14px;
-  color: #be2623;
-  background: rgba(190, 38, 35, 0.5);
+  color: #ffffff;
+  background: #be2623;
   padding: 2px 5px;
   margin-top: 5px;
   border-radius: 2px;
 }
 
-.hide {
+.notiFail.hide {
   display: none;
 }
 
@@ -15468,6 +15498,94 @@ a.text-dark:focus, a.text-dark:hover {
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
   border: none;
+}
+
+.input-group {
+  width: fit-content;
+  margin-left: auto;
+  background: #be2623;
+  border-radius: 3px;
+}
+
+.input-group .checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.input-group .checkbox:active .text {
+  transform: scale(0.9);
+}
+
+.input-group .checkbox .text {
+  display: inline-block;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  user-select: none;
+}
+
+.input-group .checkbox .icon {
+  display: inline-block;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+
+.input-group .checkbox .icon::after, .input-group .checkbox .icon::before {
+  content: "";
+  display: block;
+  position: absolute;
+}
+
+.input-group .checkbox .icon::before {
+  height: 100%;
+  width: 100%;
+  border: 1px solid currentColor;
+  background: transparent;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.input-group .checkbox .icon::after {
+  border: 3px solid transparent;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  width: 0px;
+  height: 0px;
+  bottom: 9px;
+  left: 1px;
+  border-radius: 4px;
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+}
+
+.input-group .inputCheckAll:checked + .checkbox .icon::before {
+  background: red;
+}
+
+.input-group .inputCheckAll:checked + .checkbox .icon::after {
+  width: 8px;
+  height: 20px;
+  border-right-color: currentColor;
+  border-bottom-color: currentColor;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
 }
 
 .wrapImgResize {

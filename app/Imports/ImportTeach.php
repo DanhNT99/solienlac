@@ -21,6 +21,7 @@ class ImportTeach implements ToModel, withHeadingRow
         $date = str_replace('/', '-', $row['ngaysinh']);  //HANDLE DATE
     //HANDLE DELET " " WHEN ENTER
         $array = explode(' ',$row['phuong']);
+        // echo $array;
         foreach($array as $key => $value) {
             if($value == "") unset($array[$key]);
         }
@@ -49,7 +50,6 @@ class ImportTeach implements ToModel, withHeadingRow
             'NgaySinh' => date('Y-m-d', strtotime($date)),
             'DiaChi' => $row['diachi'], 
             'SoDT' => $row['sodienthoai'],
-            'TaiKhoan' => $row['taikhoan'],
             'password' => bcrypt($row['matkhau']),
             'Hinh' => 'Null',
             'id_phuong' => $id_phuong,

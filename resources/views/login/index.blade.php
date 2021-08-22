@@ -15,8 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="wrapLoginTitle">Sổ liên lạc</h1>
-                    <p class="wrapLoginSub">Kết nối nhà trường và gia đình học sinh</p>
+                    <h1 class="wrapLoginTitle mt-2 mb-3">Sổ liên lạc</h1>
                     <div class="wrapLogin_ContainsForm">
 
                         <form action="{{route('handleLogin')}}" method="post" class="wrapLogin_Form" id="formLogin">
@@ -37,6 +36,10 @@
                             <div class="wrapLogin__formGroup">
                                 <p class="wrapLogin_formTitleInput">Mật khẩu</p>
                                 <input type="password" name="MatKhau" valuevalue = "{{old('MatKhau')}}" placeholder="Nhập vào mật khẩu..." class="wrapLogin_formInput">
+                                <span class="showPass">
+                                    <i class="far fa-eye showEyes"></i>
+                                    <i class="fas fa-eye-slash hideEyes"></i>
+                                </span>
                                 @if ($errors->has('MatKhau')) 
                                 <div class="notiFail" role="alert">
                                    {{$errors->first('MatKhau')}}
@@ -44,38 +47,12 @@
                             @endif
                             </div>
                             <div class="wrapLogin__formGroup">
-                                <a href="#" class="wrapLogin__formLink" title="Quên mật khẩu">Quên mật khẩu?</a>
+                                <a href="resetPass" class="wrapLogin__formLink" title="Quên mật khẩu">Quên mật khẩu?</a>
                             </div>
                             <div class="wrapLogin__ContainsBtn">
                                 <button type="submit" class="wrapLogin_formBtn">Đăng nhập</button>
                             </div>
                         </form>
-
-
-                        <form action="" class="wrapLogin_Form" id="formRestPass">
-
-                            <div class="wrapLogin_formContainsImg">
-                                <img src="{{asset('assets/images/logo.png')}}" class="wrapLogin_img" alt="">
-                                <h3 class="wrapLogin_formTitle">Khôi phục mật khẩu</h3>
-                            </div>
-                           <div class="wrapLogin__formGroup">
-                                <p class="wrapLogin_formTitleInput">Số điện thoại</p>
-                                <input type="text" name="" placeholder="Nhập vào số điện thoại..." class="wrapLogin_formInput">
-                           </div>
-                           <div class="wrapLogin__formGroup">
-                                <p class="wrapLogin_formTitleInput">Nhập mã</p>
-                                <div class="warapLogin_reset">
-                                    <img src="{{asset('assets/images/resetPassword.jpg')}}" alt="">
-                                    <input type="text" name="btnLogin"  class="wrapLogin_formInputRest">
-                                    <p class="wrapLogin_formRestText">Hệ thống sẽ cấp lại mật khẩu cho phụ huynh qua số điện thoại</p>
-                                </div>
-                           </div>
-                            <div class="wrapLogin__ContainsBtn">
-                                <button type="submit" name="btnRestPass" class="wrapLogin_formBtn">Khôi phục</button>
-                                <a href="#" class="wrapLogin__ContainsBtnLink" title="Quay lại">Quay lại</a>
-                            </div>
-                        </form>
-
                         @if (Session::has('error'))
                               <div class="notiBox">
                                 <h4 class="notiBoxTitle">Thông báo <button class="notiBoxBtn"><i class="far fa-window-close"></i></button></h4>
@@ -87,7 +64,7 @@
             </div>
         </div>
     </section>
-    <script src="{{asset('assets/js/script.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.js')}}"></script>
     <script src="{{asset('assets/js/login.js')}}"></script>
 </body>
 </html>

@@ -9,7 +9,6 @@
                 <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Phân công học tập</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </div>
-
             <div class="adminFormAddBox">
                 <form action="{{route('hoc.store')}}" method = "post" class="adminFormAdd" >
                      @csrf
@@ -17,60 +16,76 @@
                         <table class="adminFormAddTable adminFormAddTableSmall">
                             <tr>
                                 <td><p class="adminFormAddText">Niên khóa</p></td>
-                                {{-- <td><input type="text" name="MaBH" value="{{$hoc->id_nienkhoa}}" class="formInput formInputMa"></td> --}}
-                               <td>
+                                <td>
                                     <div class="formBoxSelect">
                                         <select name="nienkhoa" id="" class="formSelect">
-                                            @foreach ($nienkhoa as $item)
-                                                <option @if ($item->TrangThai == 1) selected @endif value="{{$item->id}}">{{$item->NamBatDau . '- '. $item->NamKetThuc}}</option>
-                                            @endforeach
+                                            <option value="{{$nienkhoa->id}}">{{$nienkhoa->NamBatDau . '- '. $nienkhoa->NamKetThuc}}</option>
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
                                     @if ($errors->has('nienkhoa')) 
-                                        <div class="notiFail" role="alert"> {{$errors->first('nienkhoa')}} </div>
+                                    <div class="notiFail" role="alert"> {{$errors->first('nienkhoa')}} </div>
                                     @endif
-                               </td>
-                                <td><p class="adminFormAddText">Học sinh</p></td>
-                                <td>
-                                    <div class="formBoxSelect">
-                                        <select name="hocsinh" id="" class="formSelect">
-                                            <option selected disabled>Lựa chọn</option>
-                                            @foreach ($hocsinh as $item)
-                                                @if (count($item->Hoc) == 0)
-                                                    <option value="{{$item->id}}">{{$item->HoHS . ' '. $item->TenHS}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
-                                    </div>
-                                    @if ($errors->has('hocsinh')) 
-                                        <div class="notiFail" role="alert"> {{$errors->first('hocsinh')}}</div>
-                                    @endif
-                               </td>
-                            </tr>
-                            <tr>
+                                </td>
                                 <td><p class="adminFormAddText">Lớp</p></td>
                                 <td>
                                     <div class="formBoxSelect">
                                         <select name="lop" id="" class="formSelect">
                                             <option selected disabled>Lựa chọn</option>
                                             @foreach ($lop as $item)
-                                                <option value="{{$item->id}}">{{$item->TenLop}}</option>
+                                            <option @if (Request::get('Lop') == $item->id) selected
+                                                    @endif  value="{{$item->id}}">{{$item->TenLop}}</option>
                                             @endforeach
                                         </select>
                                         <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
                                     </div>
                                     @if ($errors->has('lop')) 
-                                        <div class="notiFail" role="alert"> {{$errors->first('lop')}}</div>
+                                    <div class="notiFail" role="alert"> {{$errors->first('lop')}}</div>
                                     @endif
                                </td>
                             </tr>
                         </table>
                     </div>
+                    <div class="container px-5">
+                        <h4 class="adminListTitle mt-4 mb-3 text-center">Danh sách học sinh chưa có lớp</h4>
+                        <div class="input-group mb-1">
+                            <input type="checkbox" class="inputCheckAll" hidden />
+                            <label for="checkbox" class="checkbox m-0">
+                                <span class="icon"></span>
+                                <span class="text">Check all</span>
+                            </label>
+                        </div> 
+                        <table class="adminTable w-100" border="1">
+                            <tr>
+                                <th>Stt</th>
+                                <th>Mã học sinh</th>
+                                <th>Họ và tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>Địa chỉ</th>
+                                <th>Chọn</th>
+                            </tr>
+                            @foreach ($hocsinh as $item)
+                                @if (count($item->Hoc) == 0)
+                                    <tr>
+                                        <td>{{$stt++}}</td>
+                                        <td>{{$item->MaHS}}</td>
+                                        <td>{{$item->HoHS . ' ' . $item->TenHS}}</td>
+                                        <td>@if ($item->GioiTinh == 'Nu') Nữ
+                                            @else Nam @endif</td>
+                                        <td>{{$item->NgaySinh}}</td>
+                                        <td>{{$item->DiaChi}}</td>
+                                        <td>
+                                            <input type="checkbox" name="TrangThai[]" class = 'checkBoxStudent' value="{{$item->id}}">
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </table>
+                    </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
-                        <a href = "admin/hoc" class="adminFormAddLink">Quay lại</a>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
+                        <a href = "{{url()->previous()}}" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>
             </div>

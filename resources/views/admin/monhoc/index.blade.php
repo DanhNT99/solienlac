@@ -20,12 +20,14 @@
                     <tr>
                         <td>{{$stt++}}</td>
                         <td>{{$item->MaMH}}</td>
-                        <td>{{$item->TenMH}}</td>
+                        <td class = "text-left">
+                            <p class = "ml-5">{{$item->TenMH}}</p>
+                        </td>
                         <td>
                             @if ($item->ChoPhepNhapDiem) Được phép
                             @else Không dược phép  @endif
                         </td>
-                        <td>
+                        <td class = "text-center">
                             <a href="admin/monhoc/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
                             <form action="{{route('monhoc.destroy','')}}/{{$item->id}}" method = "post" class="adminFormAdd {{'formDelete' . $item->id}} d-inline" >
                                 @method('DELETE') @csrf

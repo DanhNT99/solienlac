@@ -106,6 +106,8 @@ class PCNLController extends Controller
     public function edit($id)
     {
         //
+        $data['PCNL'] = PhamChatNangLuc::find($id);
+        return view('admin.phamchatnangluc.edit', $data);
     }
 
     /**
@@ -118,6 +120,24 @@ class PCNLController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $validate = Validator::make($request->all(),
+        ['TenPCNL' => 'required', 'LoaiPCNL' => 'required'],
+        ['required' => ":attribute không được để trống"],
+        ['TenPCNL' =>'Tên phẩm chất năng lực',
+        'LoaiPCNL' =>'Loại phẩm chất năng lực']);
+        if($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate);
+        }
+        
+        $updateLop = PhamChatNangLuc::where('id', $id)
+                        ->update(['TenPCNL' => $request->TenPCNL, 
+                                'LoaiPCNL' => $request->LoaiPCNL]);
+                                
+        if($updateLop)
+            return redirect('admin/phamchatnangluc')->with('noti', 'Chỉnh sửa thành công');
+        else 
+            return redirect('admin/phamchatnangluc')->with('noti', 'Chỉnh sửa thất bại');
     }
 
     /**
@@ -129,5 +149,12 @@ class PCNLController extends Controller
     public function destroy($id)
     {
         //
+        $checkDelete = PhamChatNangLuc::find($id)->delete();
+        if($checkDelete) {
+            return redirect('admin/phamchatnangluc')->with('noti', 'Xóa phẩm chất năng lực thành công');
+        }
+        else {
+            return redirect('admin/phamchatnangluc')->with('noti', 'Xóa phẩm chất năng lực thất bại');
+        }
     }
 }

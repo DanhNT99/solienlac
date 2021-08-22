@@ -26,7 +26,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/khoi" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

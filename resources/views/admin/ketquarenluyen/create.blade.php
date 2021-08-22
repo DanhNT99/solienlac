@@ -3,22 +3,19 @@
 @section('adminContent')
     @include('admin/layouts/tab')
     <section class="adminAdd">
-        <div class="container">
-            <div class="adminBoxTitle">
-                <div class="yearOfCourse">Năm học: {{$nienkhoa->NamBatDau . '- ' . $nienkhoa->NamKetThuc}}</div>
+        <div class="container-xl">
+           <div class="adminBoxTitle py-1 px-2 mb-2" style="width: fit-content;">
+                <span>Năm học : {{$nienkhoa->NamBatDau . ' - ' . $nienkhoa->NamKetThuc}}</span>
+                <span class="mx-2">|</span>
+                <span>{{$hocky->TenHK}}</span>
+                <span class="mx-2">|</span>
+                <span> Lớp: {{$giaovien->Lop->TenLop}}</span>
+            </div>
+            <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-plus-circle adminBoxTitleIcon mr-1"></i>Đánh giá rèn luyện học sinh</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
             </div>
             <div class="adminFormAddBox">
-                <div class="px-4 d-flex">
-                    <div class="mr-2 mx-0 btnClass">Lớp : {{$giaovien->Lop->first()->TenLop}}</div>
-                    <div class = "mx-0 btnClass d-flex">
-                        @foreach ($nienkhoa->HocKy as $item)
-                            @if ($item->TrangThai) 
-                                <div >{{$item->TenHK}}</div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
                 <form action="{{route('ketquarenluyen.store')}}" method="post" class="adminFormAdd">
                     @csrf
                     <table class="adminFormAddTable adminFormAddTableSmall">
@@ -29,7 +26,8 @@
                                     <select name="PCNL" id = "pcnl" class="formSelect">
                                         <option selected disabled>Lựa chọn</option>
                                         @foreach ($pcnl as $item)
-                                            <option class="formBoxSelectOption" value="{{$item->id}}">{{$item->TenPCNL}}</option>
+                                            <option @if ($item->id == Request::get('idPCNL')) selected
+                                            @endif class="formBoxSelectOption" value="{{$item->id}}">{{$item->TenPCNL}}</option>
                                         @endforeach       
                                     </select>
                                     <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
@@ -72,22 +70,26 @@
                          @foreach ($giaovien->Hoc->where('id_nienkhoa', $nienkhoa->id) as $item)
                             <tr>
                                 <td>{{$stt++}}</td>
-                                <td><input type="text" class="d-none solienlac" name="SoLienLac[]" value = "{{$item->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->id}}" >
+                                <td class="text-left pl-3">
+                                    <input type="text" class="d-none solienlac" name="SoLienLac[]" 
+                                            value = "{{$item->HocSinh->SoLienLac->where('id_nienkhoa', $nienkhoa->id)->first()->id}}" >
                                     {{$item->HocSinh->HoHS . ' ' .$item->HocSinh->TenHS}}</td>
                                 <td>
-                                    <select name="XepLoai[]" class="XepLoai">
-                                        <option selected value="" >Lựa chọn</option>
-                                        <option value="T">T</option>
-                                        <option value="Đ">Đ</option>
-                                        <option value="C">C</option>
-                                    </select>
+                                   <div class="formBoxSelect">
+                                        <select name="XepLoai[]" class="xeploai formSelect formSelectSmall">
+                                            <option selected value="" >Lựa chọn</option>
+                                            <option value="T">T</option>
+                                            <option value="Đ">Đ</option>
+                                            <option value="C">C</option>      
+                                        </select>
+                                        <div class="formSelectIcon"><i class="fas fa-caret-down"></i></div>
+                                    </div>
                                 </td>
-
                             </tr>
                         @endforeach
                     </table>
                     <div class="adminFormSearchContainsBtn adminFormAddGroup">
-                        <button class="adminFormAddBtn" name = "luu">lưu</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/ketquarenluyen" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

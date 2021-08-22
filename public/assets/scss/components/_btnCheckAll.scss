@@ -1,0 +1,71 @@
+.input-group {
+    width: fit-content;
+    margin-left: auto;
+    background: $color4;
+    border-radius: 3px;
+    .checkbox {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 5px;
+        cursor: pointer; 
+        color: $color5;
+        &:active {
+            .text {
+                transform: scale(0.9);
+            }
+          }
+        .text {
+            display: inline-block;
+            @include transition(0.5s);
+            user-select: none;
+          }
+        .icon {
+            display: inline-block;
+            position: relative;
+            height: 15px;
+            width: 15px;
+            margin-right: 5px;
+            &::after , &::before{
+                content: "";
+                display: block;
+                position: absolute;
+            }
+            &::before {
+                height: 100%;
+                width: 100%;
+                border: 1px solid currentColor;
+                background: transparent;
+                @include transition(0.5s);
+            }
+            &::after {
+                border: 3px solid transparent;
+                @include transition(0.5s);
+                width: 0px;
+                height: 0px;
+                bottom: 9px;
+                left: 1px;
+                border-radius: 4px;
+                transform-origin: bottom left;
+                transform: rotate(45deg);
+            }
+        }
+    }
+    .inputCheckAll:checked {
+        &+.checkbox {
+            .icon {
+                &::before {
+                    background: red;
+                }
+                &::after {
+                    width: 8px;
+                    height: 20px;
+                    border-right-color: currentColor;
+                    border-bottom-color: currentColor;
+                    @include transition(0.5s);
+                }
+            }
+        }
+      
+     }
+}

@@ -26,7 +26,8 @@ class PhuHuynhController extends Controller
 
     public function ketquahoctap($id) {
         $data['nienKhoaHienTai'] = NienKhoa::where('TrangThai', true)->first();
-        $data['dsNienKhoa'] = NienKhoa::get();
+        $yearCurrent =  $data['nienKhoaHienTai']->NamBatDau;
+        $data['dsNienKhoa'] = NienKhoa::where('NamBatDau','<=', $yearCurrent)->get();
         $data['hocky'] = HocKy::where('TrangThai', true)->first();
         $data['SoLienLac'] = HocSinh::find($id)->SoLienLac->where('id_nienkhoa', $data['nienKhoaHienTai']->id)->first();
         $data['hocsinh'] =  HocSinh::find($id);
@@ -38,7 +39,8 @@ class PhuHuynhController extends Controller
     public function searchResultStudy(Request $request) {
 
         // $solienlac = SoLienLac::where('id_nienkhoa', '');
-        $data['listNienKhoa'] = NienKhoa::get();
+        $yearCurrent =  NienKhoa::where('TrangThai', true)->first()->NamBatDau;
+        $data['listNienKhoa'] = NienKhoa::where('NamBatDau','<=', $yearCurrent)->get();
         $data['nienkhoaSearch'] = NienKhoa::find($request->nienkhoa);
         $data['hocsinh'] =  HocSinh::find($request->idStudent);
         $data['SoLienLac'] = $data['hocsinh']->SoLienLac->where('id_nienkhoa', $data['nienkhoaSearch']->id)->first();

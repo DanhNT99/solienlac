@@ -1,10 +1,10 @@
 @extends('admin/layouts/index')
-@section('title')Loại học kỳ @endsection
+@section('title')Loại học kì @endsection
 @section('adminContent')
 @include('admin/nienkhoa/tab')
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Danh sách loại học kỳ</h3>
+            <h3 class="adminListTitle">Danh sách loại học kì</h3>
             <div class="adminActive">
                 <a href="admin/loaihocky/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Thêm</a>
             </div>
@@ -13,7 +13,7 @@
                     <th>Stt</th>
                     <th>Mã loại HK</th>
                     <th>Tên loại HK</th>
-                    <th>Tên học kỳ</th>
+                    <th>Tên học kì</th>
                     <th>Niên khóa</th>
                     <th>Chọn</th>
                 </tr>
@@ -21,7 +21,9 @@
                     <tr class = "trContainsBox">
                         <td>{{$stt++}}</td>
                         <td>{{$item->MaLoaiHK}}</td>
-                        <td>{{$item->TenLoaiHK}}</td>
+                        <td class="text-left ">
+                        <p class="ml-5">{{$item->TenLoaiHK}}</p>
+                        </td>
                         <td>{{$item->HocKy->TenHK}}</td>
                         <td>{{$item->HocKy->NienKhoa->NamBatDau . ' - ' . $item->HocKy->NienKhoa->NamKetThuc}}</td>
                         <td>

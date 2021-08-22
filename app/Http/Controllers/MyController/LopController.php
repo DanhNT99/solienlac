@@ -116,7 +116,15 @@ class LopController extends Controller
     public function edit($id)
     {
         //
-        $data['giaovien'] = GiaoVien::get();
+        $giaovienht = GiaoVien::select('giaovien.*')->join('lop', 'lop.id_giaovien', 'giaovien.id')
+                            ->where('lop.id', $id)->first()->toArray();
+        $data['giaovien'] = array();
+        array_push($data['giaovien'], $giaovienht);
+        foreach(GiaoVien::with('Lop')->get()->toArray() as $gv){
+           if($gv['lop'] == null) {
+               array_push($data['giaovien'], $gv);
+           }
+        }
         $data['khoi'] = Khoi::orderBy('TenKhoi', 'asc')->get();
         $data['lop'] = Lop::find($id);
         return view('admin.lop.edit', $data);
@@ -132,8 +140,11 @@ class LopController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $updateLop = Lop::where('id', $id)->update(['TenLop' => $request->TenLop, 'id_giaovien' => $request->giaovien,
+        $updateLop = Lop::where('id', $id)->update(['id_giaovien' => $request->giaovien,
                                                         'id_khoi' => $request->khoi]);
+        $giaovien = GiaoVien::find($request->giaovien);
+        $idRole = Role::where('name', 'Giáo viên chủ nhiệm')->first()->id;
+        $check = $giaovien->assignRole(['id'=> $idRole]);
         if($updateLop)
             return redirect('admin/lop')->with('noti', 'Chỉnh sửa lớp thành công');
         else 

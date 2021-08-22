@@ -15,9 +15,14 @@
                 <div class="adminTabItem">
                     <a href="admin/hocky" class="adminTabItemLink py-2 px-4">
                         <img src = "{{asset('assets/images/iconSemester.png')}}" class = "adminTabItemIcon">
-                        <p>Học kỳ</p>
+                        <p>Học kì</p>
                     </a>
                 </div>
             </div>
         </div>
+            <script>
+        $(document).ready(function () {
+            $('.adminMainTab').slideDown(0);
+        });
+    </script>
     </section>

@@ -44,7 +44,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submmit" class="adminFormAddBtn">Thêm</button>
+                        <button type="submmit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/monhoc" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

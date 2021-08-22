@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\NienKhoa;
+use App\Models\HocKY;
 class NienKhoaController extends Controller
 {
     /**
@@ -32,6 +33,8 @@ class NienKhoaController extends Controller
         //
         $year = date('Y');
         $data['text_id'] = 'NK' . $year;
+        $data['yearCurrent'] = $year;
+        $data['yearAfter'] = $year + 1;
         return view ('admin.nienkhoa.create', $data);
     }
 
@@ -60,10 +63,7 @@ class NienKhoaController extends Controller
     //CHECK YEAR NEW YEAR?
         $year = NienKhoa::where('MaNK', $request->MaNK)->get();
         if(count($year)) {
-            return redirect()->back()->with('noti', 'Chưa đến năm học mới');
-        }
-        if(($request->NamBatDau > $request->NamKetThuc) || $request->NamBatDau == $request->NamKetThuc) {
-            return redirect()->back()->with('noti', 'Năm bắt đầu không thể lớn hơn hoặc bằng năm kết thúc');
+            return redirect()->back()->with('noti', 'Niên khóa này đã tồn tại');
         }
         if($request->TrangThai) {
             $data = NienKhoa::where('TrangThai', 1)->update(['TrangThai' => 0]);
@@ -107,6 +107,7 @@ class NienKhoaController extends Controller
     {
         //
         $data['nienkhoa'] = NienKhoa::find($id);
+        $data['hocky'] = HocKy::where('id_nienkhoa',  $data['nienkhoa']->id)->get();
         return view('admin.nienkhoa.edit', $data);
     }
 

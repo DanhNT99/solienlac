@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GiaoVien;
 use App\Models\PhuHuynh;
 use Illuminate\Support\Facades\Hash;
-use Auth;
+use Auth, Validator;
 
 class PassController extends Controller
 {
@@ -23,22 +23,21 @@ class PassController extends Controller
 
     public function handleChangePass(Request $request) {
 
-        // $request->validate([
-        //     'matKhauCu' => 'required',
-        //     'matKhauMoi' => 'required',
-        //     'xacNhanMatKhauMoi' => 'required',
+          $validate = Validator::make($request->all(),
+          ['matKhauMoi' => 'bail|required|regex:/^[a-zA-Z0-9]*$/|min:8'],
+          ['required' => ":attribute không được để trống",
+          'min' => ':attribute tổi thiểu phải từ :min chữ số',
+          'regex' =>':attribute không được chưa ký tự đặc biệt'],
+          ['matKhauMoi' => 'Mật khẩu mới']);
 
-        //   ],[
-        //       'matKhauCu.required' => "Bạn chưa nhập mật khẩu",
-        //       'matKhauMoi.required' => "Bạn chưa nhập mật khẩu mới",
-        //       'xacNhanMatKhauMoi.required' => "Bạn chưa nhập xác nhận mật khẩu",
-        //   ]);
+      if($validate->fails()) return redirect()->back()->withInput()->withErrors($validate);
+
         $tenTaiKhoan = $request->TenTaiKhoan;
-        $data = GiaoVien::where('TaiKhoan',  $tenTaiKhoan)->get();
-        $user = GiaoVien::where('TaiKhoan',  $tenTaiKhoan);
+        $data = GiaoVien::where('SoDT',  $tenTaiKhoan)->get();
+        $user = GiaoVien::where('SoDT',  $tenTaiKhoan);
         if(!count($data) > 0) {
-            $data = PhuHuynh::where('TaiKhoan',  $tenTaiKhoan)->get();
-            $user =  PhuHuynh::where('TaiKhoan',  $tenTaiKhoan);
+            $data = PhuHuynh::where('SoDT',  $tenTaiKhoan)->get();
+            $user =  PhuHuynh::where('SoDT',  $tenTaiKhoan);
         }
 
         //check password user enter with pass before? 

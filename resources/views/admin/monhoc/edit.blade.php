@@ -21,11 +21,27 @@
                                     <input type="text" name="TenMH" value="{{$monhoc->TenMH}}" class="formInput ">
                                 </td>
                             </tr>
+                            <tr>
+                                <td><p class="adminFormAddText">Được phép nhập điểm</p></td>
+                                  <td>
+                                    <div class="formBoxSelect">
+                                        <select name="ChoPhepNhapDiem" class="formSelect">
+                                            <option @if ($monhoc->ChoPhepNhapDiem == 1) selected @endif  
+                                                value="1">Được phép</option>
+                                            <option @if ($monhoc->ChoPhepNhapDiem == 0) selected @endif  
+                                                value="0">Không được phép</option>
+                                        </select>
+                                        <div class="formSelectIcon"> <i class="fas fa-caret-down"></i></div>
+                                    </div>
+                                    @if ($errors->has('TrangThai')) 
+                                        <div class="notiFail" role="alert"> {{$errors->first('TrangThai')}} </div>
+                                    @endif
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
-
+                          <button type="submmit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/monhoc" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

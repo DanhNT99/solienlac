@@ -1,11 +1,11 @@
 @extends('admin/layouts/index')
-@section('title')Chỉnh sửa loại học kỳ @endsection
+@section('title')Chỉnh sửa loại học kì @endsection
 @section('adminContent')
     @include('admin/nienkhoa/tab')
     <section class="adminAdd">
         <div class="container">
             <div class="adminBoxTitle py-1 px-2">
-                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon"></i>chỉnh sửa loại học kỳ</h6>
+                <h6 class = "m-0"><i class="fas fa-edit adminBoxTitleIcon"></i>chỉnh sửa loại học kì</h6>
                 <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
              </div>
 
@@ -20,13 +20,15 @@
                                     <div class="formBoxSelect">
                                         <select name="nienkhoa" id = "yeaOfCourse" class="formSelect">
                                             @foreach ($nienkhoa as $item)
-                                                <option @if ($item->id == $loaihocky->HocKy->NienKhoa->id) selected @endif value="{{$item->id}}">{{$item->NamBatDau . ' - ' .$item->NamKetThuc}}</option>
+                                            @if ($item->id == $loaihocky->HocKy->NienKhoa->id)
+                                                <option  value="{{$item->id}}">{{$item->NamBatDau . ' - ' .$item->NamKetThuc}}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
                                     </div>
                                 </td>
-                                <td><p class="adminFormAddText">Học kỳ</p></td>
+                                <td><p class="adminFormAddText">Học kì</p></td>
                                 <td>
                                     <div class="formBoxSelect">
                                         <select name="hocky" id="semester"  class="formSelect">
@@ -40,10 +42,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><p class="adminFormAddText">Mã loại học kỳ</p></td>
+                                <td><p class="adminFormAddText">Mã loại học kì</p></td>
                                 <td><input type="text" name="MaLoaiHK" value="{{$loaihocky->MaLoaiHK}}" class="formInput formInputMa codeTypeSemester">
                                 </td>
-                                <td><p class="adminFormAddText">Tên loại học kỳ</p></td>
+                                <td><p class="adminFormAddText">Tên loại học kì</p></td>
                                 <td>
                                     <input type="text" name="TenLoaiHK"  value = "{{$loaihocky->TenLoaiHK}}"class="formInput">
                                     @if ($errors->has('TenLoaiHK')) 
@@ -54,7 +56,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submit" class="px-3 py-1 border-0 rounded modalBtn mr-2">Thực hiện</button>
+                       <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/loaihocky" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

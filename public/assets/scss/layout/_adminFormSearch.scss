@@ -28,9 +28,12 @@
             display: block;
             padding: 5px 10px;
             border-radius: 5px;
-            margin: 15px auto 0px auto;
+            margin: 0px auto;
             color: $color5;
             background-color: $color1;
         }
     }
+}
+.tableSmall {
+    width: 70%;
 }

@@ -19,7 +19,9 @@ class HocSinh extends Model
     }
 
     public function SoLienLac() {
-        return $this->hasMany(SoLienLac::class, 'id_hocsinh', 'id');
+        return $this->hasMany(SoLienLac::class, 'id_hocsinh', 'id')
+                    ->join('nienkhoa', 'nienkhoa.id', 'solienlac.id_nienkhoa')
+                    ->orderBy('nienkhoa.NamBatDau', 'desc')->select('solienlac.*');
     }
 
     public function Phuong() {

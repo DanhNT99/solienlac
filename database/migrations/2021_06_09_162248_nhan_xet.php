@@ -16,7 +16,7 @@ class NhanXet extends Migration
         Schema::create('nhanxet', function (Blueprint $table) {
             $table->id();
             $table->longText('HocLuc', 100)->nullable();
-            $table->longText('NhanXet', 100)->nullable();
+            $table->longText('NoiDungNhanXet', 100)->nullable();
             $table->bigInteger('id_sll')->unsigned();
             $table->foreign('id_sll')->references('id')->on('solienlac')->onDelete('CASCADE');
             $table->bigInteger('id_hocky')->unsigned();

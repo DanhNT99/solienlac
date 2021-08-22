@@ -15,7 +15,7 @@
                         <table class="adminFormAddTable adminFormAddTableSmall">
                             <tr>
                                 <td><p class="adminFormAddText">Mã niên khóa</p></td>
-                                <td><input type="text" name="MaNK" value="{{$text_id}}" class="formInput"></td>
+                                <td><input type="text" name="MaNK" value="{{$text_id}}" class="formInput formInputMa"></td>
                                 <td><p class="adminFormAddText">Trạng thái</p></td>
                                 <td>
                                     <div class="formBoxSelect">
@@ -34,14 +34,14 @@
                             <tr>
                                 <td><p class="adminFormAddText">Năm bất đầu</p></td>
                                 <td>
-                                    <input type="text" name="NamBatDau" value = "{{old('NamBatDau')}}" class="formInput" placeholder="Năm bất đầu">
+                                    <input type="text" name="NamBatDau" value = "{{$yearCurrent}}" class="formInput formInputMa">
                                     @if ($errors->has('NamBatDau')) 
                                         <div class="notiFail" role="alert"> {{$errors->first('NamBatDau')}} </div>
                                     @endif
                                 </td>
                                  <td><p class="adminFormAddText">Năm kết thúc</p></td>
                                 <td>
-                                    <input type="text" name="NamKetThuc" value = "{{old('NamKetThuc')}}" class="formInput" placeholder="Năm kết thúc">
+                                    <input type="text" name="NamKetThuc" value = "{{$yearAfter}}" class="formInput formInputMa">
                                     @if ($errors->has('NamKetThuc')) 
                                         <div class="notiFail" role="alert"> {{$errors->first('NamKetThuc')}} </div>
                                     @endif
@@ -51,7 +51,7 @@
                         </table>
                     </div>
                     <div class="adminFormAddGroup">
-                        <button type="submmit" class="adminFormAddBtn">Thêm</button>
+                        <button type="submit" class="px-2 py-1 border-0 rounded modalBtn mr-1">Thực hiện</button>
                         <a href = "admin/nienkhoa" class="adminFormAddLink">Quay lại</a>
                     </div>
                 </form>

@@ -33,20 +33,18 @@ class LoaiHocKyController extends Controller
     {
         //
 
-        $data['nienkhoa'] = NienKhoa::get();
-
+        $data['nienkhoa'] = NienKhoa::where('TrangThai', 1)->first();
         $MaNK = NienKhoa::where('TrangThai', 1)->get()->toArray()[0]['MaNK'];
-        $MaNK = explode('K',$MaNK);
-
+        $MaNK = explode('K',$MaNK)[1];
+        $strMaSLL = 'LHK' . $MaNK;
         $count = LoaiHocKy::count();
 
-        if($count == 0) $idHSArray = 'LHK' . $MaNK[1] . '01';
+        if($count == 0) $idHSArray = $strMaSLL . '01';
         else{
             $idCurrent =  LoaiHocKy::max('MaLoaiHK');
-            $idHSArray = explode('K',$idCurrent);
-            $idHSArray[0] .= "K";
-            $idHSArray[1] = intval($idHSArray[1]) + 1;
-            $idHSArray = implode('', $idHSArray);
+            $idCurrent = intval(substr($idCurrent, 7)) + 1;
+            $idCurrent = $idCurrent < 10 ? '0' . $idCurrent : $idCurrent;
+            $idHSArray = $strMaSLL . $idCurrent;
         }
         $data['text_id'] = $idHSArray;
         return view('admin.loaihocky.create', $data);

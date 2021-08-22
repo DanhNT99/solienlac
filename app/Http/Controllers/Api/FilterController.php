@@ -14,6 +14,7 @@ use App\Models\KetQuaRenLuyen;
 use App\Models\MonHoc;
 use App\Models\LoaiHocKy;
 use App\Models\NhapDiemGiuaKy;
+use App\Models\PhuHuynh;
 use DB;
 class FilterController extends Controller
 {
@@ -34,12 +35,17 @@ class FilterController extends Controller
     }
     
     public function filterStudent(Request $request) {
-        $data['hocsinh'] = array();
-        $listStudy= Hoc::where('id_lop', '=', $request->id)->get();
-            foreach( $listStudy as $item) {
-                $listStudent = $item->HocSinh;
-                array_push($data['hocsinh'], $listStudent);
-            }
+        // $data['hocsinh'] = array();
+        // $listStudy= Hoc::where('id_lop', '=', $request->id)->get();
+        //     foreach( $listStudy as $item) {
+        //         $listStudent = $item->HocSinh;
+        //         array_push($data['hocsinh'], $listStudent);
+        //     }
+        $data['nienkhoa']  = NienKhoa::where('TrangThai', 1)->first();
+        $data['hs'] = HocSinh::join('hoc', 'hoc.id_hocsinh', 'hocsinh.id')
+                            ->join('lop', 'lop.id', 'hoc.id_lop')
+                            ->where([['hoc.id_lop','=',$request->id],['hoc.id_nienkhoa','=', $data['nienkhoa']->id]])
+                            ->get();
         return response()->json($data);
     }
 
@@ -116,9 +122,16 @@ class FilterController extends Controller
         return response()->json($data);
     }
 
-    // public function improtTeach(Request $request) {
-    //     $data = [];
-    //     return response()->json($data);
-    // }
+    public function removeAll(Request $request) {
+        foreach ($request->array as $key => $value) {
+            $checkDelete = Hoc::find($value)->delete();
+        }
+    }
+
+    public function resetPass(Request $request) {
+      
+        $data['phuhuynh'] = PhuHuynh::find($request->id);
+        return response()->json($data);
+    }
 
 }

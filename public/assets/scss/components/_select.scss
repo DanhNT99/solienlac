@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    border-radius: 3px;
+
     overflow: hidden;
 
     .formSelect{
@@ -13,9 +13,12 @@
         padding: 5px;
         cursor: pointer;
         background: $color3;
+        border: 1px solid $color1;
+        border-radius: 3px;
         &.formSelectSmall {
             width: 110px;
             font-size: 14px;
+            text-align-last: center;
         }
      }
      
@@ -30,5 +33,8 @@
          justify-content: center;
          color: $color3;
          pointer-events: none;
+         border-top-right-radius: 3px;
+         border-bottom-right-radius: 3px;
+
      }
 }

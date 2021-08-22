@@ -14,7 +14,7 @@
             </div>
             @if (Auth::guard('giao_vien')->user()->hasrole('Quản trị viên'))
             <div class="adminTabItem">
-                <a href="admin/hoc" class="adminTabItemLink  py-2 px-2">
+                <a href="admin/hocchonkhoivalop" class="adminTabItemLink  py-2 px-2">
                     <img src = "{{asset('assets/images/iconBallot.png')}}" class = "adminTabItemIcon">
                     <p>Phân công học tập</p>
                 </a>
@@ -22,4 +22,9 @@
             @endif
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('.adminMainTab').slideDown(0);
+        });
+    </script>
 </section>

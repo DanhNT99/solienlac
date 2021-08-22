@@ -1,7 +1,12 @@
 @extends('admin/layouts/index')
 @section('title')Chi tiết học sinh @endsection
 @section('adminContent')
-    @include('admin/hocsinh/tab')
+@if (Auth::guard('giao_vien')->user()->hasrole('Giáo viên chủ nhiệm'))
+@include('admin/layouts/tab')
+@endif
+@if (Auth::guard('giao_vien')->user()->hasrole('Quản trị viên'))
+@include('admin/hocsinh/tab')
+@endif
 
     <section class="adminAdd">
 
@@ -16,7 +21,7 @@
                     <div class="adminFormAddContains">
                         <div class="adminFormAddContainsImg wrapImgResize">
                             <div class="wrapImgResize">
-                                <img src="{{asset('assets/images')}}/{{$hocsinh->Hinh}}" class="adminFormAddImg" alt="">
+                                <img src="{{asset('assets/images')}}/{{$hocsinh->Hinh}}" class="adminFormAddImg" alt="Ảnh thẻ">
                             </div>
                         </div>
                         
@@ -43,25 +48,22 @@
                             <tr>
                                 <td><p class="adminFormAddText">Địa chỉ</p></td>
                                 <td><input type="text" value = "{{$hocsinh->DiaChi}}" class="formInput formInputMa"></td>
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/xã</p></td>
                                 <td><input type="text" value = "{{$hocsinh->Phuong->TenPhuong}}" class="formInput formInputMa"></td>
-                            </tr>
-                            <tr>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Phuong->Tinh->TenTinh}}" class="formInput formInputMa"></td>
                             </tr>
                         </table>
                     </div>
                     <div class="">
                         <p class="adminFormTitle">Thông tin phụ huynh</p>
+                        @if (count($hocsinh->ChiTietGiaDinh))
                         <table class="adminFormAddTable mx-auto">
                             <tr>
                                 @foreach ($hocsinh->ChiTietGiaDinh as $item)
                                     @if ($item->Phuhuynh->GioiTinh == 'Nam')
-                                        <td><p class="adminFormAddText">Họ tên Cha</p></td>
+                                        <td><p class="adminFormAddText">Họ tên cha</p></td>
                                         <td><input type="text" value="{{$item->PhuHuynh->HoTenPH}}" class="formInput formInputMa">
                                     @else
-                                        <td><p class="adminFormAddText">Họ tên Me</p></td>
+                                        <td><p class="adminFormAddText">Họ tên mẹ</p></td>
                                         <td><input type="text" value="{{$item->PhuHuynh->HoTenPH}}" class="formInput formInputMa">
                                     @endif
                                 @endforeach
@@ -113,6 +115,13 @@
                             </tr>
                             
                         </table>
+                        @else
+                        <table class="adminFormAddTable mx-auto">
+                            <tr>
+                                <td colspan="4">Không có dữ liệu</td>
+                            </tr>
+                        </table>
+                        @endif
                     </div>
                     <div class="adminFormAddGroup">
                         <a href = "admin/hocsinh" class="adminFormAddLink">Quay lại</a>

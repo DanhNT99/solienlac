@@ -28,9 +28,9 @@
                             @else Chưa có @endif
                         </td>
                         <td>
-                            @if ($item->id_giaovien)
+                            <a href="admin/giaovien/{{$item->id_giaovien}}" class = "text-left d-block">@if ($item->id_giaovien)
                                 {{$item->Gvcn->HoGV.' '.$item->Gvcn->TenGV}}
-                            @else Chưa có @endif
+                            @else Chưa có @endif</a>
                         </td>
                         <td>
                             <a href="admin/lop/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>

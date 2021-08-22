@@ -25,6 +25,6 @@ class Khoi extends Model
     }
 
     public function PhanMonHoc () {
-        return $this->hasMany(PhanMonHoc::class, 'id_khoi', 'id');
+        return $this->hasMany(PhanMonHoc::class, 'id_khoi', 'id')->orderBy('id_monhoc', 'asc');
     }
 }

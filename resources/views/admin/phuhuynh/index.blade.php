@@ -93,9 +93,18 @@
                             <table class="adminFormAddTable">
                                 <tr>
                                     <td><p class="adminFormAddText">Khối</p></td>
-                                    <td><input type="text" value = "{{$item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Khoi->TenKhoi}}" class="formInput formInputMa"></td>
+                                    <td><input type="text" 
+                                        @if (count($item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)))
+                                            value = "{{$item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Khoi->TenKhoi}}"
+                                        @else value = ""  @endif class="formInput formInputMa">
+                                    </td>
                                     <td><p class="adminFormAddText">Lớp</p></td>
-                                    <td><input type="text" value = "{{$item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->TenLop}}" class="formInput formInputMa"></td>
+                                    <td><input type="text" 
+                                        @if (count($item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)))
+                                            value = "{{$item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->TenLop}}"
+                                        @else value = ""  @endif class="formInput formInputMa">
+                                    </td>
+                                   
                                 </tr>
                                 <tr>
                                     <td><p class="adminFormAddText">Mã học sinh</p></td>
@@ -117,12 +126,26 @@
                                     <td><input type="text" value = "{{$item->HocSinh->Phuong->TenPhuong}}" class="formInput formInputMa"></td>
                                 </tr>
                                 <tr>
-                                    <td><p class="adminFormAddText">Tỉnh</p></td>
-                                    <td><input type="text" value = "{{$item->HocSinh->Phuong->Tinh->TenTinh}}" class="formInput formInputMa"></td>
                                     <td><p class="adminFormAddText">GVCN</p></td>
-                                    <td><input type="text" value = "{{
-                                    $item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Gvcn->HoGV . ' ' .  
-                                    $item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Gvcn->TenGV}}" class="formInput formInputMa"></td>
+                                    <td>
+                                        @if (count($item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)))
+                                        <input type="text" value = "{{
+                                            $item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Gvcn->HoGV . ' ' .  
+                                            $item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Gvcn->TenGV}}" class="formInput formInputMa">
+                                        @else
+                                        <input type="text" value = "" class="formInput formInputMa">
+                                        @endif
+                                    </td>
+                                    <td><p class="adminFormAddText">Số điện thoại GVCN</p></td>
+                                    <td>
+                                        @if (count($item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)))
+                                        <input type="text" value = "{{
+                                            $item->HocSinh->Hoc->where('id_nienkhoa', $nienkhoa->id)->first()->Lop->Gvcn->SoDT}}"
+                                             class="formInput formInputMa">
+                                        @else
+                                        <input type="text" value = "" class="formInput formInputMa">
+                                        @endif
+                                    </td>
                                 </tr>
                             </table>
                         </div>

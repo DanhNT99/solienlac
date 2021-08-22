@@ -4,18 +4,18 @@
 @include('admin/nienkhoa/tab')
     <section class="adminList">
         <div class="container">
-            <h3 class="adminListTitle">Danh sách học kỳ</h3>
+            <h3 class="adminListTitle">Danh sách học kì</h3>
             <div class="adminActive">
                 <a href="admin/hocky/create" class="adminActiveItem"><i class="fas fa-plus-circle"></i>Thêm</a>
-                <a href="admin/loaihocky" class="adminActiveItem">Loại học kỳ</a>
+                <a href="admin/loaihocky" class="adminActiveItem">Loại học kì</a>
             </div>
             <table class="adminTable" border="1">
                 <tr>
                     <th>Stt</th>
-                    <th>Mã học kỳ</th>
-                    <th>Tên học kỳ</th>
+                    <th>Mã học kì</th>
+                    <th>Tên học kì</th>
                     <th>Niên khóa</th>
-                    <th>Trạng thái</th>
+                    <th>Học kì hiện tại</th>
                     <th>Chọn</th>
                 </tr>
             @foreach ($hocky as $item)
@@ -25,7 +25,7 @@
                         <td>{{$item->TenHK}}</td>
                         <td>{{$item->NienKhoa->NamBatDau . ' - ' . $item->NienKhoa->NamKetThuc }}</td>
                           <td>
-                            <input type="checkbox" @if ($item->TrangThai) checked @endif>
+                            <input type="checkbox" class="formInputMa" @if ($item->TrangThai) checked @endif>
                         </td>
                         <td>
                             <a href="admin/hocky/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>

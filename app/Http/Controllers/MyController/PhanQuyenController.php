@@ -21,7 +21,11 @@ class PhanQuyenController extends Controller
     public function index()
     {
         $data['phanquyen'] = PhanQuyen::get();
-        $data['giaovien'] = GiaoVien::orderBy('TenGV', 'asc')->get();
+        // $data['giaovien'] = GiaoVien::orderBy('TenGV', 'asc')->get();
+        $data['giaovien'] = GiaoVien::whereNotExists(function($query){
+                $query->select(DB::raw(1))->from('model_has_roles')
+                  ->whereRaw('GiaoVien.id = model_has_roles.model_id');})->get();
+
         $data['quyen'] = Role::get();
         $data['stt'] = 1;
         return view('admin.phanquyen.index',$data);

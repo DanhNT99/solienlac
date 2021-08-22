@@ -13,53 +13,24 @@
                 <form action="{{route('searchStudent')}}" class="adminFormSearch" method = "get">
                     <table class="adminFormSeachTable">
                         <tr>
-                            <td><p class="adminFormSearchText">Khối</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="Khoi" id="khoi" class="formSelect">
-                                        <option selected disabled>Lựa chọn</option>
-                                        @foreach ($khoi as $item)
-                                             <option @if ($item->id == $idKhoi) selected
-                                             @endif value="{{$item->id}}">{{$item->TenKhoi}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><p class="adminFormSearchText">Lớp</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="Lop" id="lop" class="formSelect">
-                                        <option selected disabled>Lựa chọn</option>
-                                        @foreach ($lop as $item)
-                                             <option class="formBoxSelectOption" @if ($item->id == $idLop) selected @endif value="{{$item->id}}">{{$item->TenLop}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
                             <td><p class="adminFormSearchText">Giới Tính</p></td>
                             <td>
                                 <div class="formBoxSelect">
-                                    <select name="Lop" id="" class="formSelect">
+                                    <select name="GioiTinh" id="" class="formSelect">
                                         <option selected disabled>Lựa chọn</option>
-                                        <option @if ($gioitinh == 'Nam') selected @endif value="Nam">Nam</option>
-                                        <option @if ($gioitinh == 'Nu') selected @endif value="Nu">Nữ</option>
+                                        <option @if (Request::get('GioiTinh') == 'Nam') selected @endif value="Nam">Nam</option>
+                                        <option @if (Request::get('GioiTinh')  == 'Nu') selected @endif value="Nu">Nữ</option>
                                     </select>
                                     <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
                                 </div>
                             </td>
-                            <td><p class="adminFormSearchText">Phường</p></td>
+                            <td><p class="adminFormSearchText">Phường/Xã</p></td>
                             <td>
                                 <div class="formBoxSelect">
                                     <select name="Phuong" id="" class="formSelect">
                                         <option selected disabled>Lựa chọn</option>
                                         @foreach ($phuong as $item)
-                                            <option @if ($item->id == $idPhuong) selected @endif value="{{$item->id}}">{{$item->TenPhuong}}</option>
+                                            <option @if ($item->id == Request::get('Phuong')) selected @endif value="{{$item->id}}">{{$item->DonVi . ' ' . $item->TenPhuong}}</option>
                                         @endforeach
                                     </select>
                                     <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
@@ -69,10 +40,10 @@
                         <tr>
                             <td><p class="adminFormSearchText">Mã học sinh</p></td>
                             <td>                 
-                                <input type="text" name="MaHS" value="{{$MaHS}}" class="formInput" placeholder="Mã học sinh..." id="">
+                                <input type="text" name="MaHS" value="{{Request::get('MaHS')}}" class="formInput" placeholder="Mã học sinh..." id="">
                             </td>
                             <td><p class="adminFormSearchText">Tên học sinh</p></td>
-                            <td><input type="text" name="TenHS" value="{{$TenHS}}" class="formInput" placeholder="Họ và tên..." id=""></td>
+                            <td><input type="text" name="TenHS" value="{{Request::get('TenHS')}}" class="formInput" placeholder="Họ và tên..." id=""></td>
                         </tr>
                     </table>
                     <div class="adminFormSearchContainsBtn">
@@ -96,8 +67,8 @@
                     <th>Họ và tên</th>
                     <th>Giới tính</th>
                     <th>Ngày sinh</th>
-                    <th>Lớp</th>
                     <th>Địa chỉ</th>
+                    <th>Phường/Xã</th>
                     <th>Chọn</th>
                 </tr>
                     @if (count($hocsinh))
@@ -109,12 +80,12 @@
                             <td>@if ($item->GioiTinh == 'Nu') Nữ
                                 @else Nam @endif</td>
                             <td>{{$item->NgaySinh}}</td>
-                            <td>{{'Lớp ' . $item->TenLop}}</td>
                             <td>{{$item->DiaChi}}</td>
+                            <td class = "text-left pl-4">{{$item->Phuong->DonVi}} {{$item->Phuong->TenPhuong}}</td>
                             <td>
-                                <a href="admin/hocsinh/{{$item->id_hocsinh}}"><i class="fas fa-info-circle"></i></a>
-                                <a href="admin/hocsinh/{{$item->id_hocsinh}}/edit"><i class="fas fa-edit"></i></a>
-                                <a href="admin/hocsinh/{{$item->id_hocsinh}}/delete"><i class="fas fa-trash"></i></a>
+                                <a href="admin/hocsinh/{{$item->id}}"><i class="fas fa-info-circle"></i></a>
+                                <a href="admin/hocsinh/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
+                                <a href="admin/hocsinh/{{$item->id}}/delete"><i class="fas fa-trash text-danger"></i></a>
                             </td>
                         </tr>
                         @endforeach

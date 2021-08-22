@@ -1,0 +1,64 @@
+
+.studentAdd {
+    padding: 20px 0px
+    
+}
+
+.adminFormAdd {
+
+    .adminFormAddGroup {
+        text-align: center;
+        .adminFormAddBtn {
+            @include btnMain();
+        }
+        .adminFormAddLink {
+            width: fit-content;
+            @include btnMain();
+            background: $color2;
+            text-decoration: none;
+        }
+    }
+}
+.adminFormAddBox {
+    background-color: $color5;
+    padding: 20px 0px;
+}
+.adminAddTitle { 
+    padding: 5px 10px;
+    font-size: 18px;
+    color: $color3;
+    background-color: $color2;
+    margin-bottom: 0px;
+}
+.selectedOverlay {
+    position: fixed; 
+    width: 100%;
+    height: 100%; 
+    left: 0; 
+    top: 0; 
+    background: rgba($color: $color6, $alpha: 0.9); 
+    .selectForm {
+        background: white;
+    }
+    .selectedContent {
+        position: absolute; 
+        top: 50%; 
+        left: 50%; 
+        width: 35%; 
+        transform: translate(-50%, -50%);
+
+        .selctedContentTitle {
+            padding: 5px;
+            color: $color3;
+            background: $color1;
+            font-size: 17px;
+            padding: 10px 10px;
+            margin-bottom: 0px;
+        }
+    }
+}
+
+
+
+
+

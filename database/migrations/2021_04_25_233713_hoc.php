@@ -15,6 +15,7 @@ class Hoc extends Migration
     {
         Schema::create('hoc', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->boolean('LenLop');
             $table->bigInteger('id_lop')->unsigned()->nullable();
             $table->foreign('id_lop')->references('id')->on('lop')->onDelete('CASCADE');
             $table->bigInteger('id_hocsinh')->unsigned()->nullable();

@@ -2,51 +2,35 @@
 @section('title')Tìm kiếm giáo viên @endsection
 @section('adminContent')
 
-    @include('admin/giaovien/tab')
+    @include('admin/layouts/tab')
     <section class="adminForm">
         <div class="container">
-            <h3 class="adminBoxTitle"><i class="fas fa-search-plus"></i>
-                Tìm kiếm thông tin giáo viên
-                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span></h3>
+                <div class="adminBoxTitle py-1 px-2">
+                <h6 class = "m-0"><i class="fas fa-search-plus"></i> Tìm kiếm thông tin giáo viên</h6>
+                <span class="adminBoxTitleIconUp"><i class="fas fa-angle-double-down"></i></span>
+            </div>
             <div class="adminContainsFormSearch">
-                <form action="{{route('searchTeach')}}" class="adminFormSearch">
-                    @csrf
+                <form action="{{route('searchTeach')}}" ,method = "get" class="adminFormSearch">
                     <table class="adminFormSeachTable">
-                        <tr>
-                            {{-- <td><p class="adminFormSearchText">Lớp</p></td>
-                            <td>
-                                <div class="formBoxSelect">
-                                    <select name="Lop" id="" class="formSelect">
-                                        <option selected disabled>Lựa chọn</option>
-                                        @foreach ($lop as $item)
-                                             <option @if ($item->id == $idLop)
-                                                 selected
-                                             @endif value="{{$item->id}}">{{$item->TenLop}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="formSelectIcon">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </td> --}}
-                           
-                        </tr>
                         <tr>
                             <td><p class="adminFormSearchText">Mã Giáo viên</p></td>
                             <td>                 
-                                <input type="text" name="MaGV" value="{{$MaGV}}" class="formInput" placeholder="Mã giáo viên..." id="">
+                                <input type="text" name="MaGV" value="{{Request::get('MaGV')}}" class="formInput" placeholder="Mã giáo viên...">
                             </td>
                             <td><p class="adminFormSearchText">Tên giáo viên</p></td>
-                            <td> <input type="text" name="TenGV" value="{{$HoTen}}" class="formInput" placeholder="Họ và tên..." id=""></td>
+                            <td>
+                                <input type="text" name="TenGV" value="{{Request::get('TenGV')}}" 
+                                class="formInput capitalize" placeholder="Họ và tên..." >
+                            </td>
                         </tr>
                         <tr>
                          <td><p class="adminFormSearchText">Giới Tính</p></td>
                             <td>
                                 <div class="formBoxSelect">
                                     <select name="GioiTinh" id="" class="formSelect">
-                                        <option selected value = "">Lựa chọn</option>
-                                        <option @if ($gioitinh == 'Nam') selected @endif value="Nam">Nam</option>
-                                        <option @if ($gioitinh == 'Nu') selected @endif value="Nu">Nữ</option>
+                                        <option selected disabled>Lựa chọn</option>
+                                        <option @if (Request::get('GioiTinh') == 'Nam') selected @endif value="Nam">Nam</option>
+                                        <option @if (Request::get('GioiTinh') == 'Nu') selected @endif value="Nu">Nữ</option>
                                     </select>
                                     <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
                                 </div>
@@ -55,9 +39,9 @@
                             <td>
                                 <div class="formBoxSelect">
                                     <select name="Phuong" id="" class="formSelect">
-                                        <option selected>Lựa chọn</option>
+                                        <option selected disabled>Lựa chọn</option>
                                         @foreach ($phuong as $item)
-                                            <option @if ($item->id == $idPhuong) selected @endif value="{{$item->id}}">{{$item->TenPhuong}}</option>
+                                            <option @if ($item->id == Request::get('Phuong')) selected @endif value="{{$item->id}}">{{$item->TenPhuong}}</option>
                                         @endforeach
                                     </select>
                                     <div class="formSelectIcon"> <i class="fas fa-caret-down"></i> </div>
@@ -88,6 +72,7 @@
                     <th>Ngày sinh</th>
                     <th>Số điện thoại</th>
                     <th>Địa chỉ</th>
+                     <th>Phường</th>
                     <th>Chọn</th>
                 </tr>
                 @if (count($giaovien))
@@ -95,22 +80,23 @@
                     <tr class="trContainsBox">
                         <td>{{$stt++}}</td>
                         <td>{{$item->MaGV}}</td>
-                        <td>{{$item->HoGV . ' ' . $item->TenGV}}</td>
+                        <td class = "text-left">{{$item->HoGV . ' ' . $item->TenGV}}</td>
                         <td>@if ($item->GioiTinh == 'Nu') Nữ
                             @else Nam @endif</td>
                         <td>{{$item->NgaySinh}}</td>
-                        <td>{{$item->DiaChi}}</td>
                         <td>{{$item->SoDT}}</td>
+                        <td>{{$item->DiaChi}}</td>
+                        <td class="text-left pl-1">{{$item->Phuong->DonVi}} {{$item->Phuong->TenPhuong}}</td>
                         <td>
                             <a href="admin/giaovien/{{$item->id}}"><i class="fas fa-info-circle"></i></a>
                             <a href="admin/giaovien/{{$item->id}}/edit"><i class="fas fa-edit"></i></a>
-                            <a href="admin/giaovien/{{$item->id}}/delete"><i class="fas fa-trash"></i></a>
+                            <a href="admin/giaovien/{{$item->id}}/delete"><i class="fas fa-trash text-danger"></i></a>
                         </td>
                     </tr>
                     @endforeach
                 @else
                 <tr>
-                    <td colspan="8">Không có dữ liệu</td>
+                    <td colspan="9">Không có dữ liệu</td>
                 </tr>
                 @endif
 

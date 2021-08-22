@@ -17,7 +17,7 @@
                     <div class="adminFormAddContains">
                         <div class="adminFormAddContainsImg wrapImgResize">
                             <div class="wrapImgResize">
-                                <img src="{{asset('assets/images')}}/{{$hocsinh->Hinh}}" class="adminFormAddImg" alt="">
+                                <img src="{{asset('assets/images')}}/{{$hocsinh->Hinh}}" class="adminFormAddImg" alt="Ảnh thẻ">
                             </div>
                         </div>
                         
@@ -44,12 +44,8 @@
                             <tr>
                                 <td><p class="adminFormAddText">Địa chỉ</p></td>
                                 <td><input type="text" value = "{{$hocsinh->DiaChi}}" class="formInput formInputMa"></td>
-                                <td><p class="adminFormAddText">Phường</p></td>
+                                <td><p class="adminFormAddText">Phường/xã</p></td>
                                 <td><input type="text" value = "{{$hocsinh->Phuong->TenPhuong}}" class="formInput formInputMa"></td>
-                            </tr>
-                            <tr>
-                                <td><p class="adminFormAddText">Tỉnh</p></td>
-                                <td><input type="text" value = "{{$hocsinh->Phuong->Tinh->TenTinh}}" class="formInput formInputMa"></td>
                             </tr>
                         </table>
                     </div>
